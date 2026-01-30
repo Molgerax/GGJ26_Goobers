@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("message", "misc", TrembleColors.MessageSender, size:16)]
+    [PointEntity("message", "misc", TrembleColors.MessageSender)]
     public class MessageSender : TriggerSender, ITriggerTarget
     {
         [SerializeField, Tremble] private string message = "A secret has been discovered";

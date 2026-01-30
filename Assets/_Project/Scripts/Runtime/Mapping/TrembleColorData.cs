@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping
 {
-    [CreateAssetMenu(fileName = "TrembleColorData", menuName = "Beakstorm/Tremble/ColorData", order = 0)]
+    [CreateAssetMenu(fileName = "TrembleColorData", menuName = "GGJ/Tremble/ColorData", order = 0)]
     public class TrembleColorData : ScriptableObject
     {
         [SerializeField] public List<DataPair> pairs = new();
