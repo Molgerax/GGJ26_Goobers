@@ -53,6 +53,9 @@
         },
         {
             "m_Id": "3527a4c3d7a44235aa81f5fc9213ac91"
+        },
+        {
+            "m_Id": "a3683bb49c10400897bb3697443c97ae"
         }
     ],
     "m_GroupDatas": [],
@@ -84,6 +87,20 @@
                     "m_Id": "d16c5f8a5ced4d6eb900308c44ee90d8"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "a3683bb49c10400897bb3697443c97ae"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "64d86a6303574bf3a743ab98f66c458f"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -583,6 +600,19 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
+    "m_ObjectId": "6d9eafcde7034858bc144822c31f38ac",
+    "m_Id": 0,
+    "m_DisplayName": "MainTex",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_BareResource": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "725e6caede2249edab2d5b20aaaef484",
     "m_Group": {
@@ -711,6 +741,42 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Position"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "a3683bb49c10400897bb3697443c97ae",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1044.0001220703125,
+            "y": 209.00001525878907,
+            "width": 127.0,
+            "height": 34.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "6d9eafcde7034858bc144822c31f38ac"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "c43491dd6b3545ad9473455a4f93ee79"
+    }
 }
 
 {
