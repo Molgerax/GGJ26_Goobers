@@ -24,8 +24,835 @@ MonoBehaviour:
   m_SpawnFlagNamingConvention: 4
   m_MaterialNamingConvention: 3
   m_IdentityPropertyName: targetname
-  m_MaterialGroups: []
-  m_MaterialRenderData: []
+  m_MaterialGroups:
+  - Name: Mapping
+    Materials:
+    - {fileID: 2100000, guid: b4aa923692c05664e83ed0308ccba708, type: 2}
+    - {fileID: 2100000, guid: 81554955f7310f34d8b8103ddf2f784a, type: 2}
+    - {fileID: 2100000, guid: d7b4932899a84ae4bbcc03886b424b4c, type: 2}
+    - {fileID: 2100000, guid: be64a25a2d1e8994c97a1c8249d30f65, type: 2}
+    - {fileID: 2100000, guid: 23692c5210ad7084f99d5377121f48eb, type: 2}
+    - {fileID: 2100000, guid: 727673a68f26cb84eb7c5c53e90193a7, type: 2}
+    - {fileID: 2100000, guid: 2ce2ce5619829834c8baa098a9cb1ede, type: 2}
+    - {fileID: 2100000, guid: 858d3a8bf28d8554292ae6228e06db55, type: 2}
+    - {fileID: 2100000, guid: e8b6bfa6f9a970244a5a604f5c841a55, type: 2}
+    - {fileID: 2100000, guid: 215d88d73458338459e9f732ca0ee952, type: 2}
+    - {fileID: 2100000, guid: 1b40fff0c33a234468a686455dec07b8, type: 2}
+    - {fileID: 2100000, guid: aec57bc2ea74dfe438d8431d59d0e61c, type: 2}
+    - {fileID: 2100000, guid: b7197e1108031124296e6e8eab051c78, type: 2}
+    - {fileID: 2100000, guid: 87ae1a1dd70efe44eb0027b0279c34a6, type: 2}
+    - {fileID: 2100000, guid: 0ac822909d3a61c4680d53a05161318d, type: 2}
+    - {fileID: 2100000, guid: be875f18c8649504eae11b48f595399c, type: 2}
+    - {fileID: 2100000, guid: 55d45fd60dfbd5544bf6b4238bd25707, type: 2}
+    - {fileID: 2100000, guid: edcfe80229817204fae56af9428af710, type: 2}
+    - {fileID: 2100000, guid: 3547546ad0f2c8941a0bb45f6e36fcfa, type: 2}
+    - {fileID: 2100000, guid: 5582a7c9855b4c649b0b34208fc9b20c, type: 2}
+    - {fileID: 2100000, guid: 85b7fc2c8dcd0e849b56311ba88a698f, type: 2}
+    - {fileID: 2100000, guid: 361119341e5648843b9f72292b954974, type: 2}
+    - {fileID: 2100000, guid: edb166409f0adf44c90e531b6f846ced, type: 2}
+    - {fileID: 2100000, guid: 47e0b807b84874746ba4c72cd8b883f8, type: 2}
+    - {fileID: 2100000, guid: a64be9aa85b0f5e4aa5a54798b3a1053, type: 2}
+    - {fileID: 2100000, guid: ec039b395f4370f449b2cbe65610c1c8, type: 2}
+    - {fileID: 2100000, guid: b00a2e66e898a2c4590c1b2a13dc6c3b, type: 2}
+    - {fileID: 2100000, guid: 0b9bcd606b8729f4c9c8b90a47d1b89d, type: 2}
+    - {fileID: 2100000, guid: 08213b12b124dfd4abde291b668f55b9, type: 2}
+    - {fileID: 2100000, guid: dbf66b5de4b88ac4585fc12279af855b, type: 2}
+    - {fileID: 2100000, guid: 22a8aae9881da7245b1a868e0519b407, type: 2}
+    - {fileID: 2100000, guid: d78e2ad45622ca14ebd35dd8b8f4c57b, type: 2}
+    - {fileID: 2100000, guid: 31177d53df6847748bd3b609b11b62d5, type: 2}
+    - {fileID: 2100000, guid: 8608bc1541d935d42a6514be410a4a02, type: 2}
+    - {fileID: 2100000, guid: 76a0e315cd5962445b4a608886435b69, type: 2}
+    - {fileID: 2100000, guid: 44b8a019aefccab45aca1ff3774fca98, type: 2}
+    - {fileID: 2100000, guid: cf8ff2bd9050b1448905eee323a3eeb4, type: 2}
+    - {fileID: 2100000, guid: faee7caa1e1307d4ab569b648c3b4d83, type: 2}
+    - {fileID: 2100000, guid: 057bf1f54ca41954fa7f27503008bc6a, type: 2}
+    - {fileID: 2100000, guid: e8565cefa9dc54f4195952547369d207, type: 2}
+    - {fileID: 2100000, guid: ae675ac68df297149a132c522280a072, type: 2}
+    - {fileID: 2100000, guid: e368a1f6334339342bebe51273e4c336, type: 2}
+    - {fileID: 2100000, guid: 9bd551dd4c2aaca4488fffacb51501f1, type: 2}
+    - {fileID: 2100000, guid: 0cbe20cdd70a59646a061d5469766e40, type: 2}
+    - {fileID: 2100000, guid: 45596c56180b1464bacd282196257347, type: 2}
+    - {fileID: 2100000, guid: c72ecb0406d170f43ac7bd7ac120743b, type: 2}
+    - {fileID: 2100000, guid: 2207071ab1e8679478270079f9790bc8, type: 2}
+    - {fileID: 2100000, guid: 7700dc9940fbb5e48b191fad7076a764, type: 2}
+    - {fileID: 2100000, guid: 18c0218977f47c6479ce8b180b220e48, type: 2}
+    - {fileID: 2100000, guid: 380c9128d3e98fd4ba5ab0d2e595012e, type: 2}
+    - {fileID: 2100000, guid: ee9deea38209625489c5a88bf1fc9aa0, type: 2}
+    - {fileID: 2100000, guid: 42c2fbde79fec7e4c859740e06b47229, type: 2}
+    - {fileID: 2100000, guid: ef6c4bb437c376d46a6f878ac09c1e46, type: 2}
+    - {fileID: 2100000, guid: 9a45d63dd9bd8504e8218321200c9469, type: 2}
+    - {fileID: 2100000, guid: 36c86ca5b131925408582ec58164298d, type: 2}
+    - {fileID: 2100000, guid: 6cf21242b2e0e294f82b73a24be78a86, type: 2}
+    - {fileID: 2100000, guid: 6184a9cb2ac0418408327f42765a83e8, type: 2}
+    - {fileID: 2100000, guid: c4e1cd0c628cf4645af505227e7fd945, type: 2}
+    - {fileID: 2100000, guid: 481411a431c606a4c88bed0e382cc915, type: 2}
+    - {fileID: 2100000, guid: c1776692d8e7edb4988eb4740148dfce, type: 2}
+    - {fileID: 2100000, guid: bc5b3a90bbe71b749a23e18d0db3e2c8, type: 2}
+    - {fileID: 2100000, guid: 731d62584d419cd4daef5b6932456615, type: 2}
+    - {fileID: 2100000, guid: af41730cf9bcd86429a8cd76f5cb02fe, type: 2}
+    - {fileID: 2100000, guid: a434c755e7fd1f243a2c48d4db13ff88, type: 2}
+    - {fileID: 2100000, guid: 9cf9327d035dad748aef8b5f32944e26, type: 2}
+    - {fileID: 2100000, guid: caa672e8f0888e846b83230aae42e811, type: 2}
+    - {fileID: 2100000, guid: 7fd669ba3f47f5c418ebab8966ef529c, type: 2}
+    - {fileID: 2100000, guid: a5a800637aef8cb4cb601773b4a4e46c, type: 2}
+    - {fileID: 2100000, guid: 402fa568d049b1b47825adc9e21151ef, type: 2}
+    - {fileID: 2100000, guid: 218815af0f77143489e227b1a49d0425, type: 2}
+    - {fileID: 2100000, guid: 55e5bd72a05ec234bbbd86567153e361, type: 2}
+    - {fileID: 2100000, guid: 7cadab1a0c073f94593f6cb634109e52, type: 2}
+    - {fileID: 2100000, guid: 2339f16dd5a83e1438e6e9b6f9164251, type: 2}
+    - {fileID: 2100000, guid: 9cfccd75b306deb4587cc2decfdf100c, type: 2}
+    - {fileID: 2100000, guid: a33f567c5cb76b04aa1259ebd80fc048, type: 2}
+    - {fileID: 2100000, guid: d3bf379676348f043a5a62aec5695349, type: 2}
+    - {fileID: 2100000, guid: 58f9f31beb224414bba76fd6898100c1, type: 2}
+    - {fileID: 2100000, guid: 6200e987c2ad92842a04d724dcea1441, type: 2}
+    - {fileID: 2100000, guid: 5dc433d2a19ff5a428d0217c71837c16, type: 2}
+    - {fileID: 2100000, guid: 4d11d81e31a458c4b9884658e1203060, type: 2}
+    - {fileID: 2100000, guid: b971bf915fedc7943af17dfba10571b0, type: 2}
+    - {fileID: 2100000, guid: 2c2bb97207f468b4482f22d8f04d62e3, type: 2}
+    - {fileID: 2100000, guid: e19a9a4f050cf3249952c6986e24b989, type: 2}
+    - {fileID: 2100000, guid: cc58ac3ce39914842a448468f7aaf18e, type: 2}
+    - {fileID: 2100000, guid: f1d4938b7ca82714a8a7acf3b5679021, type: 2}
+    - {fileID: 2100000, guid: aa490a3d99faf1848b8bc7038be648fd, type: 2}
+    - {fileID: 2100000, guid: cf5d3a3195ee1a946afccd39876d9a93, type: 2}
+    - {fileID: 2100000, guid: c87ea046672c0d94e9cdc9a95f718480, type: 2}
+    - {fileID: 2100000, guid: 8bccc02b019dbee49af1998fa4634bc4, type: 2}
+    - {fileID: 2100000, guid: 043f8346456a52e428a29fad8bfbe7f0, type: 2}
+    - {fileID: 2100000, guid: 1b6c8b0b7e2ce76449e348546e2331b2, type: 2}
+    - {fileID: 2100000, guid: ffd3595b70f9fa84983aafce6513cbc5, type: 2}
+    - {fileID: 2100000, guid: 4694825869020d24c8c1c1a2dc8104a7, type: 2}
+    - {fileID: 2100000, guid: ffcb12fefe39c47438148b303e7df5fc, type: 2}
+    - {fileID: 2100000, guid: 18e80381ad72a2b458d1a6127abe3f0d, type: 2}
+    - {fileID: 2100000, guid: 79c9e7ec7d9149c409e3a1d53bc1c56f, type: 2}
+    - {fileID: 2100000, guid: 78bb5c9778385b6478564d76a0e1704f, type: 2}
+    - {fileID: 2100000, guid: c89628b4d8a7d72448c72922c328a000, type: 2}
+    - {fileID: 2100000, guid: 386957817b9b8b04aa83bdfb25dd5dd1, type: 2}
+    - {fileID: 2100000, guid: 5eb01cffbccc2464ca532daa6a173956, type: 2}
+    - {fileID: 2100000, guid: 17cb054ff33e63347963510ca7fed3de, type: 2}
+    - {fileID: 2100000, guid: 5f1e604c8fd3c164ebbd6f5dbd00fb40, type: 2}
+    - {fileID: 2100000, guid: 686854be523504b488b1b1025599bf9d, type: 2}
+    - {fileID: 2100000, guid: 76b2e8b53f08b67498c052f21a73e078, type: 2}
+    - {fileID: 2100000, guid: 1d045ad1d531797458a3c363ddc50bbc, type: 2}
+    - {fileID: 2100000, guid: eb8dc4c5905935f43a07b55907b9900f, type: 2}
+    - {fileID: 2100000, guid: eeb8765e640f44f428f9086be39c1ce9, type: 2}
+    - {fileID: 2100000, guid: 42a164ed4f9845e43b7f28da21d47ea4, type: 2}
+    - {fileID: 2100000, guid: e5cb66647f3934a46b5cb2f4265ea2c8, type: 2}
+    - {fileID: 2100000, guid: dd3e33029ad4a474fb388ac4a9007b3e, type: 2}
+    - {fileID: 2100000, guid: 932f6d3964dff844f8457dc9c63b179e, type: 2}
+    - {fileID: 2100000, guid: 1a2f5d4df6f7be543a48a51cc5faa2c7, type: 2}
+    - {fileID: 2100000, guid: dcaac867a1ada8048a150cbd5d5e2c97, type: 2}
+    - {fileID: 2100000, guid: e2f9c8d80f39052408e550b8ce910dbb, type: 2}
+    - {fileID: 2100000, guid: 890006bdef7162746987baa1e4970483, type: 2}
+    - {fileID: 2100000, guid: 70b2f67ba685e37409f92ccda0b7e104, type: 2}
+    - {fileID: 2100000, guid: bf642519a4e9a534c9d42e148b173e86, type: 2}
+  m_MaterialRenderData:
+  - m_Material: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+    m_ExportMode: 1
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: b4aa923692c05664e83ed0308ccba708, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 81554955f7310f34d8b8103ddf2f784a, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: d7b4932899a84ae4bbcc03886b424b4c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: be64a25a2d1e8994c97a1c8249d30f65, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 23692c5210ad7084f99d5377121f48eb, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 727673a68f26cb84eb7c5c53e90193a7, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 2ce2ce5619829834c8baa098a9cb1ede, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 858d3a8bf28d8554292ae6228e06db55, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: e8b6bfa6f9a970244a5a604f5c841a55, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 215d88d73458338459e9f732ca0ee952, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 1b40fff0c33a234468a686455dec07b8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: aec57bc2ea74dfe438d8431d59d0e61c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: b7197e1108031124296e6e8eab051c78, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 87ae1a1dd70efe44eb0027b0279c34a6, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 0ac822909d3a61c4680d53a05161318d, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: be875f18c8649504eae11b48f595399c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 55d45fd60dfbd5544bf6b4238bd25707, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: edcfe80229817204fae56af9428af710, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 3547546ad0f2c8941a0bb45f6e36fcfa, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 5582a7c9855b4c649b0b34208fc9b20c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 85b7fc2c8dcd0e849b56311ba88a698f, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 361119341e5648843b9f72292b954974, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: edb166409f0adf44c90e531b6f846ced, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 47e0b807b84874746ba4c72cd8b883f8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: a64be9aa85b0f5e4aa5a54798b3a1053, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ec039b395f4370f449b2cbe65610c1c8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: b00a2e66e898a2c4590c1b2a13dc6c3b, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 0b9bcd606b8729f4c9c8b90a47d1b89d, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 08213b12b124dfd4abde291b668f55b9, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: dbf66b5de4b88ac4585fc12279af855b, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 22a8aae9881da7245b1a868e0519b407, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: d78e2ad45622ca14ebd35dd8b8f4c57b, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 31177d53df6847748bd3b609b11b62d5, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 8608bc1541d935d42a6514be410a4a02, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 76a0e315cd5962445b4a608886435b69, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 44b8a019aefccab45aca1ff3774fca98, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: cf8ff2bd9050b1448905eee323a3eeb4, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: faee7caa1e1307d4ab569b648c3b4d83, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 057bf1f54ca41954fa7f27503008bc6a, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: e8565cefa9dc54f4195952547369d207, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ae675ac68df297149a132c522280a072, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: e368a1f6334339342bebe51273e4c336, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 9bd551dd4c2aaca4488fffacb51501f1, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 0cbe20cdd70a59646a061d5469766e40, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 45596c56180b1464bacd282196257347, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: c72ecb0406d170f43ac7bd7ac120743b, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 2207071ab1e8679478270079f9790bc8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 7700dc9940fbb5e48b191fad7076a764, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 18c0218977f47c6479ce8b180b220e48, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 380c9128d3e98fd4ba5ab0d2e595012e, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ee9deea38209625489c5a88bf1fc9aa0, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 42c2fbde79fec7e4c859740e06b47229, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ef6c4bb437c376d46a6f878ac09c1e46, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 9a45d63dd9bd8504e8218321200c9469, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 36c86ca5b131925408582ec58164298d, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 6cf21242b2e0e294f82b73a24be78a86, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 6184a9cb2ac0418408327f42765a83e8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: c4e1cd0c628cf4645af505227e7fd945, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 481411a431c606a4c88bed0e382cc915, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: c1776692d8e7edb4988eb4740148dfce, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: bc5b3a90bbe71b749a23e18d0db3e2c8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 731d62584d419cd4daef5b6932456615, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: af41730cf9bcd86429a8cd76f5cb02fe, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: a434c755e7fd1f243a2c48d4db13ff88, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 9cf9327d035dad748aef8b5f32944e26, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: caa672e8f0888e846b83230aae42e811, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 7fd669ba3f47f5c418ebab8966ef529c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: a5a800637aef8cb4cb601773b4a4e46c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 402fa568d049b1b47825adc9e21151ef, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 218815af0f77143489e227b1a49d0425, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 55e5bd72a05ec234bbbd86567153e361, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 7cadab1a0c073f94593f6cb634109e52, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 2339f16dd5a83e1438e6e9b6f9164251, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 9cfccd75b306deb4587cc2decfdf100c, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: a33f567c5cb76b04aa1259ebd80fc048, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: d3bf379676348f043a5a62aec5695349, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 58f9f31beb224414bba76fd6898100c1, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 6200e987c2ad92842a04d724dcea1441, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 5dc433d2a19ff5a428d0217c71837c16, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 4d11d81e31a458c4b9884658e1203060, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: b971bf915fedc7943af17dfba10571b0, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 2c2bb97207f468b4482f22d8f04d62e3, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: e19a9a4f050cf3249952c6986e24b989, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: cc58ac3ce39914842a448468f7aaf18e, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: f1d4938b7ca82714a8a7acf3b5679021, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: aa490a3d99faf1848b8bc7038be648fd, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: cf5d3a3195ee1a946afccd39876d9a93, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: c87ea046672c0d94e9cdc9a95f718480, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 8bccc02b019dbee49af1998fa4634bc4, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 043f8346456a52e428a29fad8bfbe7f0, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 1b6c8b0b7e2ce76449e348546e2331b2, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ffd3595b70f9fa84983aafce6513cbc5, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 4694825869020d24c8c1c1a2dc8104a7, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ffcb12fefe39c47438148b303e7df5fc, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 18e80381ad72a2b458d1a6127abe3f0d, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 79c9e7ec7d9149c409e3a1d53bc1c56f, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 78bb5c9778385b6478564d76a0e1704f, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: c89628b4d8a7d72448c72922c328a000, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 386957817b9b8b04aa83bdfb25dd5dd1, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 5eb01cffbccc2464ca532daa6a173956, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 17cb054ff33e63347963510ca7fed3de, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 5f1e604c8fd3c164ebbd6f5dbd00fb40, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 686854be523504b488b1b1025599bf9d, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 76b2e8b53f08b67498c052f21a73e078, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 1d045ad1d531797458a3c363ddc50bbc, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: eb8dc4c5905935f43a07b55907b9900f, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: eeb8765e640f44f428f9086be39c1ce9, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 42a164ed4f9845e43b7f28da21d47ea4, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: e5cb66647f3934a46b5cb2f4265ea2c8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: dd3e33029ad4a474fb388ac4a9007b3e, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 932f6d3964dff844f8457dc9c63b179e, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 1a2f5d4df6f7be543a48a51cc5faa2c7, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: dcaac867a1ada8048a150cbd5d5e2c97, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: e2f9c8d80f39052408e550b8ce910dbb, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 890006bdef7162746987baa1e4970483, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 70b2f67ba685e37409f92ccda0b7e104, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: bf642519a4e9a534c9d42e148b173e86, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -56,4 +883,480 @@ MonoBehaviour:
   m_MaterialCaptureLightAngle: 0.75
   m_ExportClipSkipTextures: 1
   m_ImportScale: 0.015625
-  m_AssetMetadatas: []
+  m_AssetMetadatas:
+  - MapName: misc_Door
+    Path: Assets/_Project/Prefabs/Door.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: -0, y: -0, z: -0}
+  - MapName: Mapping/timber_square_clay
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_clay.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_thatch_top
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_thatch_top.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_thatch_center
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_thatch_center.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_thatch_bottom
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_thatch_bottom.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_sand_random
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_sand_random.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_round_divided_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_round_divided_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_round_divided_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_round_divided_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_pattern
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_pattern.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_wood_frame
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_wood_frame.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_tan_small
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_tan_small.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_ground_water_green
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_ground_water_green.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_clay_grey_center
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_clay_grey_center.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_ground_water
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_ground_water.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_wood
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_wood.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_metal_gate_lock
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_metal_gate_lock.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_ground_sand
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_ground_sand.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_stone_center
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_stone_center.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_timber
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_timber.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_stone
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_stone.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_vertical_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_vertical_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_sand_center_banner
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_sand_center_banner.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_wood_planks_wide_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_wood_planks_wide_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_sand_both
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_sand_both.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_wood_planks_wide
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_wood_planks_wide.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_wood_planks_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_wood_planks_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_tan_small_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_tan_small_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_small_stone_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_small_stone_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_small_stone
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_small_stone.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_small_sand
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_small_sand.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_sand_right
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_sand_right.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_sand_left
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_sand_left.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_planks_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_planks_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_grate
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_grate.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_wood_handle
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_wood_handle.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_planks
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_planks.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_frame_diagonal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_frame_diagonal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_clay_diagonal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_clay_diagonal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_stone_both
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_stone_both.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_sand_center
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_sand_center.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_planks_cross
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_planks_cross.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_clay_red_bottom
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_clay_red_bottom.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_clay_grey_top
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_clay_grey_top.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_round_divided
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_round_divided.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_frame
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_frame.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_divided_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_divided_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_divided_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_divided_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_rock_structure
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_rock_structure.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_wood_trimsheet
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_wood_trimsheet.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_blue_small_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_blue_small_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_wood_window
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_wood_window.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_blue_large
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_blue_large.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_pattern_small
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_pattern_small.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_vertical_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_vertical_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_vertical
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_vertical.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_rounded_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_rounded_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_rounded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_rounded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_horizontal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_horizontal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_vertical_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_vertical_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_vertical
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_vertical.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_pane_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_pane_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_timber_structure_vertical
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_timber_structure_vertical.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_closed
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_closed.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_timber_structure
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_timber_structure.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_stone_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_stone_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_tan_large
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_tan_large.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_ground_grass
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_ground_grass.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_sand_large
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_sand_large.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_blue_small
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_blue_small.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_wood_planks_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_wood_planks_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_pattern_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_pattern_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_wood_window_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_wood_window_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_sand_trimsheet
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_sand_trimsheet.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_sand_inset
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_sand_inset.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_sand_small_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_sand_small_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_clay_grey_bottom
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_clay_grey_bottom.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_wood_planks_wide_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_wood_planks_wide_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_rock
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_rock.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_frame
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_frame.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_sand_center_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_sand_center_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_rounded_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_rounded_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_stone_right
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_stone_right.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_timber_structure_horizontal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_timber_structure_horizontal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_timber_structure_diagonal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_timber_structure_diagonal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_round_pane_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_round_pane_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_round_pane_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_round_pane_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_ground_dirt
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_ground_dirt.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_small_sand_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_small_sand_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_stone_left
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_stone_left.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_stone_center_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_stone_center_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_timber_structure_cross
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_timber_structure_cross.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/wall_brick_stone_center_banner
+    Path: Assets/_Project/Materials/KenneyRetroTextures/wall_brick_stone_center_banner.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_divided
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_divided.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_pane_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_pane_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_metal_fortified
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_metal_fortified.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_metal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_metal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_clay_red_top
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_clay_red_top.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/roof_clay_red_center
+    Path: Assets/_Project/Materials/KenneyRetroTextures/roof_clay_red_center.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_pattern_small_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_pattern_small_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_tiles_sand_small
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_tiles_sand_small.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_sand_grate
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_sand_grate.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_ground_grass_overlay
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_ground_grass_overlay.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/timber_square_planks_diagonal
+    Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_planks_diagonal.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_pane_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_pane_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_pane
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_pane.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_divided_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_divided_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_divided_damaged
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_divided_damaged.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_tall_divided
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_tall_divided.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_metal_gate
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_metal_gate.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_pane
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_pane.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_sand_random_depth
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_sand_random_depth.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_stone_trimsheet
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_stone_trimsheet.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/floor_wood_planks
+    Path: Assets/_Project/Materials/KenneyRetroTextures/floor_wood_planks.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_round_pane
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_round_pane.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_horizontal_lit
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_horizontal_lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/window_square_horizontal_boarded
+    Path: Assets/_Project/Materials/KenneyRetroTextures/window_square_horizontal_boarded.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mapping/door_metal_frame
+    Path: Assets/_Project/Materials/KenneyRetroTextures/door_metal_frame.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Lit
+    Path: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
