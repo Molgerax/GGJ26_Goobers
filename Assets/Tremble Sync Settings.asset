@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a88c8a3ff11450b94453ed26fba8f5c, type: 3}
+  m_Name: Tremble Sync Settings
+  m_EditorClassIdentifier: TinyGoose.Tremble::TinyGoose.Tremble.TrembleSyncSettings
+  m_ShowExpanded: 1
+  m_AutoSyncOnCompile: 1
+  m_AllowStandaloneImport: 0
+  m_TrenchBroomVersion: 3
+  m_TemplateMap: {fileID: 0}
+  m_WorldspawnScript:
+    m_ScriptName: 
+  m_TypeNamingConvention: 3
+  m_FieldNamingConvention: 0
+  m_SpawnFlagNamingConvention: 4
+  m_MaterialNamingConvention: 3
+  m_IdentityPropertyName: targetname
+  m_MaterialGroups: []
+  m_MaterialRenderData: []
+  m_PipelineSplitMesh: 1
+  m_PipelineSmoothMeshNormals: 1
+  m_PipelineSimplifyCollisionMeshes: 1
+  m_PipelineUnwrapUV2: 1
+  m_PipelineRunMapProcessors: 1
+  m_MapProcessors: []
+  m_LogOnImportAndSync: 0
+  m_UseLiveUpdate: 1
+  m_AutomaticallyReimportWhenDependencyChanges: 1
+  m_EntityIconStyle: 1
+  m_PrefabOverrideHandling: 2
+  m_UseClassicQuakeCulling: 0
+  m_Q3Map2ResultDisplayType: 1
+  m_EmbedTrembleSettingsInProjectSettings: 1
+  m_FgdFormattingStyle: 1
+  m_SubdivideAllLeafs: 0
+  m_AlwaysPackBoolsIntoSpawnFlags: 1
+  m_SyncEnumsAsStringValue: 1
+  m_SyncSerializedFields: 1
+  m_SyncMaterialsAndPrefabs: 1
+  m_WorldspawnLayer: Default
+  m_DiscardMapGroups: 0
+  m_MainMeshName: worldspawn
+  m_AutoDeleteMapBackups: 0
+  m_ExtraCommandLineArgs: -threads 8 -meta -v
+  m_MaterialExportSize: 5
+  m_MaterialCaptureLightIntensity: 0.5
+  m_MaterialCaptureLightAngle: 0.75
+  m_ExportClipSkipTextures: 1
+  m_ImportScale: 0.015625
+  m_AssetMetadatas: []
