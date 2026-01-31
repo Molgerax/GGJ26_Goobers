@@ -128,8 +128,6 @@ namespace GGJ.Mapping.PointEntities
 
         private static Vector3 Interpolate(Vector3 a, Vector3 dirA, Vector3 b, Vector3 dirB, float t, out Vector3 forward)
         {
-            Vector3 c, d;
-            float dist;
             forward = (b - a).normalized;
             
             return Vector3.Lerp(a, b, t);

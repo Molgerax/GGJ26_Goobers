@@ -11,6 +11,7 @@ namespace GGJ.Mapping.BrushEntities
         [SerializeField, NoTremble] private float distance = 16;
         [SerializeField, NoTremble] private bool toggle;
         
+        [SerializeField, NoTremble] private Vector3 moveDirection;
         
         [Tremble("lip")] private float _trembleLip = 0;
         [Tremble("speed")] private float _trembleSpeed = 64;
@@ -32,7 +33,7 @@ namespace GGJ.Mapping.BrushEntities
         {
             _state = DoorState.Idle;
             _initPos = transform.position;
-            _targetPos = _initPos + transform.right * distance;
+            _targetPos = _initPos + moveDirection * distance;
         }
 
         private enum DoorState
@@ -44,11 +45,11 @@ namespace GGJ.Mapping.BrushEntities
 
         public void Trigger()
         {
-            if (_state != DoorState.Idle)
-                return;
-            
-            _timer = 0;
-            _state = DoorState.Triggered;
+            if (_state == DoorState.Idle)
+            {
+                _timer = 0;
+                _state = DoorState.Triggered;
+            }
         }
 
         private void Update()
@@ -56,9 +57,9 @@ namespace GGJ.Mapping.BrushEntities
             if (_state != DoorState.Triggered)
                 return;
 
-            _timer += Time.deltaTime;
+            _timer = Mathf.MoveTowards(_timer, Duration, Time.deltaTime);
             
-            if (_timer > Duration)
+            if (_timer >= Duration)
             {
                 _state = DoorState.Finished;
                 transform.position = _targetPos;
@@ -73,11 +74,12 @@ namespace GGJ.Mapping.BrushEntities
             Vector3 direction = _angle;
             
             Bounds bounds = GetComponent<MeshCollider>().bounds;
-            distance = Vector3.Dot(direction, bounds.size) - _trembleLip * entity.ImportScale;
+            Vector3 positiveDirection = new(Mathf.Abs(direction.x), Mathf.Abs(direction.y), Mathf.Abs(direction.z));
+            distance = Vector3.Dot(positiveDirection, bounds.size) - _trembleLip * entity.ImportScale;
 
             speed = (_trembleSpeed * entity.ImportScale);
 
-            transform.right = direction;
+            moveDirection = _angle;
         }
     }
 }

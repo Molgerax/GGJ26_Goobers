@@ -21,6 +21,8 @@ namespace GGJ.Gameplay.Faces
 
         private Dictionary<Expression, int> _currentExpressionCount = new();
 
+        private float _deviation;
+
         private void OnEnable()
         {
             _faceTexture = new RenderTexture(resolution, resolution, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
@@ -35,8 +37,6 @@ namespace GGJ.Gameplay.Faces
             meshRenderer.GetPropertyBlock(propertyBlock);
             propertyBlock.SetTexture("_MainTex", _faceTexture);
             meshRenderer.SetPropertyBlock(propertyBlock);
-            
-            LogAllExpressions();
         }
 
         private void OnDisable()
@@ -119,6 +119,7 @@ namespace GGJ.Gameplay.Faces
         private void EvaluateExpressions()
         {
             _currentExpressionCount.Clear();
+            _deviation = 0;
             
             for (int x = 0; x < cellResolution; x++)
             {
@@ -128,8 +129,26 @@ namespace GGJ.Gameplay.Faces
 
                     if (!_currentExpressionCount.TryAdd(cell.Expression, 1))
                         _currentExpressionCount[cell.Expression]++;
+
+                    _deviation += cell.Deviation;
                 }
             }
+
+            _deviation /= cellResolution * cellResolution;
+        }
+
+        public bool HasExpressionPercentage(Expression expression, float threshold01)
+        {
+            if (!_currentExpressionCount.TryGetValue(expression, out int count))
+                return false;
+
+            float percentage = (float)count / (cellResolution * cellResolution);
+            return percentage >= threshold01;
+        }
+
+        public bool IsDeviationTooHigh(float threshold01)
+        {
+            return _deviation > threshold01;
         }
     }
 
