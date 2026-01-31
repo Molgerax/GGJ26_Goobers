@@ -8,23 +8,18 @@ namespace GGJ
         [SerializeField] private string characterName;
         public DialogueSequence sequence;
         public AudioSource audioSource;
-        private int currentIndex = 0;
+        public int currentIndex = 0;
         private AudioTextMatch[] oneliners;
         public bool isOneliner = false;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            audioSource = GetComponent<AudioSource> ();
             if (sequence.is_oneliner)
             {
                 isOneliner = true;
                 oneliners = sequence.oneliners;
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
         public void displayOneliner()
         {

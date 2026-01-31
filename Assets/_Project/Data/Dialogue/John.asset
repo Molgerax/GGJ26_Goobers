@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 395e0927230a47245b23aae9ca510061, type: 3}
-  m_Name: JoMAMA
+  m_Name: John
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.DialogueSequence
-  asset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  asset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   is_oneliner: 0
   oneliners: []
   elements:
   - ElementType: 0
     repeatThisDialogue: 0
     dialogue:
-      text: 'Na wie geht es dir so ? '
+      text: What are you doing?
       audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
   - ElementType: 0
     repeatThisDialogue: 0
     dialogue:
-      text: 'Hast du Lust was essen zu gehen '
+      text: What do You want?
       audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
-  - ElementType: 1
+  - ElementType: 2
     repeatThisDialogue: 0
     dialogue:
-      text: I Gotta Go
-      audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
-  RepeatFromStart: 0
+      text: 
+      audio: {fileID: 0}
+  RepeatFromStart: 1

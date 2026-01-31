@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 
 namespace GGJ
@@ -7,6 +8,7 @@ namespace GGJ
     
     public class DialogueSequence : ScriptableObject
     {
+        public TMP_FontAsset asset;
         public bool is_oneliner;
         public AudioTextMatch[] oneliners;
         public DialogueElement[] elements;
@@ -15,9 +17,11 @@ namespace GGJ
     [System.Serializable]
     public class DialogueElement
     {
+        
         public enum Type{
             Dialogue,
-            Decision
+            AnswerWithTimer,
+            AnswerNoTimer
         }
         /// <summary>
         /// Select The Type of element
@@ -31,7 +35,6 @@ namespace GGJ
         ///  if this is dialogue only create one entry
         /// </summary>
         public AudioTextMatch dialogue;
-        public AudioTextMatch[] decisions;
     }
   
     [System.Serializable]
