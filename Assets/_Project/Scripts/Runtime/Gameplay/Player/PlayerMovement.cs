@@ -1,5 +1,3 @@
-using System;
-using GGJ.Utility.Extensions;
 using QuakeLR;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,13 +7,14 @@ namespace GGJ.Gameplay.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float moveSpeed = 10;
-
         [SerializeField] private float lookSpeed = 5;
 
         [SerializeField] private Vector2 maxAngles = new(-80, 80);
         
         [SerializeField] private Transform cameraChild;
+
+        [SerializeField] private bool snapToGround = false;
+        [SerializeField, Min(0)] private float snapDistance = 0.1f;
         
         private QuakeCharacterController _quakeController;
         
@@ -43,6 +42,9 @@ namespace GGJ.Gameplay.Player
         {
             HandleCameraRotation();
             HandleMovement();
+            
+            if (snapToGround)
+                SnapToGround();
         }
 
 
@@ -71,6 +73,21 @@ namespace GGJ.Gameplay.Player
             pitch = Mathf.Clamp(pitch, maxAngles.x, maxAngles.y);
 
             cameraChild.localEulerAngles = new(pitch, 0, 0);
+        }
+
+        private void SnapToGround()
+        {
+            if (_quakeController.OnGround || _quakeController.Velocity.y > 0.1f)
+                return;
+
+            Vector3 pos = transform.position + _quakeController.CharacterController.center;
+            pos += Vector3.down * (_quakeController.CharacterController.height - snapDistance);
+            Ray ray = new Ray(pos, Vector3.down);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, snapDistance * 2, _quakeController.GroundLayers, QueryTriggerInteraction.Ignore))
+            {
+                transform.position = hitInfo.point;
+            }
         }
     }
 }
