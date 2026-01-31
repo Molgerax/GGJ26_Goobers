@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: John
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.DialogueSequence
   asset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  is_oneliner: 0
-  oneliners: []
+  is_oneliner: 1
+  oneliners:
+  - text: Bruh
+    audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
   elements:
   - ElementType: 0
     repeatThisDialogue: 0
@@ -29,6 +31,6 @@ MonoBehaviour:
   - ElementType: 2
     repeatThisDialogue: 0
     dialogue:
-      text: 
-      audio: {fileID: 0}
+      text: UH Gotta go
+      audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
   RepeatFromStart: 1

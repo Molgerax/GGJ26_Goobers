@@ -85,12 +85,7 @@ namespace GGJ
 
 
         }
-        public void DecisionMade(int value)
-        {
-            // use value to check answer
-            // if current element has timer start timer and exit
-            // if it doenst just exit dialogue.
-        }
+     
         private void ContinueDialogue()
         {
             if (sequence.elements[currentIndex].ElementType == DialogueElement.Type.Dialogue)
@@ -137,7 +132,8 @@ namespace GGJ
                     AlienAudioSource.clip = sequence.elements[index].dialogue.audio;
                     AlienAudioSource.Play();
                     endWithTimer = true;
-                    ExitDialogue();
+                    StartCoroutine(waitandExit(sequence.elements[index].dialogue.audio.length));
+                    
                 }
                 if (sequence.elements[index].ElementType == DialogueElement.Type.AnswerNoTimer)
                 {
@@ -147,7 +143,8 @@ namespace GGJ
                     AlienAudioSource.Play();
                     // display text as answer
                     // exit after completion
-                    ExitDialogue();
+                    StartCoroutine(waitandExit(sequence.elements[index].dialogue.audio.length));
+                    
                 }
             }
             else
@@ -156,7 +153,11 @@ namespace GGJ
             }
 
         }
-        
+        IEnumerator waitandExit(float time)
+        {
+            yield return new WaitForSeconds(time);
+            ExitDialogue();
+        }
         IEnumerator writeText(string text)
         {
             

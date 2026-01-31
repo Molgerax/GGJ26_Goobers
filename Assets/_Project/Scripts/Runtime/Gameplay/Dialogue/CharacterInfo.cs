@@ -6,14 +6,17 @@ namespace GGJ
     public class CharacterInfo : MonoBehaviour
     {
         [SerializeField] private string characterName;
+        [SerializeField] private GameObject OneLinerPrefab;
         public DialogueSequence sequence;
         public AudioSource audioSource;
         public int currentIndex = 0;
         private AudioTextMatch[] oneliners;
         public bool isOneliner = false;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+           
             audioSource = GetComponent<AudioSource> ();
             if (sequence.is_oneliner)
             {
@@ -23,7 +26,18 @@ namespace GGJ
         }
         public void displayOneliner()
         {
-            Debug.Log("random oneLiner");
+            if (OneLinerPrefab != null)
+            {
+                Debug.Log("random oneLiner");
+                AudioTextMatch randomPair = oneliners[Random.Range(0, oneliners.Length)];
+                GameObject gameobject = Instantiate(OneLinerPrefab);
+                // need to position over head
+                gameobject.transform.position = this.gameObject.transform.position;
+                gameobject.GetComponent<OneLinerText>().setText(sequence.asset, randomPair.text);
+                audioSource.clip = randomPair.audio;
+                audioSource.Play();
+            }
+            
             // spawn a in world text box over the head with the one liner
             // play audio related to oneliner
         }
