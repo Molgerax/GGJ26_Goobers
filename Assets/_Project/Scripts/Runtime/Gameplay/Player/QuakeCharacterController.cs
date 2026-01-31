@@ -52,6 +52,11 @@ namespace QuakeLR
         
         private bool m_OnGround = true;
         private bool m_RememberJump = false;
+
+        public bool OnGround => m_OnGround;
+        public LayerMask GroundLayers => GroundMask;
+        public CharacterController CharacterController => m_CharacterController;
+        public Vector3 Velocity => m_Velocity;
         
         private static readonly Vector3 k_XZPlane = new Vector3(1.0f, 0.0f, 1.0f);
         
@@ -64,6 +69,11 @@ namespace QuakeLR
         public void Move(Vector3 worldMoveDirection)
         {
             m_WishMoveDirection = worldMoveDirection * MaxWalkSpeed;
+        }
+
+        public void SetVelocity(Vector3 velocity)
+        {
+            m_Velocity = velocity;
         }
 
         /**
@@ -102,10 +112,28 @@ namespace QuakeLR
             else
                 AirAccelerate(deltaTime);
 
+            InterceptCollisionDownwards(deltaTime);
+            
             if (m_CharacterController)
                 m_CharacterController.Move(m_Velocity * deltaTime);
             else
                 Debug.LogWarning("Missing reference to m_CharacterController (typeof CharacterController)");
+        }
+
+        private void InterceptCollisionDownwards(float deltaTime)
+        {
+            float bodyRadius = m_CharacterController.radius;
+            float bodyHalfHeight = m_CharacterController.height * 0.5f;
+            
+            Vector3 origin = transform.position + m_CharacterController.center;
+            Vector3 sphereCheckPosition = origin - (transform.up * bodyHalfHeight);
+
+            if (Physics.Raycast(sphereCheckPosition, Vector3.down, out RaycastHit hitInfo, Mathf.Abs(m_Velocity.y) * deltaTime, GroundLayers,
+                QueryTriggerInteraction.Ignore))
+            {
+                transform.position = hitInfo.point;
+                m_Velocity.y = 0;
+            }
         }
 
         /**
@@ -118,10 +146,28 @@ namespace QuakeLR
             float bodyRadius = m_CharacterController.radius;
             float bodyHalfHeight = m_CharacterController.height * 0.5f;
 
-            Vector3 origin = transform.position;
+            Vector3 origin = transform.position + m_CharacterController.center;
             Vector3 sphereCheckPosition = origin - (transform.up * bodyHalfHeight - transform.up * bodyRadius * 0.5f);
-            
             m_OnGround = Physics.CheckSphere(sphereCheckPosition, bodyRadius, GroundMask.value);
+
+            if (m_Velocity.y > 0)
+            {
+                m_OnGround = false;
+                return;
+            }
+            
+            if (Physics.Raycast(sphereCheckPosition, Vector3.down, out RaycastHit hitInfo, bodyRadius, GroundLayers,
+                QueryTriggerInteraction.Ignore))
+            {
+                m_OnGround = true;
+
+                if (!m_RememberJump)
+                    m_CharacterController.Move(hitInfo.distance * Vector3.down);
+            }
+            else
+            {
+                m_OnGround = false;
+            }
         }
 
         /**
@@ -173,7 +219,7 @@ namespace QuakeLR
             }
 
             float drop = 0.0f;
-            if (m_OnGround)
+            if (m_OnGround && !m_RememberJump)
             {
                 float control = speed < StopSpeed ? StopSpeed : speed;
                 drop += control * Friction * deltaTime;

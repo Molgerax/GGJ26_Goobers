@@ -1,5 +1,3 @@
-using System;
-using GGJ.Utility.Extensions;
 using QuakeLR;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,14 +7,12 @@ namespace GGJ.Gameplay.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float moveSpeed = 10;
-
         [SerializeField] private float lookSpeed = 5;
 
         [SerializeField] private Vector2 maxAngles = new(-80, 80);
         
         [SerializeField] private Transform cameraChild;
-        
+
         private QuakeCharacterController _quakeController;
         
         private void Awake()
@@ -50,7 +46,6 @@ namespace GGJ.Gameplay.Player
         {
             Vector2 moveInput = PlayerInput.Move;
             Vector3 moveDir = transform.rotation * new Vector3(moveInput.x, 0, moveInput.y);
-            
             _quakeController.Move(moveDir);
             _quakeController.ControllerThink(Time.deltaTime);
         }
