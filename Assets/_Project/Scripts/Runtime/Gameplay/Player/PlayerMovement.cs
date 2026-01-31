@@ -50,7 +50,7 @@ namespace GGJ.Gameplay.Player
             _quakeController.ControllerThink(Time.deltaTime);
         }
 
-
+        
         private void HandleCameraRotation()
         {
             Vector2 lookInput = PlayerInput.Look;
@@ -66,6 +66,17 @@ namespace GGJ.Gameplay.Player
             pitch = Mathf.Clamp(pitch, maxAngles.x, maxAngles.y);
 
             cameraChild.localEulerAngles = new(pitch, 0, 0);
+        }
+        public void ToggleMovementForDialogue(bool isPaused)
+        {
+            if (isPaused)
+            {
+                // disable movement
+            }
+            else
+            {
+                // enable movement
+            }
         }
     }
 }
