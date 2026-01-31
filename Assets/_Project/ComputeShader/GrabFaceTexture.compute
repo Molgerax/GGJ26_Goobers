@@ -1,0 +1,46 @@
+#pragma kernel GrabFaceTexture
+
+
+
+Texture2D<float4> _ReadTexture;
+RWTexture2D<float4> _WriteTexture;
+
+float2 _RemoveUv;
+float _RemoveRadius;
+
+int _ReadResolution;
+int _WriteResolution;
+
+SamplerState sampler_point_clamp;
+
+
+float2 remapUv(float2 uv, float2 minimum, float2 maximum)
+{
+    return (uv - minimum) / (maximum - minimum);
+}
+
+
+
+[numthreads(8,8,1)]
+void GrabFaceTexture (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _WriteResolution || id.y >= _WriteResolution)
+        return;
+
+    float2 uv = 0;
+    uv = (id.xy + 0.5) / _WriteResolution;
+    
+    float2 readUv = (uv - 0.5) * _WriteResolution;
+    readUv /= _ReadResolution;
+    readUv = (readUv + _RemoveUv);
+    
+    float4 sampleRead = _ReadTexture.SampleLevel(sampler_point_clamp, readUv, 0);
+
+    uv = floor((uv - 0.5) * _WriteResolution);
+
+    float cutoff = step(_RemoveRadius, length(uv));
+
+    sampleRead *= 1 - cutoff;
+    
+    _WriteTexture[id.xy] = sampleRead;
+}
