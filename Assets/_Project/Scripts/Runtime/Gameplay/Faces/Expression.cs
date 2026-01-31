@@ -2,12 +2,13 @@
 {
     public enum Expression
     {
-        Joy = 0,
-        Sad = 1,
-        Surprise = 2,
-        Disgust = 3,
-        Fear = 4,
-        Anger = 5,
-        Uncanny = 6,
+        Neutral = 0,
+        Joy = 1,
+        Sad = 2,
+        Surprise = 3,
+        Disgust = 4,
+        Fear = 5,
+        Anger = 6,
+        Uncanny = 7,
     }
 }

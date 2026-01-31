@@ -1,5 +1,6 @@
 #pragma kernel GrabFaceTexture
-
+#pragma kernel StackFaceTexture
+#pragma kernel Clear
 
 
 Texture2D<float4> _ReadTexture;
@@ -44,3 +45,44 @@ void GrabFaceTexture (uint3 id : SV_DispatchThreadID)
     
     _WriteTexture[id.xy] = sampleRead;
 }
+
+
+
+[numthreads(8,8,1)]
+void StackFaceTexture (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _WriteResolution || id.y >= _WriteResolution)
+        return;
+
+    float2 uv = 0;
+    uv = (id.xy + 0.5) / _WriteResolution;
+    
+    float2 readUv = (uv - 0.5) * 128;
+    readUv /= _ReadResolution;
+    readUv += 0.5;
+    readUv -= (_RemoveUv * 2 - 1);
+    
+    float4 sampleRead = _ReadTexture.SampleLevel(sampler_point_clamp, readUv, 0);
+
+    float2 uvOut = step(0, readUv) * (step(readUv, 1));
+    float cutoff = uvOut.x * uvOut.y;
+    
+    float4 writeColor = _WriteTexture[id.xy];
+    
+    float4 finalColor = lerp(writeColor, sampleRead, sampleRead.a * cutoff);
+
+    _WriteTexture[id.xy] = finalColor;
+}
+
+
+
+
+[numthreads(8,8,1)]
+void Clear (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _WriteResolution || id.y >= _WriteResolution)
+        return;
+
+    _WriteTexture[id.xy] = 0;
+}
+

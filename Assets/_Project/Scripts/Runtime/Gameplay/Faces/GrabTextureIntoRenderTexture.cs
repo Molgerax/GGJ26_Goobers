@@ -7,17 +7,40 @@ namespace GGJ.Gameplay.Faces
     {
         public static void TransferTexture(ComputeShader cs, Vector2 uv, int radius, Texture read, RenderTexture write)
         {
-            cs.SetTexture(0, PropertyIDs.ReadTexture, read);
-            cs.SetTexture(0, PropertyIDs.WriteTexture, write);
+            int kernel = cs.FindKernel("GrabFaceTexture");
+            cs.SetTexture(kernel, PropertyIDs.ReadTexture, read);
+            cs.SetTexture(kernel, PropertyIDs.WriteTexture, write);
             cs.SetInt(PropertyIDs.RemoveRadius, radius);
             cs.SetVector(PropertyIDs.RemoveUv, uv);
             
             cs.SetInt(PropertyIDs.ReadResolution, read.height);
             cs.SetInt(PropertyIDs.WriteResolution, write.height);
             
-            cs.DispatchExact(0, write.width, write.height);
+            cs.DispatchExact(kernel, write.width, write.height);
         }
         
+        public static void StackTextureToFace(ComputeShader cs, Vector2 uv, GrabbedFacePart facePart, Texture read, RenderTexture write)
+        {
+            int kernel = cs.FindKernel("StackFaceTexture");
+            cs.SetTexture(kernel, PropertyIDs.ReadTexture, read);
+            cs.SetTexture(kernel, PropertyIDs.WriteTexture, write);
+            cs.SetInt(PropertyIDs.RemoveRadius, facePart.Radius);
+            cs.SetVector(PropertyIDs.RemoveUv, uv);
+            
+            cs.SetInt(PropertyIDs.ReadResolution, read.height);
+            cs.SetInt(PropertyIDs.WriteResolution, write.height);
+            
+            cs.DispatchExact(kernel, write.width, write.height);
+        }
+        
+        public static void ClearTexture(ComputeShader cs, RenderTexture write)
+        {
+            int kernel = cs.FindKernel("Clear");
+            cs.SetTexture(kernel, PropertyIDs.WriteTexture, write);
+            cs.SetInt(PropertyIDs.WriteResolution, write.height);
+            
+            cs.DispatchExact(kernel, write.width, write.height);
+        }
         
         
         private static class PropertyIDs

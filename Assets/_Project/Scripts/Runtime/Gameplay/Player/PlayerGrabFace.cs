@@ -14,11 +14,15 @@ namespace GGJ.Gameplay.Player
         [SerializeField] private int grabRadius = 32;
 
         [SerializeField] private Transform lookTransform;
-
+        [SerializeField] private PlayerFace face;
         [SerializeField] private MeshRenderer faceTest;
 
         [SerializeField] private RenderTexture texture;
 
+        
+
+        private GrabbedFacePart _currentGrabbedFace;
+        
 
         private void OnEnable()
         {
@@ -28,6 +32,8 @@ namespace GGJ.Gameplay.Player
             texture.name = "GrabberTexture";
             texture.enableRandomWrite = true;
             texture.Create();
+            
+            GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
         }
 
         private void OnDisable()
@@ -38,6 +44,14 @@ namespace GGJ.Gameplay.Player
         }
         
         private void OnAttack(InputAction.CallbackContext context)
+        {
+            if (_currentGrabbedFace.Radius == 0)
+                GrabFace();
+            else
+                ApplyFace();
+        }
+
+        private void GrabFace()
         {
             Ray ray = new(lookTransform.position, lookTransform.forward);
             ray.origin = ray.GetPoint(0.5f);
@@ -52,10 +66,20 @@ namespace GGJ.Gameplay.Player
                     face.RemoveFromFace(uv, grabRadius);
                     
                     SetFaceOffOnMesh(faceTest);
+
+                    _currentGrabbedFace = new GrabbedFacePart(face.FaceTexture.Expression, uv, grabRadius);
                 }
             }
         }
 
+        private void ApplyFace()
+        {
+            Vector2 uv = _currentGrabbedFace.UV;
+            face.ApplyFacePart(texture, uv, _currentGrabbedFace);
+            
+            _currentGrabbedFace = default;
+            GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
+        }
 
         MaterialPropertyBlock _propBlock;
         private void SetFaceOffOnMesh(MeshRenderer meshR)
