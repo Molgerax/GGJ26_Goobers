@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Tremble Sync Settings
   m_EditorClassIdentifier: TinyGoose.Tremble::TinyGoose.Tremble.TrembleSyncSettings
   m_ShowExpanded: 1
-  m_AutoSyncOnCompile: 1
+  m_AutoSyncOnCompile: 0
   m_AllowStandaloneImport: 0
   m_TrenchBroomVersion: 3
   m_TemplateMap: {fileID: 0}
   m_WorldspawnScript:
-    m_ScriptName: 
+    m_ScriptName: TinyGoose.Tremble.Worldspawn
   m_TypeNamingConvention: 3
   m_FieldNamingConvention: 0
   m_SpawnFlagNamingConvention: 4
