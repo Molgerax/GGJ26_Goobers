@@ -71,6 +71,11 @@ namespace QuakeLR
             m_WishMoveDirection = worldMoveDirection * MaxWalkSpeed;
         }
 
+        public void SetVelocity(Vector3 velocity)
+        {
+            m_Velocity = velocity;
+        }
+
         /**
          * Do not call this function directly! (unless you know what you're doing)
          * This will launch the character up in the air WITHOUT CHECKING IF THE PLAYER IS GROUNDED
@@ -107,10 +112,28 @@ namespace QuakeLR
             else
                 AirAccelerate(deltaTime);
 
+            InterceptCollisionDownwards(deltaTime);
+            
             if (m_CharacterController)
                 m_CharacterController.Move(m_Velocity * deltaTime);
             else
                 Debug.LogWarning("Missing reference to m_CharacterController (typeof CharacterController)");
+        }
+
+        private void InterceptCollisionDownwards(float deltaTime)
+        {
+            float bodyRadius = m_CharacterController.radius;
+            float bodyHalfHeight = m_CharacterController.height * 0.5f;
+            
+            Vector3 origin = transform.position + m_CharacterController.center;
+            Vector3 sphereCheckPosition = origin - (transform.up * bodyHalfHeight);
+
+            if (Physics.Raycast(sphereCheckPosition, Vector3.down, out RaycastHit hitInfo, Mathf.Abs(m_Velocity.y) * deltaTime, GroundLayers,
+                QueryTriggerInteraction.Ignore))
+            {
+                transform.position = hitInfo.point;
+                m_Velocity.y = 0;
+            }
         }
 
         /**
@@ -125,8 +148,26 @@ namespace QuakeLR
 
             Vector3 origin = transform.position + m_CharacterController.center;
             Vector3 sphereCheckPosition = origin - (transform.up * bodyHalfHeight - transform.up * bodyRadius * 0.5f);
-            
             m_OnGround = Physics.CheckSphere(sphereCheckPosition, bodyRadius, GroundMask.value);
+
+            if (m_Velocity.y > 0)
+            {
+                m_OnGround = false;
+                return;
+            }
+            
+            if (Physics.Raycast(sphereCheckPosition, Vector3.down, out RaycastHit hitInfo, bodyRadius, GroundLayers,
+                QueryTriggerInteraction.Ignore))
+            {
+                m_OnGround = true;
+
+                if (!m_RememberJump)
+                    m_CharacterController.Move(hitInfo.distance * Vector3.down);
+            }
+            else
+            {
+                m_OnGround = false;
+            }
         }
 
         /**
@@ -178,7 +219,7 @@ namespace QuakeLR
             }
 
             float drop = 0.0f;
-            if (m_OnGround)
+            if (m_OnGround && !m_RememberJump)
             {
                 float control = speed < StopSpeed ? StopSpeed : speed;
                 drop += control * Friction * deltaTime;

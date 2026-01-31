@@ -13,9 +13,6 @@ namespace GGJ.Gameplay.Player
         
         [SerializeField] private Transform cameraChild;
 
-        [SerializeField] private bool snapToGround = false;
-        [SerializeField, Min(0)] private float snapDistance = 0.1f;
-        
         private QuakeCharacterController _quakeController;
         
         private void Awake()
@@ -42,9 +39,6 @@ namespace GGJ.Gameplay.Player
         {
             HandleCameraRotation();
             HandleMovement();
-            
-            if (snapToGround)
-                SnapToGround();
         }
 
 
@@ -52,7 +46,6 @@ namespace GGJ.Gameplay.Player
         {
             Vector2 moveInput = PlayerInput.Move;
             Vector3 moveDir = transform.rotation * new Vector3(moveInput.x, 0, moveInput.y);
-            
             _quakeController.Move(moveDir);
             _quakeController.ControllerThink(Time.deltaTime);
         }
@@ -73,21 +66,6 @@ namespace GGJ.Gameplay.Player
             pitch = Mathf.Clamp(pitch, maxAngles.x, maxAngles.y);
 
             cameraChild.localEulerAngles = new(pitch, 0, 0);
-        }
-
-        private void SnapToGround()
-        {
-            if (_quakeController.OnGround || _quakeController.Velocity.y > 0.1f)
-                return;
-
-            Vector3 pos = transform.position + _quakeController.CharacterController.center;
-            pos += Vector3.down * (_quakeController.CharacterController.height - snapDistance);
-            Ray ray = new Ray(pos, Vector3.down);
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, snapDistance * 2, _quakeController.GroundLayers, QueryTriggerInteraction.Ignore))
-            {
-                transform.position = hitInfo.point;
-            }
         }
     }
 }

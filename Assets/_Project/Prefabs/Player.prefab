@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 7240205956944317719}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d609105a772731d47b798e5e51e1f88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.PlayerMovement
-  moveSpeed: 10
   lookSpeed: 20
   maxAngles: {x: -80, y: 80}
   cameraChild: {fileID: 7730453111183875065}
@@ -195,7 +194,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1655958199029070583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,10 +209,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuakeLR.QuakeCharacterController
   MaxWalkSpeed: 11.4
   JumpPower: 9.64
-  Friction: 4
+  Friction: 6
   Gravity: 28.6
   AccelerationSpeed: 10
-  StopSpeed: 3.57
+  StopSpeed: 5
   GroundMask:
     serializedVersion: 2
     m_Bits: 1
