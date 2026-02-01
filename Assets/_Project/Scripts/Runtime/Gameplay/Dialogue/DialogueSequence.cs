@@ -1,4 +1,4 @@
-using NUnit.Framework;
+using GGJ.Gameplay.Faces;
 using TMPro;
 using UnityEngine;
 
@@ -13,15 +13,17 @@ namespace GGJ
         public AudioTextMatch[] oneliners;
         public DialogueElement[] elements;
         public bool RepeatFromStart = false;
+        
     }
+
     [System.Serializable]
     public class DialogueElement
     {
-        
         public enum Type{
             Dialogue,
             AnswerWithTimer,
-            AnswerNoTimer
+            AnswerNoTimer,
+            Reaction
         }
         /// <summary>
         /// Select The Type of element
@@ -34,7 +36,14 @@ namespace GGJ
         /// <summary>
         ///  if this is dialogue only create one entry
         /// </summary>
+        [Header("Text")]
         public AudioTextMatch dialogue;
+        [Header("Reactions")]
+        public Expression requiredExpression;
+        [Range(0f, 1f)]
+        public float procentage;
+        public AudioTextMatch positive;
+        public AudioTextMatch negative;
     }
   
     [System.Serializable]

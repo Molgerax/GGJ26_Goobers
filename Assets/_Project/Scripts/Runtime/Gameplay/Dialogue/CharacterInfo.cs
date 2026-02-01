@@ -12,6 +12,7 @@ namespace GGJ
         public int currentIndex = 0;
         private AudioTextMatch[] oneliners;
         public bool isOneliner = false;
+        public bool stopInteract = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()

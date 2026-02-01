@@ -21,14 +21,51 @@ MonoBehaviour:
     dialogue:
       text: 'Na wie geht es dir so ? '
       audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
+    requiredExpression: 0
+    procentage: 0
+    positive:
+      text: 
+      audio: {fileID: 0}
+    negative:
+      text: 
+      audio: {fileID: 0}
   - ElementType: 0
     repeatThisDialogue: 0
     dialogue:
       text: 'Hast du Lust was essen zu gehen '
       audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
+    requiredExpression: 0
+    procentage: 0
+    positive:
+      text: 
+      audio: {fileID: 0}
+    negative:
+      text: 
+      audio: {fileID: 0}
   - ElementType: 1
     repeatThisDialogue: 0
     dialogue:
       text: I Gotta Go
+      audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
+    requiredExpression: 0
+    procentage: 0
+    positive:
+      text: 
+      audio: {fileID: 0}
+    negative:
+      text: 
+      audio: {fileID: 0}
+  - ElementType: 3
+    repeatThisDialogue: 0
+    dialogue:
+      text: 
+      audio: {fileID: 0}
+    requiredExpression: 0
+    procentage: 0.743
+    positive:
+      text: yeah You get it
+      audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
+    negative:
+      text: What are you talking about
       audio: {fileID: 8300000, guid: e951b28d909435b4ab22f0912cf7ee85, type: 3}
   RepeatFromStart: 0

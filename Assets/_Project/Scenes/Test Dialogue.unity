@@ -158,6 +158,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   currentIndex: 0
   isOneliner: 0
+  stopInteract: 0
 --- !u!135 &12418698
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -911,6 +912,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   currentIndex: 0
   isOneliner: 0
+  stopInteract: 0
 --- !u!82 &1490611980
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1356,6 +1358,7 @@ MonoBehaviour:
   TextSpeed: 0.1
   raydistance: 1
   AlienFont: {fileID: 0}
+  face: {fileID: 0}
 --- !u!82 &1740087642
 AudioSource:
   m_ObjectHideFlags: 0

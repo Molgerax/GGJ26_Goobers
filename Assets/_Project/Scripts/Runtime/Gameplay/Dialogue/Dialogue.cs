@@ -1,3 +1,4 @@
+
 using GGJ.Gameplay.Player;
 using System.Collections;
 using TMPro;
@@ -14,6 +15,7 @@ namespace GGJ
         [SerializeField] private float TextSpeed = 0.1f;
         [SerializeField] private float raydistance = 1;
         [SerializeField] private TMP_FontAsset AlienFont;
+        [SerializeField] private PlayerFace face;
         private AudioSource AlienAudioSource;
         private Ray ray;
         private bool is_inDialogue = false;
@@ -25,10 +27,12 @@ namespace GGJ
         private Coroutine currentWritingRoutine;
         private CharacterInfo currentCharacterInfo;
         private bool endWithTimer= false;
+        private bool isPositiveReaction = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Start()
         {
+            face = GetComponent<PlayerFace>();
             AlienAudioSource = GetComponent<AudioSource>();
             playerMovement = this.gameObject.GetComponent<PlayerMovement>();
         }
@@ -54,18 +58,22 @@ namespace GGJ
                 {
                     if (hit.transform.CompareTag("Character"))
                     {
+                        
                         Debug.Log("Hit A Character");
                         CharacterInfo info = hit.transform.GetComponent<CharacterInfo>();
-                        if (info.isOneliner) // if it is a oneliner Trigger oneliner
+                        if (!info.stopInteract)
                         {
-                            info.displayOneliner();
-                        }
-                        else   // if it has dialogue 
-                        {
-                            currentCharacterInfo = info;
-                            sequence = currentCharacterInfo.sequence;
-                            currentIndex = info.currentIndex;
-                            EnterDialogue();
+                            if (info.isOneliner) // if it is a oneliner Trigger oneliner
+                            {
+                                info.displayOneliner();
+                            }
+                            else   // if it has dialogue 
+                            {
+                                currentCharacterInfo = info;
+                                sequence = currentCharacterInfo.sequence;
+                                currentIndex = info.currentIndex;
+                                EnterDialogue();
+                            }
                         }
                     }
                 }
@@ -101,6 +109,46 @@ namespace GGJ
                     LoadElement(currentIndex+1);
                 }
             }
+            if (sequence.elements[currentIndex].ElementType == DialogueElement.Type.Reaction)
+            {
+                if (isPositiveReaction)
+                {
+                    if (is_PayingText)
+                    {
+                        if (currentWritingRoutine != null)
+                        {
+                            StopCoroutine(currentWritingRoutine);
+                        }
+                        // finish text
+
+                        UITextMeshPro.text = sequence.elements[currentIndex].positive.text;
+                        is_PayingText = false;
+                    }
+                    else
+                    {
+                        LoadElement(currentIndex + 1);
+                    }
+                }
+                else //negative
+                {
+                    if (is_PayingText)
+                    {
+                        if (currentWritingRoutine != null)
+                        {
+                            StopCoroutine(currentWritingRoutine);
+                        }
+                        // finish text
+
+                        UITextMeshPro.text = sequence.elements[currentIndex].negative.text;
+                        is_PayingText = false;
+                    }
+                    else
+                    {
+                        ExitDialogue();
+                    }
+                }
+                
+            }
             else
             {
                 
@@ -117,18 +165,15 @@ namespace GGJ
                     currentWritingRoutine = StartCoroutine(writeText(sequence.elements[index].dialogue.text));
                     currentCharacterInfo.audioSource.clip = sequence.elements[index].dialogue.audio;
                     currentCharacterInfo.audioSource.Play();
-                    // play the audiofile
                 }
                 if (sequence.elements[index].ElementType == DialogueElement.Type.AnswerWithTimer)
                 {
-                    
                     UITextMeshPro.font = AlienFont;
                     UITextMeshPro.text = sequence.elements[currentIndex].dialogue.text;
                     AlienAudioSource.clip = sequence.elements[index].dialogue.audio;
                     AlienAudioSource.Play();
                     endWithTimer = true;
                     StartCoroutine(waitandExit(sequence.elements[index].dialogue.audio.length));
-                    
                 }
                 if (sequence.elements[index].ElementType == DialogueElement.Type.AnswerNoTimer)
                 {
@@ -136,10 +181,26 @@ namespace GGJ
                     UITextMeshPro.text = sequence.elements[currentIndex].dialogue.text;
                     AlienAudioSource.clip = sequence.elements[index].dialogue.audio;
                     AlienAudioSource.Play();
-                    // display text as answer
-                    // exit after completion
                     StartCoroutine(waitandExit(sequence.elements[index].dialogue.audio.length));
-                    
+                }
+                if (sequence.elements[index].ElementType == DialogueElement.Type.Reaction)
+                { 
+                    if (face.HasExpressionPercentage(sequence.elements[index].requiredExpression, sequence.elements[index].procentage)) // positive 
+                    {
+                        UITextMeshPro.font = sequence.asset;
+                        currentWritingRoutine = StartCoroutine(writeText(sequence.elements[index].positive.text));
+                        currentCharacterInfo.audioSource.clip = sequence.elements[index].positive.audio;
+                        currentCharacterInfo.audioSource.Play();
+                    }
+                    else // negative
+                    {
+                        UITextMeshPro.font = sequence.asset;
+                        currentWritingRoutine = StartCoroutine(writeText(sequence.elements[index].negative.text));
+                        currentCharacterInfo.audioSource.clip = sequence.elements[index].negative.audio;
+                        currentCharacterInfo.audioSource.Play();
+                        StartCoroutine(waitandExit(sequence.elements[index].negative.audio.length));
+                        currentCharacterInfo.stopInteract = true;
+                    }
                 }
             }
             else
@@ -184,7 +245,7 @@ namespace GGJ
                 // start timer
                 endWithTimer = false;
             }
-            currentCharacterInfo.SetCurrentIndex(currentIndex);
+            currentCharacterInfo.SetCurrentIndex(currentIndex+1);
             is_inDialogue = false;
             playerMovement.ToggleMovementForDialogue(false);
             DialogueUI.enabled = false;
