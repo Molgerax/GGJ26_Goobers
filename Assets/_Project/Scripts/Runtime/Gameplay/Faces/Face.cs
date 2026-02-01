@@ -14,6 +14,12 @@ namespace GGJ.Gameplay.Faces
         private Vector2 _removeUv;
 
         public FaceTexture FaceTexture => faceTexture;
+
+        public void SetFace(FaceTexture newFace)
+        {
+            faceTexture = newFace;
+            SetFace();
+        }
         
         private void Awake()
         {

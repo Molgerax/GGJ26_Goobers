@@ -10,7 +10,7 @@ namespace GGJ.Gameplay.Faces
         [SerializeField] private ComputeShader transferCompute;
         [SerializeField] private int resolution = 1024;
 
-        [SerializeField] private int cellResolution = 16;
+        [SerializeField] private int cellResolution = 32;
 
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private Texture2D debugTex;
@@ -23,9 +23,9 @@ namespace GGJ.Gameplay.Faces
 
         private float _deviation;
         MaterialPropertyBlock _propertyBlock;
-        
-        
-        
+
+        public static Action<PlayerFace> OnUpdateFaceValues;
+
         private void OnEnable()
         {
             _faceTexture = new RenderTexture(resolution, resolution, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
@@ -75,9 +75,9 @@ namespace GGJ.Gameplay.Faces
                 {
                     Vector2 cellUv = (new Vector2(x + 0.5f, y + 0.5f)) / cellResolution;
 
-                    cellUv += facePart.UV;
+                    cellUv -= facePart.UV;
                     
-                    Vector2 cell = Vector2Int.FloorToInt((cellUv - Vector2.one * 0.5f) * res);
+                    Vector2 cell = Vector2Int.FloorToInt((cellUv) * res);
 
                     if (cell.magnitude < facePart.Radius)
                     {
@@ -138,15 +138,25 @@ namespace GGJ.Gameplay.Faces
             }
 
             _deviation /= cellResolution * cellResolution;
+            
+            OnUpdateFaceValues?.Invoke(this);
         }
 
         public bool HasExpressionPercentage(Expression expression, float threshold01)
         {
+            return GetExpressionPercentage(expression) >= threshold01;
+        }
+        
+        public float GetExpressionPercentage(Expression expression)
+        {
+            if (expression == Expression.Uncanny)
+                return _deviation * 2;
+            
             if (!_currentExpressionCount.TryGetValue(expression, out int count))
-                return false;
+                return 0;
 
             float percentage = (float)count / (cellResolution * cellResolution);
-            return percentage >= threshold01;
+            return percentage;
         }
 
         public bool IsDeviationTooHigh(float threshold01)
