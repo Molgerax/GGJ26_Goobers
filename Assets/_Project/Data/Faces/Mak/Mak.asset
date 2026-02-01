@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422dee0f85054552b538a2211db76264, type: 3}
+  m_Name: Mak
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.FaceTextureCollection
+  joy: {fileID: 11400000, guid: 1116d65568398144eb9d8969dd107f57, type: 2}
+  sadness: {fileID: 11400000, guid: 5d4c3cba64225984990753abce02bd0d, type: 2}
+  anger: {fileID: 11400000, guid: 1b711c43579d188499b9b2c38ddc95cf, type: 2}
+  fear: {fileID: 11400000, guid: 5a3174113b11721479b4d6e0e3e88775, type: 2}
+  disgust: {fileID: 11400000, guid: dae2212050697b9489c77fd19f7c44db, type: 2}
+  surprise: {fileID: 11400000, guid: 350c2575dd61b434f90a1dc072238ea8, type: 2}

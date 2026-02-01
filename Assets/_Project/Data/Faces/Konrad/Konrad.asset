@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422dee0f85054552b538a2211db76264, type: 3}
+  m_Name: Konrad
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.FaceTextureCollection
+  joy: {fileID: 11400000, guid: a096c29b70c0ec44e914162eb29e015b, type: 2}
+  sadness: {fileID: 11400000, guid: bd169a6e3749e604a872dc650c77fbc6, type: 2}
+  anger: {fileID: 11400000, guid: 8623234147637224eb9e4696de9dd418, type: 2}
+  fear: {fileID: 11400000, guid: d7864034daef8f54a82e075e44afad12, type: 2}
+  disgust: {fileID: 11400000, guid: 4cc105b7289bd0d46adab1d8fdf63787, type: 2}
+  surprise: {fileID: 11400000, guid: eb8bc7fe372b4d64c9ae5931d8a4f197, type: 2}
