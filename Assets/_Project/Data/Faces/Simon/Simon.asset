@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422dee0f85054552b538a2211db76264, type: 3}
   m_Name: Simon
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.FaceTextureCollection
-  joy: {fileID: 11400000, guid: 69686490f5f5897449bc1ee42dc7bc3d, type: 2}
-  sadness: {fileID: 11400000, guid: 3155cdc5ca72c0f4289376a65215857e, type: 2}
-  anger: {fileID: 11400000, guid: 4a734367a39fd2148a06f4f3c4cde81c, type: 2}
-  fear: {fileID: 11400000, guid: 71f77c51a565be843b4c5d40308ead35, type: 2}
-  disgust: {fileID: 11400000, guid: 3aae4e4b6e6a76a4abbab8ffa108ee4b, type: 2}
-  surprise: {fileID: 11400000, guid: 4858bf29508add34aacc8ea36b626307, type: 2}
+  joy: {fileID: 11400000, guid: 29485a1f802a70646bf6334cbf0f86d7, type: 2}
+  sadness: {fileID: 11400000, guid: 57b1edf5ad3a0154d920046ba0abe4ee, type: 2}
+  anger: {fileID: 11400000, guid: 363396efff3cc1647adc82120ae7a0da, type: 2}
+  fear: {fileID: 11400000, guid: b9e5b1723600a7d4c815f263549805b7, type: 2}
+  disgust: {fileID: 11400000, guid: 29931c28788ce224a90009ec72896090, type: 2}
+  surprise: {fileID: 11400000, guid: 4fba15ef76baf48459b4f36addde2fa5, type: 2}
