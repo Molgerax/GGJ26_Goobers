@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9785045
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2499998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0150695965
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -59,5 +59,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5652820187120679464}
   m_SourcePrefab: {fileID: 100100000, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
+--- !u!1 &3816360839552669377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 668daa4c7ae863949a5202099e13c51e, type: 3}
+  m_PrefabInstance: {fileID: 4050713155829148560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5652820187120679464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3816360839552669377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3770c55e1e67e4805bcf322ae01885f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TinyGoose.Tremble::TinyGoose.Tremble.TrembleSpawnablePrefab
+  m_Category: 
+  m_OverrideSprite: {fileID: 0}
+  m_OnlyVariants: 0
