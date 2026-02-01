@@ -39,7 +39,7 @@ namespace GGJ.Gameplay.Faces
             {
                 case FaceExpression.Joy:
                     return joy;
-                case FaceExpression.Sadness:
+                case FaceExpression.Sad:
                     return sadness;
                 case FaceExpression.Anger:
                     return anger;
@@ -58,7 +58,7 @@ namespace GGJ.Gameplay.Faces
     public enum FaceExpression
     {
         Joy = 0,
-        Sadness = 1,
+        Sad = 1,
         Anger = 2,
         Fear = 3,
         Disgust = 4,
