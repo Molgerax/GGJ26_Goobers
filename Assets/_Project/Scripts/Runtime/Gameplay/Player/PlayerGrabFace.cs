@@ -19,9 +19,11 @@ namespace GGJ.Gameplay.Player
 
         [SerializeField] private RenderTexture texture;
 
-        
+        [SerializeField] private LayerMask alienFaceMask;
 
         private GrabbedFacePart _currentGrabbedFace;
+        
+        private Camera _camera;
         
 
         private void OnEnable()
@@ -34,6 +36,8 @@ namespace GGJ.Gameplay.Player
             texture.Create();
             
             GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
+
+            _camera = Camera.main;
         }
 
         private void OnDisable()
@@ -42,7 +46,13 @@ namespace GGJ.Gameplay.Player
             texture.Release();
             texture = null;
         }
-        
+
+        private void Update()
+        {
+            if (_currentGrabbedFace.Radius != 0)
+                SetHighlight();
+        }
+
         private void OnAttack(InputAction.CallbackContext context)
         {
             if (_currentGrabbedFace.Radius == 0)
@@ -59,27 +69,74 @@ namespace GGJ.Gameplay.Player
             if (Physics.Raycast(ray, out RaycastHit hitInfo, grabDistance, Int32.MaxValue,
                 QueryTriggerInteraction.Ignore))
             {
-                if (hitInfo.transform.TryGetComponent(out Face face))
+                if (hitInfo.transform.TryGetComponent(out Face grabbedFace))
                 {
                     Vector2 uv = hitInfo.textureCoord;
-                    GrabTextureIntoRenderTexture.TransferTexture(transferCompute, uv, grabRadius, face.FaceTexture.Texture, texture);
-                    face.RemoveFromFace(uv, grabRadius);
+                    GrabTextureIntoRenderTexture.TransferTexture(transferCompute, uv, grabRadius, grabbedFace.FaceTexture.Texture, texture);
+                    grabbedFace.RemoveFromFace(uv, grabRadius);
                     
                     SetFaceOffOnMesh(faceTest);
 
-                    _currentGrabbedFace = new GrabbedFacePart(face.FaceTexture.Expression, uv, grabRadius);
+                    _currentGrabbedFace = new GrabbedFacePart(grabbedFace.FaceTexture.Expression, uv, grabRadius);
+                    
+                    PlayerInput.SetCursorLocked(false);
+                    PlayerInput.SetMoveInputs(false);
                 }
             }
         }
 
         private void ApplyFace()
         {
-            Vector2 uv = _currentGrabbedFace.UV;
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, grabDistance, alienFaceMask,
+                QueryTriggerInteraction.Ignore))
+            {
+                if (hitInfo.collider is MeshCollider)
+                {
+                    Vector2 uv = hitInfo.textureCoord;
+
+                    ApplyFaceToFace(uv);
+                }
+            }
+        }
+
+        private void ApplyFaceToFace(Vector2 uv)
+        {
             face.ApplyFacePart(texture, uv, _currentGrabbedFace);
             
             _currentGrabbedFace = default;
             GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
+                    
+            face.SetShaderHighlight(0, Vector2.zero);
+            PlayerInput.SetCursorLocked(true);
+            PlayerInput.SetMoveInputs(true);
         }
+        
+
+        private void SetHighlight()
+        {
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, alienFaceMask,
+                QueryTriggerInteraction.Ignore))
+            {
+                if (hitInfo.collider is MeshCollider)
+                {
+                       Vector2 uv = hitInfo.textureCoord;
+                       face.SetShaderHighlight(grabRadius, uv);
+                }
+                else
+                { 
+                    face.SetShaderHighlight(0, Vector2.zero);   
+                }
+            }
+            else
+            {
+                face.SetShaderHighlight(0, Vector2.zero);
+            }
+        }
+        
 
         MaterialPropertyBlock _propBlock;
         private void SetFaceOffOnMesh(MeshRenderer meshR)

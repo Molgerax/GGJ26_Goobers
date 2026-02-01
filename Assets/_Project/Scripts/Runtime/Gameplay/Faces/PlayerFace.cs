@@ -22,7 +22,10 @@ namespace GGJ.Gameplay.Faces
         private Dictionary<Expression, int> _currentExpressionCount = new();
 
         private float _deviation;
-
+        MaterialPropertyBlock _propertyBlock;
+        
+        
+        
         private void OnEnable()
         {
             _faceTexture = new RenderTexture(resolution, resolution, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
@@ -33,10 +36,10 @@ namespace GGJ.Gameplay.Faces
             _faceCells = new FaceCell[cellResolution, cellResolution];
             debugTex = new Texture2D(cellResolution, cellResolution, TextureFormat.RGBA32, false, true);
 
-            MaterialPropertyBlock propertyBlock = new();
-            meshRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetTexture("_MainTex", _faceTexture);
-            meshRenderer.SetPropertyBlock(propertyBlock);
+            _propertyBlock ??= new();
+            meshRenderer.GetPropertyBlock(_propertyBlock);
+            _propertyBlock.SetTexture("_MainTex", _faceTexture);
+            meshRenderer.SetPropertyBlock(_propertyBlock);
         }
 
         private void OnDisable()
@@ -149,6 +152,23 @@ namespace GGJ.Gameplay.Faces
         public bool IsDeviationTooHigh(float threshold01)
         {
             return _deviation > threshold01;
+        }
+
+        public void SetShaderHighlight(float radius, Vector2 uv)
+        {
+            _propertyBlock ??= new();
+            
+            meshRenderer.GetPropertyBlock(_propertyBlock);
+            _propertyBlock.SetVector(PropertyIDs.HighlightUV, uv);
+            _propertyBlock.SetFloat(PropertyIDs.HighlightRadius, radius);
+            meshRenderer.SetPropertyBlock(_propertyBlock);
+        }
+        
+        private static class PropertyIDs
+        {
+            public static readonly int MainTex = Shader.PropertyToID("_MainTex");
+            public static readonly int HighlightUV = Shader.PropertyToID("_HighlightUV");
+            public static readonly int HighlightRadius = Shader.PropertyToID("_HighlightRadius");
         }
     }
 
