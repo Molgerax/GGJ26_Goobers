@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace GGJ.Core.Interfaces
 {
@@ -35,6 +38,7 @@ namespace GGJ.Core.Interfaces
         public static implicit operator SerializableType(Type type) => new() { Type = type };
     }
 
+    #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(SerializableType))]
     public class SerializableTypeDrawer : PropertyDrawer {
         TypeFilterAttribute typeFilter;
@@ -76,6 +80,7 @@ namespace GGJ.Core.Interfaces
             }
         }
     }
+    #endif
 
     public class TypeFilterAttribute : PropertyAttribute {
         public Func<Type, bool> Filter { get; }

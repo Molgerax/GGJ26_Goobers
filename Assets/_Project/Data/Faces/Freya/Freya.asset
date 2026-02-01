@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422dee0f85054552b538a2211db76264, type: 3}
+  m_Name: Freya
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.FaceTextureCollection
+  joy: {fileID: 11400000, guid: 44109005420032a4c9a1ef17299dd0d7, type: 2}
+  sadness: {fileID: 11400000, guid: 101df7c21c960824ca7fa07ad05d9d74, type: 2}
+  anger: {fileID: 11400000, guid: 7af1bd5dff0dfcb4f85288c717a25ffa, type: 2}
+  fear: {fileID: 11400000, guid: 8cc6a9878651276498565b96d425589a, type: 2}
+  disgust: {fileID: 11400000, guid: 7d72c61c779d3284e9cc0ff9a774c01b, type: 2}
+  surprise: {fileID: 11400000, guid: f1e294ed9aea6f240af5d55242728a58, type: 2}

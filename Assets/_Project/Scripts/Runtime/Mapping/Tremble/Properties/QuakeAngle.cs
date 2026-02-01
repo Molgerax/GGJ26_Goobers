@@ -25,7 +25,7 @@ namespace GGJ.Mapping.Tremble.Properties
                     return Vector3.up;
                 if (Value == -2)
                     return Vector3.down;
-                return Quaternion.Euler(Vector3.up * Value) * Vector3.right;
+                return Quaternion.Euler(Vector3.up * -Value) * Vector3.right;
             }
         }
     }

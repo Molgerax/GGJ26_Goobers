@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Tremble Sync Settings
   m_EditorClassIdentifier: TinyGoose.Tremble::TinyGoose.Tremble.TrembleSyncSettings
   m_ShowExpanded: 1
-  m_AutoSyncOnCompile: 1
+  m_AutoSyncOnCompile: 0
   m_AllowStandaloneImport: 0
   m_TrenchBroomVersion: 3
   m_TemplateMap: {fileID: 0}
   m_WorldspawnScript:
-    m_ScriptName: 
+    m_ScriptName: TinyGoose.Tremble.Worldspawn
   m_TypeNamingConvention: 3
   m_FieldNamingConvention: 0
   m_SpawnFlagNamingConvention: 4
@@ -853,6 +853,18 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 7ee48fc41ba952d4d9208601d1f1715e, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 660fa657713cd774c89b5c7c947a4b66, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -888,6 +900,14 @@ MonoBehaviour:
     Path: Assets/_Project/Prefabs/Door.prefab
     FullTypeName: UnityEngine.GameObject
     SpawnOffset: {x: -0, y: -0, z: -0}
+  - MapName: prefab_Garbage_container
+    Path: Assets/_Project/Prefabs/Garbage_container.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: -0, y: -1.0024695, z: -0.00000011920929}
+  - MapName: prefab_lantern
+    Path: Assets/_Project/Prefabs/lantern.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: 0.75695246, y: -2.1092105, z: -0}
   - MapName: Mapping/timber_square_clay
     Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_clay.mat
     FullTypeName: UnityEngine.Material
@@ -1358,5 +1378,13 @@ MonoBehaviour:
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Lit
     Path: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: garbage_container_diffuse
+    Path: Assets/_Project/Materials/garbage_container_diffuse.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: lantern_diffuse
+    Path: Assets/_Project/Materials/lantern_diffuse.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}

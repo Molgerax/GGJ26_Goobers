@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GGJ.Inputs
 {
@@ -38,6 +39,31 @@ namespace GGJ.Inputs
             _input = new PlayerInputActions();
             _input.Enable();
         }
+
+        public static void SetCursorLocked(bool value)
+        {
+            if (value)
+                Cursor.lockState = CursorLockMode.Locked;
+            else
+                Cursor.lockState = CursorLockMode.None;
+        }
+
+        public static void SetMoveInputs(bool value)
+        {
+            SetActionEnable(_input.Player.Crouch, value);
+            SetActionEnable(_input.Player.Move, value);
+            SetActionEnable(_input.Player.Look, value);
+            SetActionEnable(_input.Player.Jump, value);
+        }
+
+        private static void SetActionEnable(InputAction action, bool value)
+        {
+            if (value)
+                action.Enable();
+            else 
+                action.Disable();
+        }
+        
 
         private void Awake()
         {

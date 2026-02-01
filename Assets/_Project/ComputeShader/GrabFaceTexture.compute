@@ -1,0 +1,105 @@
+#pragma kernel GrabFaceTexture
+#pragma kernel StackFaceTexture
+#pragma kernel Clear
+
+
+Texture2D<float4> _ReadTexture;
+RWTexture2D<float4> _WriteTexture;
+
+float2 _RemoveUv;
+float _RemoveRadius;
+
+uint _ReadResolution;
+uint _WriteResolution;
+
+SamplerState sampler_point_clamp;
+
+
+float2 remapUv(float2 uv, float2 minimum, float2 maximum)
+{
+    return (uv - minimum) / (maximum - minimum);
+}
+
+
+
+[numthreads(8,8,1)]
+void GrabFaceTexture (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _WriteResolution || id.y >= _WriteResolution)
+        return;
+
+    float2 uv = 0;
+    uv = (id.xy + 0.5) / _WriteResolution;
+    
+    float2 readUv = (uv - 0.5) * _WriteResolution;
+    readUv /= _ReadResolution;
+    readUv = (readUv + _RemoveUv);
+    
+    float4 sampleRead = _ReadTexture.SampleLevel(sampler_point_clamp, readUv, 0);
+
+    uv = floor((uv - 0.5) * _WriteResolution);
+
+    float cutoff = step(_RemoveRadius, length(uv));
+
+    sampleRead *= 1 - cutoff;
+    
+    _WriteTexture[id.xy] = sampleRead;
+}
+
+
+
+[numthreads(8,8,1)]
+void StackFaceTexture (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _WriteResolution || id.y >= _WriteResolution)
+        return;
+
+    float2 uv = 0;
+    uv = (id.xy + 0.5) / _WriteResolution;
+    
+    float2 readUv = (uv - 0.5) * 128;
+    readUv /= _ReadResolution;
+    readUv += 0.5;
+    readUv -= (_RemoveUv * 2 - 1);
+
+
+    
+    float4 sampleRead = _ReadTexture.SampleLevel(sampler_point_clamp, readUv, 0);
+
+    float2 offset = float2(1.0 / _ReadResolution, 0);
+    float4 read01 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv - offset.xy, 0);
+    float4 read10 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv - offset.yx, 0);
+    float4 read21 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv + offset.xy, 0);
+    float4 read12 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv + offset.yx, 0);
+
+    float4 sum = read01 + read10 +read12 +read21;
+
+    float blood = 0;
+    if (sampleRead.a < 1 && sum.a > 0)
+        blood = 1;
+
+    
+    float2 uvOut = step(0, readUv) * (1 -step(1, readUv));
+    float cutoff = uvOut.x * uvOut.y;
+    
+    float4 writeColor = _WriteTexture[id.xy];
+
+    writeColor = lerp(writeColor, float4(0.7, 0, 0, 1), blood);
+    
+    float4 finalColor = lerp(writeColor, sampleRead, sampleRead.a * cutoff);
+
+    _WriteTexture[id.xy] = finalColor;
+}
+
+
+
+
+[numthreads(8,8,1)]
+void Clear (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _WriteResolution || id.y >= _WriteResolution)
+        return;
+
+    _WriteTexture[id.xy] = 0;
+}
+
