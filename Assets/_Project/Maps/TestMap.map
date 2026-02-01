@@ -7354,6 +7354,218 @@
 }
 // entity 151
 {
+"classname" "prefab_character"
+"origin" "256 576 -128"
+"expression" "Joy"
+}
+// entity 152
+{
+"classname" "prefab_character"
+"origin" "-1072 496 -112"
+"expression" "Sadness"
+}
+// entity 153
+{
+"classname" "prefab_character"
+"origin" "-1696 832 -112"
+"expression" "Sadness"
+}
+// entity 154
+{
+"classname" "prefab_character"
+"origin" "-1392 912 -112"
+"expression" "Sadness"
+"angles" "0 90 0"
+}
+// entity 155
+{
+"classname" "prefab_character"
+"origin" "-1264 480 -112"
+"angles" "0 -75 0"
+"expression" "Sadness"
+}
+// entity 156
+{
+"classname" "prefab_character"
+"origin" "864 1472 -112"
+"angles" "0 120 0"
+"expression" "Joy"
+}
+// entity 157
+{
+"classname" "prefab_character"
+"origin" "880 1600 -112"
+"expression" "Joy"
+}
+// entity 158
+{
+"classname" "prefab_character"
+"origin" "2128 -480 -128"
+"expression" "Joy"
+}
+// entity 159
+{
+"classname" "prefab_character"
+"origin" "1632 -512 -128"
+"angles" "0 -90 0"
+"expression" "Joy"
+}
+// entity 160
+{
+"classname" "prefab_character"
+"origin" "1456 -960 -16"
+"expression" "Disgust"
+}
+// entity 161
+{
+"classname" "prefab_character"
+"origin" "2992 1200 -128"
+"angles" "0 -15 0"
+"expression" "Surprise"
+}
+// entity 162
+{
+"classname" "prefab_character"
+"origin" "2576 1008 -112"
+"expression" "Fear"
+"angles" "0 45 0"
+}
+// entity 163
+{
+"classname" "prefab_character"
+"origin" "688 -448 -176"
+"angles" "0 -120 0"
+"expression" "Anger"
+}
+// entity 164
+{
+"classname" "prefab_character"
+"origin" "560 -464 -176"
+"expression" "Anger"
+"angles" "0 165 0"
+}
+// entity 165
+{
+"classname" "prefab_character"
+"origin" "-624 -1728 -128"
+"expression" "Fear"
+"angles" "0 150 0"
+}
+// entity 166
+{
+"classname" "prefab_character"
+"origin" "-1616 -1152 -128"
+"angles" "0 45 0"
+"expression" "Surprise"
+}
+// entity 167
+{
+"classname" "prefab_character"
+"origin" "-1584 -656 -64"
+"angles" "0 45 0"
+"expression" "Anger"
+}
+// entity 168
+{
+"classname" "prefab_character"
+"origin" "-1488 -624 -64"
+"angles" "0 -45 0"
+"expression" "Anger"
+}
+// entity 169
+{
+"classname" "prefab_character"
+"origin" "640 -976 -192"
+"expression" "Disgust"
+"angles" "0 -60 0"
+}
+// entity 170
+{
+"classname" "prefab_character"
+"origin" "368 2560 -128"
+"expression" "Fear"
+}
+// entity 171
+{
+"classname" "prefab_character"
+"origin" "384 2480 -128"
+"angles" "0 -165 0"
+"expression" "Anger"
+}
+// entity 172
+{
+"classname" "prefab_character"
+"origin" "1392 2224 -128"
+"expression" "Disgust"
+}
+// entity 173
+{
+"classname" "prefab_character"
+"origin" "1600 368 -128"
+"expression" "Sadness"
+}
+// entity 174
+{
+"classname" "prefab_character"
+"origin" "272 -1632 -128"
+"angles" "0 -75 0"
+"expression" "Surprise"
+}
+// entity 175
+{
+"classname" "prefab_character"
+"origin" "176 -1696 -128"
+"expression" "Joy"
+"angles" "0 135 0"
+}
+// entity 176
+{
+"classname" "prefab_character"
+"origin" "-688 -512 16"
+"expression" "Joy"
+}
+// entity 177
+{
+"classname" "prefab_character"
+"origin" "-1056 -560 16"
+"angles" "0 45 0"
+"expression" "Anger"
+}
+// entity 178
+{
+"classname" "prefab_character"
+"origin" "-976 -1440 -128"
+"angles" "0 105 0"
+"expression" "Disgust"
+}
+// entity 179
+{
+"classname" "prefab_character"
+"origin" "1968 -1136 -16"
+"angles" "0 -135 0"
+"expression" "Sadness"
+}
+// entity 180
+{
+"classname" "prefab_character"
+"origin" "1168 1360 -128"
+"angles" "0 -120 0"
+"expression" "Surprise"
+}
+// entity 181
+{
+"classname" "prefab_character"
+"origin" "-176 1520 -128"
+"expression" "Anger"
+}
+// entity 182
+{
+"classname" "prefab_character"
+"origin" "240 -928 -128"
+"expression" "Fear"
+}
+// entity 183
+{
 "classname" "func_group"
 "_tb_type" "_tb_layer"
 "_tb_name" "Entities"
