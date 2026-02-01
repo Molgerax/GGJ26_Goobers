@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f67ba4e5ae4f9e9468a5d2ebf30d94, type: 3}
   m_Name: Mak_Sadness
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.FaceTexture
-  texture: {fileID: 2800000, guid: df370f9a93fe8f84d80e9fc549648efc, type: 3}
+  texture: {fileID: 2800000, guid: 1acce747add28ac4e8e09ce1a6071bfd, type: 3}
   expression: 2

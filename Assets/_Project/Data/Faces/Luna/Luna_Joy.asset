@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f67ba4e5ae4f9e9468a5d2ebf30d94, type: 3}
   m_Name: Luna_Joy
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.FaceTexture
-  texture: {fileID: 2800000, guid: 171d8a606eef741448ccdb082e1bac98, type: 3}
+  texture: {fileID: 2800000, guid: 5f2fc2cc8d1562849b3ed4d1642195b7, type: 3}
   expression: 1
