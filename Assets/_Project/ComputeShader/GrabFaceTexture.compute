@@ -9,8 +9,8 @@ RWTexture2D<float4> _WriteTexture;
 float2 _RemoveUv;
 float _RemoveRadius;
 
-int _ReadResolution;
-int _WriteResolution;
+uint _ReadResolution;
+uint _WriteResolution;
 
 SamplerState sampler_point_clamp;
 
@@ -61,13 +61,30 @@ void StackFaceTexture (uint3 id : SV_DispatchThreadID)
     readUv /= _ReadResolution;
     readUv += 0.5;
     readUv -= (_RemoveUv * 2 - 1);
+
+
     
     float4 sampleRead = _ReadTexture.SampleLevel(sampler_point_clamp, readUv, 0);
 
-    float2 uvOut = step(0, readUv) * (step(readUv, 1));
+    float2 offset = float2(1.0 / _ReadResolution, 0);
+    float4 read01 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv - offset.xy, 0);
+    float4 read10 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv - offset.yx, 0);
+    float4 read21 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv + offset.xy, 0);
+    float4 read12 = _ReadTexture.SampleLevel(sampler_point_clamp, readUv + offset.yx, 0);
+
+    float4 sum = read01 + read10 +read12 +read21;
+
+    float blood = 0;
+    if (sampleRead.a < 1 && sum.a > 0)
+        blood = 1;
+
+    
+    float2 uvOut = step(0, readUv) * (1 -step(1, readUv));
     float cutoff = uvOut.x * uvOut.y;
     
     float4 writeColor = _WriteTexture[id.xy];
+
+    writeColor = lerp(writeColor, float4(0.7, 0, 0, 1), blood);
     
     float4 finalColor = lerp(writeColor, sampleRead, sampleRead.a * cutoff);
 
