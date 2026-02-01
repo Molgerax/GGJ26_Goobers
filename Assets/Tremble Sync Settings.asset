@@ -865,6 +865,42 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: c5323daa808e36a4496c2075308efd2e, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 0c77dd4bfe3e3b14ca886cec46282530, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 8f8d15ee602cbeb41af3e7eafc6bc322, type: 2}
+    m_ExportMode: 1
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ce52929b1fe56b64fbfee6c8f0249d19, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 4598c12b535181a4b9916ec90ae8cc68, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: f0af2038f0a667e48b9308eff9462ce6, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -896,10 +932,18 @@ MonoBehaviour:
   m_ExportClipSkipTextures: 1
   m_ImportScale: 0.015625
   m_AssetMetadatas:
+  - MapName: prefab_character
+    Path: Assets/_Project/Prefabs/Characters/CharacterNPC.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: -0, y: -1, z: -0}
   - MapName: misc_Door
     Path: Assets/_Project/Prefabs/Door.prefab
     FullTypeName: UnityEngine.GameObject
-    SpawnOffset: {x: -0, y: -0, z: -0}
+    SpawnOffset: {x: 0.17249997, y: 1.1500002, z: -0.82500005}
+  - MapName: prefab_Fence
+    Path: Assets/_Project/Prefabs/Fence.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: 10.126657, y: -1.0362239, z: -2.059472}
   - MapName: prefab_Garbage_container
     Path: Assets/_Project/Prefabs/Garbage_container.prefab
     FullTypeName: UnityEngine.GameObject
@@ -908,6 +952,46 @@ MonoBehaviour:
     Path: Assets/_Project/Prefabs/lantern.prefab
     FullTypeName: UnityEngine.GameObject
     SpawnOffset: {x: 0.75695246, y: -2.1092105, z: -0}
+  - MapName: prefab_Tree
+    Path: Assets/_Project/Prefabs/Tree.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: -0, y: -2, z: 0.00000023841858}
+  - MapName: prefab_Window
+    Path: Assets/_Project/Prefabs/Window.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: 0.09999998, y: -0.099999845, z: -0.000000029802322}
+  - MapName: Freya
+    Path: Assets/_Project/Data/Faces/Freya/Freya.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Johannes
+    Path: Assets/_Project/Data/Faces/Johannes/Johannes.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Konrad
+    Path: Assets/_Project/Data/Faces/Konrad/Konrad.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Luna
+    Path: Assets/_Project/Data/Faces/Luna/Luna.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Mak
+    Path: Assets/_Project/Data/Faces/Mak/Mak.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Niklas
+    Path: Assets/_Project/Data/Faces/Niklas/Niklas.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Simon
+    Path: Assets/_Project/Data/Faces/Simon/Simon.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Till
+    Path: Assets/_Project/Data/Faces/Till/Till.asset
+    FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Mapping/timber_square_clay
     Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_clay.mat
     FullTypeName: UnityEngine.Material
@@ -1376,8 +1460,20 @@ MonoBehaviour:
     Path: Assets/_Project/Materials/KenneyRetroTextures/door_metal_frame.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
-  - MapName: Lit
-    Path: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+  - MapName: Npc_Face
+    Path: Assets/_Project/Materials/Faces/Npc_Face.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: M_brown_wood
+    Path: Assets/_Project/Materials/M_brown_wood.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: M_window_inside
+    Path: Assets/_Project/Materials/M_window_inside.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: FenceMaterial
+    Path: Assets/_Project/Materials/Materials/FenceMaterial.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: garbage_container_diffuse
@@ -1386,5 +1482,13 @@ MonoBehaviour:
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: lantern_diffuse
     Path: Assets/_Project/Materials/lantern_diffuse.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: tree
+    Path: Assets/_Project/Materials/tree.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: M_green_wood
+    Path: Assets/_Project/Materials/M_green_wood.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
