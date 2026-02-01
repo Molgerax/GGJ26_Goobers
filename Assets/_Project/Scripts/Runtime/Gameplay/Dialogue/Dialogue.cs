@@ -17,6 +17,8 @@ namespace GGJ
         [SerializeField] private float raydistance = 1;
         [SerializeField] private TMP_FontAsset AlienFont;
         [SerializeField] private PlayerFace face;
+        [SerializeField] private LayerMask layerMask;
+        
         private AudioSource AlienAudioSource;
         private Ray ray;
         private bool is_inDialogue = false;
@@ -53,15 +55,11 @@ namespace GGJ
             if (!is_inDialogue) 
             {
                 // do a raycast 
-                ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward.normalized * raydistance);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+                if (Physics.Raycast(ray, out RaycastHit hit, raydistance, layerMask, QueryTriggerInteraction.Collide))
                 {
-                    if (hit.transform.CompareTag("Character"))
+                    if (hit.transform.TryGetComponent(out CharacterInfo info))
                     {
-                        
-                        Debug.Log("Hit A Character");
-                        CharacterInfo info = hit.transform.GetComponent<CharacterInfo>();
                         if (!info.stopInteract)
                         {
                             if (info.isOneliner) // if it is a oneliner Trigger oneliner

@@ -13,7 +13,7 @@ namespace GGJ.Mapping.BrushEntities
         [SerializeField] private Expression requireExpression = Expression.Neutral;
         [SerializeField, Range(0, 1)] private float expressionAmount = 0;
         
-        [SerializeField, NoTremble] private bool _triggered = false;
+        private bool _triggered = false;
         
         private void OnTriggerEnter(Collider other)
         {
