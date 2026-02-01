@@ -6704,6 +6704,60 @@
 }
 // entity 35
 {
+"classname" "prefab_lantern"
+"origin" "-200 437 -57"
+"angles" "0 180 0"
+}
+// entity 36
+{
+"classname" "prefab_lantern"
+"origin" "-200 1045 -57"
+"angles" "0 180 0"
+}
+// entity 37
+{
+"classname" "prefab_lantern"
+"origin" "-216 1877 -57"
+"angles" "0 180 0"
+}
+// entity 38
+{
+"classname" "prefab_lantern"
+"origin" "-216 2277 -57"
+"angles" "0 180 0"
+}
+// entity 39
+{
+"classname" "prefab_lantern"
+"origin" "-1080 1413 -57"
+"angles" "0 180 0"
+}
+// entity 40
+{
+"classname" "prefab_lantern"
+"origin" "-648 1621 -57"
+"angles" "0 0 0"
+}
+// entity 41
+{
+"classname" "prefab_lantern"
+"origin" "-984 965 -57"
+"angles" "0 45 0"
+}
+// entity 42
+{
+"classname" "prefab_lantern"
+"origin" "-1704 437 -57"
+"angles" "0 -150 0"
+}
+// entity 43
+{
+"classname" "prefab_lantern"
+"origin" "2920 763 -57"
+"angles" "0 45 0"
+}
+// entity 44
+{
 "classname" "func_group"
 "_tb_type" "_tb_layer"
 "_tb_name" "Entities"
