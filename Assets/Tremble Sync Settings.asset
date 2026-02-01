@@ -941,7 +941,7 @@ MonoBehaviour:
   - MapName: prefab_character
     Path: Assets/_Project/Prefabs/Characters/CharacterNPC.prefab
     FullTypeName: UnityEngine.GameObject
-    SpawnOffset: {x: -0, y: -0.9999596, z: -0.044621825}
+    SpawnOffset: {x: -0, y: -0.93029714, z: 0.0923315}
   - MapName: misc_Door
     Path: Assets/_Project/Prefabs/Door.prefab
     FullTypeName: UnityEngine.GameObject
@@ -1000,6 +1000,14 @@ MonoBehaviour:
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Bouncer
     Path: Assets/_Project/Data/Dialogue/Bouncer.asset
+    FullTypeName: GGJ.DialogueSequence
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Disgusted_Slime
+    Path: Assets/_Project/Data/Dialogue/Disgusted_Slime.asset
+    FullTypeName: GGJ.DialogueSequence
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Fear_Armed
+    Path: Assets/_Project/Data/Dialogue/Fear_Armed.asset
     FullTypeName: GGJ.DialogueSequence
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: John

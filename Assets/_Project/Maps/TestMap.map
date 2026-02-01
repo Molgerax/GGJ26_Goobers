@@ -7362,27 +7362,31 @@
 {
 "classname" "prefab_character"
 "origin" "-1072 496 -112"
-"expression" "Sadness"
+"expression" "Sad"
+"person" "Luna"
 }
 // entity 153
 {
 "classname" "prefab_character"
 "origin" "-1696 832 -112"
-"expression" "Sadness"
+"expression" "Sad"
+"person" "Freya"
 }
 // entity 154
 {
 "classname" "prefab_character"
 "origin" "-1392 912 -112"
-"expression" "Sadness"
+"expression" "Sad"
 "angles" "0 90 0"
+"person" "Konrad"
 }
 // entity 155
 {
 "classname" "prefab_character"
 "origin" "-1264 480 -112"
 "angles" "0 -75 0"
-"expression" "Sadness"
+"expression" "Sad"
+"person" "Mak"
 }
 // entity 156
 {
@@ -7402,6 +7406,7 @@
 "classname" "prefab_character"
 "origin" "2128 -480 -128"
 "expression" "Joy"
+"person" "Luna"
 }
 // entity 159
 {
@@ -7409,12 +7414,14 @@
 "origin" "1632 -512 -128"
 "angles" "0 -90 0"
 "expression" "Joy"
+"person" "Konrad"
 }
 // entity 160
 {
 "classname" "prefab_character"
 "origin" "1456 -960 -16"
 "expression" "Disgust"
+"person" "Simon"
 }
 // entity 161
 {
@@ -7436,6 +7443,7 @@
 "origin" "688 -448 -176"
 "angles" "0 -120 0"
 "expression" "Anger"
+"person" "Luna"
 }
 // entity 164
 {
@@ -7443,6 +7451,7 @@
 "origin" "560 -464 -176"
 "expression" "Anger"
 "angles" "0 165 0"
+"person" "Mak"
 }
 // entity 165
 {
@@ -7450,6 +7459,7 @@
 "origin" "-624 -1728 -128"
 "expression" "Fear"
 "angles" "0 150 0"
+"person" "Till"
 }
 // entity 166
 {
@@ -7464,6 +7474,7 @@
 "origin" "-1584 -656 -64"
 "angles" "0 45 0"
 "expression" "Anger"
+"person" "Mak"
 }
 // entity 168
 {
@@ -7471,6 +7482,7 @@
 "origin" "-1488 -624 -64"
 "angles" "0 -45 0"
 "expression" "Anger"
+"person" "Till"
 }
 // entity 169
 {
@@ -7478,6 +7490,7 @@
 "origin" "640 -976 -192"
 "expression" "Disgust"
 "angles" "0 -60 0"
+"person" "Simon"
 }
 // entity 170
 {
@@ -7502,7 +7515,8 @@
 {
 "classname" "prefab_character"
 "origin" "1600 368 -128"
-"expression" "Sadness"
+"expression" "Sad"
+"person" "Mak"
 }
 // entity 174
 {
@@ -7510,6 +7524,7 @@
 "origin" "272 -1632 -128"
 "angles" "0 -75 0"
 "expression" "Surprise"
+"person" "Niklas"
 }
 // entity 175
 {
@@ -7530,6 +7545,7 @@
 "origin" "-1056 -560 16"
 "angles" "0 45 0"
 "expression" "Anger"
+"person" "Johannes"
 }
 // entity 178
 {
@@ -7543,7 +7559,8 @@
 "classname" "prefab_character"
 "origin" "1968 -1136 -16"
 "angles" "0 -135 0"
-"expression" "Sadness"
+"expression" "Sad"
+"person" "Till"
 }
 // entity 180
 {
@@ -7563,13 +7580,71 @@
 "classname" "prefab_character"
 "origin" "240 -928 -128"
 "expression" "Fear"
+"person" "Freya"
 }
 // entity 183
+{
+"classname" "prefab_character"
+"origin" "-1504 496 -112"
+"angles" "0 165 0"
+"expression" "Sad"
+"person" "Niklas"
+}
+// entity 184
+{
+"classname" "prefab_character"
+"origin" "-1648 496 -112"
+"angles" "0 0 0"
+"expression" "Sad"
+"person" "Simon"
+}
+// entity 185
+{
+"classname" "prefab_character"
+"origin" "-1696 736 -112"
+"angles" "0 -30 0"
+"expression" "Sad"
+"person" "Till"
+}
+// entity 186
 {
 "classname" "func_group"
 "_tb_type" "_tb_layer"
 "_tb_name" "Entities"
 "_tb_id" "1"
 "_tb_layer_sort_index" "0"
-"_tb_layer_locked" "1"
+}
+// entity 187
+{
+"classname" "prefab_character"
+"origin" "799.5 158 -132.5"
+"person" "Konrad"
+"expression" "Fear"
+"_tb_layer" "1"
+}
+// entity 188
+{
+"classname" "prefab_character"
+"origin" "-448.5 -1186 -132.5"
+"person" "Simon"
+"expression" "Sad"
+"_tb_layer" "1"
+}
+// entity 189
+{
+"classname" "prefab_character"
+"origin" "-544.5 -1234 -132.5"
+"person" "Johannes"
+"expression" "Sad"
+"angles" "0 60 0"
+"_tb_layer" "1"
+}
+// entity 190
+{
+"classname" "prefab_character"
+"origin" "-384.5 -1250 -132.5"
+"person" "Konrad"
+"expression" "Sad"
+"angles" "0 -60 0"
+"_tb_layer" "1"
 }
