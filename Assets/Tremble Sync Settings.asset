@@ -901,6 +901,12 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: 5561349426305759274, guid: e7eda39fe71421b4c83d7b6ba4e2bc5b, type: 3}
+    m_ExportMode: 1
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -935,7 +941,7 @@ MonoBehaviour:
   - MapName: prefab_character
     Path: Assets/_Project/Prefabs/Characters/CharacterNPC.prefab
     FullTypeName: UnityEngine.GameObject
-    SpawnOffset: {x: -0, y: -1, z: -0}
+    SpawnOffset: {x: -0, y: -0.9999596, z: -0.044621825}
   - MapName: misc_Door
     Path: Assets/_Project/Prefabs/Door.prefab
     FullTypeName: UnityEngine.GameObject
@@ -991,6 +997,26 @@ MonoBehaviour:
   - MapName: Till
     Path: Assets/_Project/Data/Faces/Till/Till.asset
     FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Bouncer
+    Path: Assets/_Project/Data/Dialogue/Bouncer.asset
+    FullTypeName: GGJ.DialogueSequence
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: John
+    Path: Assets/_Project/Data/Dialogue/John.asset
+    FullTypeName: GGJ.DialogueSequence
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: JoMAMA
+    Path: Assets/_Project/Data/Dialogue/JoMAMA.asset
+    FullTypeName: GGJ.DialogueSequence
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Joy_Oneliner
+    Path: Assets/_Project/Data/Dialogue/Joy_Oneliner.asset
+    FullTypeName: GGJ.DialogueSequence
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Sad_Oneliner
+    Path: Assets/_Project/Data/Dialogue/Sad_Oneliner.asset
+    FullTypeName: GGJ.DialogueSequence
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Mapping/timber_square_clay
     Path: Assets/_Project/Materials/KenneyRetroTextures/timber_square_clay.mat
@@ -1462,6 +1488,10 @@ MonoBehaviour:
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Npc_Face
     Path: Assets/_Project/Materials/Faces/Npc_Face.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Anger
+    Path: Assets/AnimationMaterials/Animations/FBX/Human/Anger.fbx
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: M_brown_wood
