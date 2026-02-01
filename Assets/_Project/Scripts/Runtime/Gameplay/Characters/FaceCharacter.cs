@@ -23,6 +23,13 @@ namespace GGJ.Gameplay.Characters
                 animator.SetTrigger(expression.ToString());
         }
 
+
+        private void Update()
+        {
+            if (animator)
+                animator.SetTrigger(expression.ToString());
+        }
+
         public override void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {
             if (face && faceTextureCollection)

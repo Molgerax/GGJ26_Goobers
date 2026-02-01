@@ -21,6 +21,8 @@ namespace GGJ.Gameplay.Player
 
         [SerializeField] private LayerMask alienFaceMask;
 
+        [SerializeField] private Animator animator;
+        
         private GrabbedFacePart _currentGrabbedFace;
         
         private Camera _camera;
@@ -78,6 +80,9 @@ namespace GGJ.Gameplay.Player
                     SetFaceOffOnMesh(faceTest);
 
                     _currentGrabbedFace = new GrabbedFacePart(grabbedFace.FaceTexture.Expression, uv, grabRadius);
+                    
+                    if (animator)
+                        animator.SetTrigger("Grab");
                     
                     PlayerInput.SetCursorLocked(false);
                     PlayerInput.SetMoveInputs(false);

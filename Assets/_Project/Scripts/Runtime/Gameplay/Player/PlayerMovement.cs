@@ -13,6 +13,7 @@ namespace GGJ.Gameplay.Player
         
         [SerializeField] private Transform cameraChild;
 
+        [SerializeField] private Animator animator;
         private QuakeCharacterController _quakeController;
         
         private void Awake()
@@ -45,6 +46,10 @@ namespace GGJ.Gameplay.Player
         private void HandleMovement()
         {
             Vector2 moveInput = PlayerInput.Move;
+            
+            if (animator)
+                animator.SetBool("Walk", moveInput.magnitude > 0.1f);
+            
             Vector3 moveDir = transform.rotation * new Vector3(moveInput.x, 0, moveInput.y);
             _quakeController.Move(moveDir);
             _quakeController.ControllerThink(Time.deltaTime);
