@@ -1,23 +1,27 @@
 ﻿using GGJ.Gameplay.Faces;
+using GGJ.Mapping;
 using TinyGoose.Tremble;
 using UnityEngine;
 
 namespace GGJ.Gameplay.Characters
 {
     [PrefabEntity("character")]
-    public class FaceCharacter : MonoBehaviour, IOnImportFromMapEntity
+    public class FaceCharacter : TriggerSender
     {
         [SerializeField, Tremble("person")] private FaceTextureCollection faceTextureCollection;
         [SerializeField, Tremble("expression")] private FaceExpression expression = FaceExpression.Joy;
+        [SerializeField, Tremble("dialogue")] private DialogueSequence dialogueSequence;
 
         [SerializeField, NoTremble] private Face face;
-
-        public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
+        [SerializeField, NoTremble] private CharacterInfo characterInfo;
+        
+        public override void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {
-            if (!face || !faceTextureCollection)
-                return;
-            
-            face.SetFace(faceTextureCollection.GetFromExpression(expression));
+            if (face && faceTextureCollection)
+                face.SetFace(faceTextureCollection.GetFromExpression(expression));
+
+            if (characterInfo && dialogueSequence)
+                characterInfo.sequence = dialogueSequence;
         }
     }
 }

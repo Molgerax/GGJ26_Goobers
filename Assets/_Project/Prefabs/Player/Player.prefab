@@ -485,10 +485,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Dialogue
   DialogueUI: {fileID: 0}
   UITextMeshPro: {fileID: 0}
-  TextSpeed: 1
+  TextSpeed: 0.025
   raydistance: 5
   AlienFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   face: {fileID: 5605789256493807069}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &4980685827264621337
 PrefabInstance:
   m_ObjectHideFlags: 0

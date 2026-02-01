@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2904277854938386215}
   - component: {fileID: 1490169248461238692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CharacterNPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4529692855242557129}
+  - {fileID: 2356504493263650671}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1490169248461238692
@@ -45,9 +46,185 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8f388311654c258dd4db577d05d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Characters.FaceCharacter
-  faceTextureCollection: {fileID: 0}
+  targets: []
+  faceTextureCollection: {fileID: 11400000, guid: 9c77b9f6490f59842b8dc4aa925ff311, type: 2}
   expression: 0
+  dialogueSequence: {fileID: 11400000, guid: 479f7ea2cb109104eb573203471dc756, type: 2}
   face: {fileID: 2897336484683525919}
+  characterInfo: {fileID: 3568758488219732179}
+--- !u!1 &605677627328468232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2356504493263650671}
+  - component: {fileID: 5089655399209968535}
+  - component: {fileID: 3197930238986562175}
+  - component: {fileID: 3568758488219732179}
+  m_Layer: 9
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2356504493263650671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605677627328468232}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2904277854938386215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5089655399209968535
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605677627328468232}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &3197930238986562175
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605677627328468232}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &3568758488219732179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605677627328468232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8141d8e23024a7e4d9f445c6e32eda4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.CharacterInfo
+  characterName: TestCharacter
+  OneLinerPrefab: {fileID: 7427679970951972927, guid: 396c26dbe1fd8644b8ef927f296fc48e, type: 3}
+  sequence: {fileID: 11400000, guid: f5f6ca09a2e2278448f2015823abeaff, type: 2}
+  audioSource: {fileID: 3197930238986562175}
+  currentIndex: 0
+  isOneliner: 0
+  stopInteract: 0
 --- !u!1 &2099377541922902964
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +238,7 @@ GameObject:
   - component: {fileID: 9081561859625290915}
   - component: {fileID: 2690388699526588851}
   - component: {fileID: 2897336484683525919}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TestFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,5 +351,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4d0e15e220c404dbcccd74c9987654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Faces.Face
-  faceTexture: {fileID: 0}
+  faceTexture: {fileID: 11400000, guid: ddaaf2146a493ee478aafcbf775eec72, type: 2}
   faceMeshRenderer: {fileID: 9081561859625290915}
