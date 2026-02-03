@@ -664,7 +664,14 @@ namespace TinyGoose.Tremble
 
 					GameObject pointEntity = new(pointClass);
 					pointEntity.transform.SetParent(parentTransform);
-					SetTransformValuesFromEntity(pointEntity, entity);
+
+					Vector3 offset = Vector3.zero;
+					if (TrembleAssetLoader.TryGetAssetDataFromMapName(pointClass, out AssetMetadata metadata))
+					{
+						offset = metadata.SpawnOffset;
+					}
+					
+					SetTransformValuesFromEntity(pointEntity, entity, offset);
 					SetObjectName(root, pointEntity, entity);
 
 					// Find type
