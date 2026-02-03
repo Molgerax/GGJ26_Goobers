@@ -538,7 +538,7 @@ PrefabInstance:
     - target: {fileID: -7758992303833721445, guid: 53cad4801cc64ab48bdc1389fbd16db0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 27c2245b4a230654c866fafff9776b55, type: 2}
+      objectReference: {fileID: 2100000, guid: bc7e137a7d9e5ae4a863e565bb3e665b, type: 2}
     - target: {fileID: -7511558181221131132, guid: 53cad4801cc64ab48bdc1389fbd16db0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -664,6 +664,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 5f31da1cf78c70841982fd68e697e833, type: 2}
+    - target: {fileID: 8522293372616274567, guid: f0a0b9ec9a5ab364db51cf09e84c0c5f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 788c3f6884e7fed4a9b4f44b45567174, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -720,6 +724,9 @@ MonoBehaviour:
         _Z: 0
         _W: 0
         _Object: {fileID: 0}
+    - _Target: {fileID: 5848258470988043610}
+      _MemberName: RemoveFromFaceDelayed
+      _PersistentArguments: []
   onApply:
     _PersistentCalls:
     - _Target: {fileID: 1122537401199483935}

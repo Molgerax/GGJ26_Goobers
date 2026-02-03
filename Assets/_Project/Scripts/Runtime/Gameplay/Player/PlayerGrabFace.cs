@@ -26,8 +26,11 @@ namespace GGJ.Gameplay.Player
         private GrabbedFacePart _currentGrabbedFace;
         
         private Camera _camera;
-        
 
+        private GrabbedFacePart _visualGrabbedFace;
+
+        private Face _cachedGrabbedFace;
+        
         private void OnEnable()
         {
             PlayerInput.Input.Player.Attack.performed += OnAttack;
@@ -76,11 +79,14 @@ namespace GGJ.Gameplay.Player
                     Vector2 uv = hitInfo.textureCoord;
                     GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
                     GrabTextureIntoRenderTexture.TransferTexture(transferCompute, uv, grabRadius, grabbedFace.FaceTexture.Texture, texture);
-                    grabbedFace.RemoveFromFace(uv, grabRadius);
+
+                    _cachedGrabbedFace = grabbedFace;
+                    //grabbedFace.RemoveFromFace(uv, grabRadius);
                     
                     SetFaceOffOnMesh(faceTest);
 
                     _currentGrabbedFace = new GrabbedFacePart(grabbedFace.FaceTexture.Expression, uv, grabRadius);
+                    _visualGrabbedFace = _currentGrabbedFace;
                     
                     if (animator)
                         animator.SetTrigger("Grab");
@@ -120,7 +126,15 @@ namespace GGJ.Gameplay.Player
             PlayerInput.SetCursorLocked(true);
             PlayerInput.SetMoveInputs(true);
         }
-        
+
+        public void RemoveFromFaceDelayed()
+        {
+            if (!_cachedGrabbedFace || _visualGrabbedFace.Radius == 0)
+                return;
+            
+            _cachedGrabbedFace.RemoveFromFace(_visualGrabbedFace.UV, _visualGrabbedFace.Radius);
+            _visualGrabbedFace = default;
+        }
 
         private void SetHighlight()
         {

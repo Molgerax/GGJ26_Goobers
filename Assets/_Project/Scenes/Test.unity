@@ -2353,10 +2353,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2719101896916903196, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 788c3f6884e7fed4a9b4f44b45567174, type: 2}
     - target: {fileID: 4404566939518478764, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: DialogueUI
       value: 
@@ -2365,10 +2361,6 @@ PrefabInstance:
       propertyPath: UITextMeshPro
       value: 
       objectReference: {fileID: 256014506}
-    - target: {fileID: 5858187804670852738, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: bc7e137a7d9e5ae4a863e565bb3e665b, type: 2}
     - target: {fileID: 8322476873672220204, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: m_Name
       value: Player
