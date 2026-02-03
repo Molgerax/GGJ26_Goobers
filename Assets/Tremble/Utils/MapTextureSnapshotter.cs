@@ -82,6 +82,14 @@ namespace TinyGoose.Tremble
 					resolutions.Add(res);
 			}
 
+			for (int i = 0; i < 10; i++)
+			{
+				int power = 1 << i;
+				Vector2Int r = Vector2Int.one * power; 
+				if (!resolutions.Contains(r))
+					resolutions.Add(r);
+			}
+
 			foreach (Vector2Int res in resolutions)
 			{
 				RenderTexture rt = new(res.x, res.y, 8, GraphicsFormat.R8G8B8A8_UNorm);
