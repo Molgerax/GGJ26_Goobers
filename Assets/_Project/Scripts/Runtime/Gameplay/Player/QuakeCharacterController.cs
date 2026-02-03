@@ -56,7 +56,11 @@ namespace QuakeLR
         public bool OnGround => m_OnGround;
         public LayerMask GroundLayers => GroundMask;
         public CharacterController CharacterController => m_CharacterController;
-        public Vector3 Velocity => m_Velocity;
+        public Vector3 Velocity
+        {
+            get => m_Velocity;
+            set => m_Velocity = value;
+        }
         
         private static readonly Vector3 k_XZPlane = new Vector3(1.0f, 0.0f, 1.0f);
         

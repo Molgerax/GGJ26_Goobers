@@ -913,6 +913,18 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: -6478536213147159724, guid: 0fb8d68ad912cc44498376bcb8373631, type: 3}
+    m_ExportMode: 1
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: a9199bca40af9b94dac165c296e85d71, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -955,7 +967,7 @@ MonoBehaviour:
   - MapName: prefab_Fence
     Path: Assets/_Project/Prefabs/Fence.prefab
     FullTypeName: UnityEngine.GameObject
-    SpawnOffset: {x: 10.126657, y: -1.0362239, z: -2.059472}
+    SpawnOffset: {x: -0, y: -1.4395738, z: -0.06541738}
   - MapName: prefab_Garbage_container
     Path: Assets/_Project/Prefabs/Garbage_container.prefab
     FullTypeName: UnityEngine.GameObject
@@ -972,6 +984,10 @@ MonoBehaviour:
     Path: Assets/_Project/Prefabs/Window.prefab
     FullTypeName: UnityEngine.GameObject
     SpawnOffset: {x: 0.09999998, y: -0.099999845, z: -0.000000029802322}
+  - MapName: info_teleport_destination
+    Path: Assets/_Project/TrembleVisuals/Info_Arrow.prefab
+    FullTypeName: UnityEngine.GameObject
+    SpawnOffset: {x: -0, y: -1, z: -0}
   - MapName: Freya
     Path: Assets/_Project/Data/Faces/Freya/Freya.asset
     FullTypeName: GGJ.Gameplay.Faces.FaceTextureCollection
@@ -1534,5 +1550,13 @@ MonoBehaviour:
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: M_green_wood
     Path: Assets/_Project/Materials/M_green_wood.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Checker
+    Path: Assets/_Project/TrembleVisuals/Checker.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: Lit
+    Path: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}

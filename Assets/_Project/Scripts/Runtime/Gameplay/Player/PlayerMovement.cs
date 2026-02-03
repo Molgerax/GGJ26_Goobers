@@ -1,3 +1,4 @@
+using GGJ.Mapping.PointEntities;
 using QuakeLR;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,7 +6,7 @@ using PlayerInput = GGJ.Inputs.PlayerInput;
 
 namespace GGJ.Gameplay.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, ITeleportable
     {
         [SerializeField] private float lookSpeed = 5;
 
@@ -72,6 +73,7 @@ namespace GGJ.Gameplay.Player
 
             cameraChild.localEulerAngles = new(pitch, 0, 0);
         }
+        
         public void ToggleMovementForDialogue(bool isPaused)
         {
             if (isPaused)
@@ -82,6 +84,22 @@ namespace GGJ.Gameplay.Player
             {
                 // enable movement
             }
+        }
+
+        public void Teleport(InfoTeleportDestination destination)
+        {
+            Transform t = transform;
+            Vector3 localVelocity = t.InverseTransformVector(_quakeController.Velocity);
+
+            
+            Transform destinationTransform = destination.transform;
+            _quakeController.Velocity = destinationTransform.TransformVector(localVelocity);
+
+            _quakeController.CharacterController.enabled = false;
+            t.position = destinationTransform.position;
+            t.rotation = destinationTransform.rotation;
+            
+            _quakeController.CharacterController.enabled = true;
         }
     }
 }
