@@ -74,6 +74,7 @@ namespace GGJ.Gameplay.Player
                 if (hitInfo.transform.TryGetComponent(out Face grabbedFace))
                 {
                     Vector2 uv = hitInfo.textureCoord;
+                    GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
                     GrabTextureIntoRenderTexture.TransferTexture(transferCompute, uv, grabRadius, grabbedFace.FaceTexture.Texture, texture);
                     grabbedFace.RemoveFromFace(uv, grabRadius);
                     
@@ -111,8 +112,10 @@ namespace GGJ.Gameplay.Player
             face.ApplyFacePart(texture, uv, _currentGrabbedFace);
             
             _currentGrabbedFace = default;
-            GrabTextureIntoRenderTexture.ClearTexture(transferCompute, texture);
-                    
+
+            if (animator)
+                animator.SetTrigger("GrabApply");
+            
             face.SetShaderHighlight(0, Vector2.zero);
             PlayerInput.SetCursorLocked(true);
             PlayerInput.SetMoveInputs(true);
