@@ -907,6 +907,12 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 212e97c8714ba244aa1290c06c665099, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -1498,8 +1504,8 @@ MonoBehaviour:
     Path: Assets/_Project/Materials/Faces/Npc_Face.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
-  - MapName: Anger
-    Path: Assets/AnimationMaterials/Animations/FBX/Human/Anger.fbx
+  - MapName: Character_Shirt
+    Path: Assets/_Project/Materials/Materials/Character/Character_Shirt.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: M_brown_wood

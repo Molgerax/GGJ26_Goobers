@@ -402,6 +402,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3855949241505400612, guid: e7eda39fe71421b4c83d7b6ba4e2bc5b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3855949241505400612, guid: e7eda39fe71421b4c83d7b6ba4e2bc5b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 212e97c8714ba244aa1290c06c665099, type: 2}
+    - target: {fileID: -3855949241505400612, guid: e7eda39fe71421b4c83d7b6ba4e2bc5b, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f32d60924e5bc7e4aae67723c63ab374, type: 2}
+    - target: {fileID: 883152086981610100, guid: e7eda39fe71421b4c83d7b6ba4e2bc5b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 212e97c8714ba244aa1290c06c665099, type: 2}
     - target: {fileID: 919132149155446097, guid: e7eda39fe71421b4c83d7b6ba4e2bc5b, type: 3}
       propertyPath: m_Name
       value: Anger
