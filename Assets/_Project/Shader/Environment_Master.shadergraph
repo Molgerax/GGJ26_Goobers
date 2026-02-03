@@ -357,7 +357,7 @@
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_RenderFace": 2,
+    "m_RenderFace": 0,
     "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
@@ -1056,7 +1056,7 @@
         "m_Guid": ""
     },
     "isMainTexture": true,
-    "useTilingAndOffset": false,
+    "useTilingAndOffset": true,
     "useTexelSize": true,
     "m_Modifiable": true,
     "m_DefaultType": 0
