@@ -24,7 +24,8 @@ namespace GGJ.Mapping.BrushEntities
             
             if (autoTrigger)
             {
-                teleportable.Teleport(destination);
+                TeleportData teleportData = GetTeleportData();
+                teleportable.Teleport(destination, teleportData);
                 return;
             }
             
@@ -43,12 +44,27 @@ namespace GGJ.Mapping.BrushEntities
             _currentTeleportables.Remove(teleportable);
         }
 
+        private TeleportData GetTeleportData()
+        {
+            Transform t = transform;
+            Quaternion localRotation = Quaternion.LookRotation(t.right, t.up);
+            Vector3 position = t.position;
+
+            TeleportData teleportData = new TeleportData()
+            {
+                RelativePosition = position,
+                RelativeRotation = localRotation,
+            };
+
+            return teleportData;
+        }
         
         public void Trigger(TriggerData data)
         {
+            TeleportData teleportData = GetTeleportData();
             foreach (ITeleportable teleportable in _currentTeleportables)
             {
-                teleportable.Teleport(destination);
+                teleportable.Teleport(destination, teleportData);
             }
         }
         

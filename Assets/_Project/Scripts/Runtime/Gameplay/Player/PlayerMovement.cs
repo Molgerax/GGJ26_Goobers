@@ -86,18 +86,41 @@ namespace GGJ.Gameplay.Player
             }
         }
 
-        public void Teleport(InfoTeleportDestination destination)
+        public void Teleport(InfoTeleportDestination destination, TeleportData data)
         {
             Transform t = transform;
             Vector3 localVelocity = t.InverseTransformVector(_quakeController.Velocity);
 
+            Vector3 fwd = t.forward;
+            
+            if (destination.UseRelativeRotation)
+                localVelocity = Quaternion.Inverse(data.RelativeRotation) * _quakeController.Velocity;
             
             Transform destinationTransform = destination.transform;
             _quakeController.Velocity = destinationTransform.TransformVector(localVelocity);
 
+            Quaternion inverse = Quaternion.Inverse(data.RelativeRotation) * t.rotation;
+
+            Vector3 localPosition = t.position - data.RelativePosition;
+            localPosition = Quaternion.Inverse(data.RelativeRotation) * localPosition;
+            
             _quakeController.CharacterController.enabled = false;
-            t.position = destinationTransform.position;
-            t.rotation = destinationTransform.rotation;
+            
+            if (destination.UseRelativePosition)
+                t.position = destinationTransform.position + destinationTransform.rotation * localPosition;
+            else
+                t.position = destinationTransform.position;
+
+            if (destination.UseRelativeRotation)
+                t.rotation = destinationTransform.rotation * inverse;
+            else
+                t.rotation = destinationTransform.rotation;
+
+            Vector3 newForward = t.forward;
+            if (newForward == Vector3.up)
+                newForward = fwd;
+            
+            t.rotation = Quaternion.LookRotation(newForward);
             
             _quakeController.CharacterController.enabled = true;
         }
