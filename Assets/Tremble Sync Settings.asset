@@ -148,7 +148,7 @@ MonoBehaviour:
     Materials:
     - {fileID: 2100000, guid: 42879e820c32a4a4fb2e79ee5ef99fe4, type: 2}
     - {fileID: 2100000, guid: 4cc846e274772334b8ce1327370dde14, type: 2}
-    - {fileID: 2100000, guid: b88f1ec658b555f45a4469e0743d8ec1, type: 2}
+    - {fileID: 2100000, guid: 37f77ece83c9ef84f8c1a2fd1f81afda, type: 2}
   m_MaterialRenderData:
   - m_Material: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     m_ExportMode: 1
@@ -954,6 +954,12 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 37f77ece83c9ef84f8c1a2fd1f81afda, type: 2}
+    m_ExportMode: 1
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -1545,8 +1551,8 @@ MonoBehaviour:
     Path: Assets/_Project/Materials/KenneyRetroTextures/door_metal_frame.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
-  - MapName: special/trigger
-    Path: Assets/_Project/Materials/Mapping/trigger.mat
+  - MapName: special/Trigger
+    Path: Assets/_Project/Materials/Mapping/Trigger.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: special/Skybox
