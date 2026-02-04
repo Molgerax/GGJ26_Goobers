@@ -14,7 +14,7 @@ namespace GGJ.Mapping.PointEntities
 
         private bool _triggered;
         
-        public void Trigger()
+        public void Trigger(TriggerData data)
         {
             if (_triggered)
                 return;

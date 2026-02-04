@@ -14,7 +14,7 @@ namespace GGJ.Mapping.PointEntities
 
         [SerializeField, NoTremble] private List<Component> targetList;
         
-        public void Trigger()
+        public void Trigger(TriggerData data)
         {
             Message m = new Message(message, time, targetList);
             MessageManager.AddMessage(m);

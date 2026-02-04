@@ -44,7 +44,7 @@ namespace GGJ.Mapping.BrushEntities
         }
 
         
-        public void Trigger()
+        public void Trigger(TriggerData data)
         {
             foreach (ITeleportable teleportable in _currentTeleportables)
             {

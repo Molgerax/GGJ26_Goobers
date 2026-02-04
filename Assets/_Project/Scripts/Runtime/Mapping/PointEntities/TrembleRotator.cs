@@ -33,7 +33,7 @@ namespace GGJ.Mapping.PointEntities
             Finished = 2
         }
 
-        public void Trigger()
+        public void Trigger(TriggerData data)
         {
             if (_state != DoorState.Idle)
                 return;

@@ -7,7 +7,7 @@ namespace GGJ.Mapping.PointEntities
     [PointEntity("kill", category:"func", TrembleColors.TrembleKill)]
     public class TrembleKill : MonoBehaviour, ITriggerTarget, IOnImportFromMapEntity
     {
-        public void Trigger()
+        public void Trigger(TriggerData data)
         {
             CoreUtils.Destroy(gameObject);
         }

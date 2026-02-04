@@ -40,7 +40,7 @@ namespace GGJ.Mapping.BrushEntities
             Stopped = 3,
         }
 
-        public void Trigger()
+        public void Trigger(TriggerData data = default)
         {
             if (_state == DoorState.Idle)
             {

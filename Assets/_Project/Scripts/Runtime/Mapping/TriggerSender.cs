@@ -10,9 +10,9 @@ namespace GGJ.Mapping
         
         [Tremble("target")] private ITriggerTarget[] _targets;
 
-        public void SendTrigger()
+        public void SendTrigger(TriggerData data = default)
         {
-            targets.TryTrigger();
+            targets.TryTrigger(data);
         }
         
         public virtual void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)

@@ -14,7 +14,7 @@ namespace GGJ.Mapping.PointEntities
         
         private int _triggerCount;
         
-        public void Trigger()
+        public void Trigger(TriggerData data)
         {
             if (_triggerCount > 0 && onlyOnce)
                 return;
