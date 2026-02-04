@@ -775,7 +775,7 @@ namespace TinyGoose.Tremble.Editor
 			FgdClass entityClass = new(FgdClassType.Point, name, $"[PointEntity] class {pointType.Name} ('{name}')")
 			{
 				HasModel = hasPrefab,
-				Colour = hasPrefab ? null : pea.Colour,
+				Colour = pea.Colour,
 				Box = hasPrefab ? modelBounds : new Bounds(Vector3.zero, Vector3.one * size),
 				Sprite = hasPrefab ? null : pea.Sprite,
 			};

@@ -579,6 +579,11 @@ namespace TinyGoose.Tremble
 
 					Vector3 modelCentre = (mapBsp.Models[modelIdx].Min + mapBsp.Models[modelIdx].Max) * 0.5f;
 
+					if (entity.TryGetVector(FgdConsts.PROPERTY_ORIGIN, out Vector3 origin))
+					{
+						modelCentre += origin;
+					}
+					
 					// Rotate back properly
 					Quaternion? rotation = null;
 					Quaternion? inverseRotation = null;
