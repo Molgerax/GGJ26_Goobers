@@ -144,6 +144,11 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 890006bdef7162746987baa1e4970483, type: 2}
     - {fileID: 2100000, guid: 70b2f67ba685e37409f92ccda0b7e104, type: 2}
     - {fileID: 2100000, guid: bf642519a4e9a534c9d42e148b173e86, type: 2}
+  - Name: special
+    Materials:
+    - {fileID: 2100000, guid: 42879e820c32a4a4fb2e79ee5ef99fe4, type: 2}
+    - {fileID: 2100000, guid: 4cc846e274772334b8ce1327370dde14, type: 2}
+    - {fileID: 2100000, guid: b88f1ec658b555f45a4469e0743d8ec1, type: 2}
   m_MaterialRenderData:
   - m_Material: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     m_ExportMode: 1
@@ -925,6 +930,30 @@ MonoBehaviour:
     m_ResolutionX: 2
     m_ResolutionY: 2
     m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 42879e820c32a4a4fb2e79ee5ef99fe4, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: 4cc846e274772334b8ce1327370dde14, type: 2}
+    m_ExportMode: 1
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: b88f1ec658b555f45a4469e0743d8ec1, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
+  - m_Material: {fileID: 2100000, guid: ebc2e2b22a4174f9e9867d979b7008b8, type: 2}
+    m_ExportMode: 0
+    m_IsResolutionOverridden: 0
+    m_ResolutionX: 2
+    m_ResolutionY: 2
+    m_Dirty: 0
   m_PipelineSplitMesh: 1
   m_PipelineSmoothMeshNormals: 1
   m_PipelineSimplifyCollisionMeshes: 1
@@ -1514,6 +1543,14 @@ MonoBehaviour:
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Mapping/door_metal_frame
     Path: Assets/_Project/Materials/KenneyRetroTextures/door_metal_frame.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: special/trigger
+    Path: Assets/_Project/Materials/Mapping/trigger.mat
+    FullTypeName: UnityEngine.Material
+    SpawnOffset: {x: 0, y: 0, z: 0}
+  - MapName: special/Skybox
+    Path: Assets/_Project/Materials/Skybox.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: Npc_Face
