@@ -1,4 +1,3 @@
-using System;
 using GGJ.Utility;
 using GGJ.Utility.Extensions;
 using UnityEngine;
@@ -138,8 +137,6 @@ namespace GGJ.Gameplay.Movement
             if (_currentLayer != gameObject.layer)
                 RecalculateSensorLayerMask();
             
-            Apply();
-            
             _currentGroundAdjustmentVelocity = Vector3.zero;
             _sensor.CastLength = isUsingExtendedSensorRange
                 ? _baseSensorRange + colliderHeight * _transform.localScale.y * stepHeightRatio
@@ -157,8 +154,10 @@ namespace GGJ.Gameplay.Movement
             float upperLimit = colliderHeight * _transform.localScale.y * (1f - stepHeightRatio) * 0.5f;
             float middle = upperLimit + colliderHeight * _transform.localScale.y * stepHeightRatio;
             float distanceToGo = middle - distance;
-            
+
             //_currentGroundAdjustmentVelocity = _transform.up * (distanceToGo / deltaTime);
+            
+            //Debug.Log($"DistanceToGo: {distanceToGo}");
             transform.position += _transform.up * distanceToGo;
         }
 
@@ -172,7 +171,6 @@ namespace GGJ.Gameplay.Movement
                 _cachedMover = mover;
                 _cachedMover?.AddMovable(this);
             }
-
         }
 
         public Vector3 Velocity;
@@ -188,6 +186,9 @@ namespace GGJ.Gameplay.Movement
 
         public void ComputeMovement(float deltaTime)
         {
+            if (_velocity.magnitude == 0)
+                return;
+            
             int maxBounces = 5;
 
             float radius = _collider.radius;
@@ -278,15 +279,7 @@ namespace GGJ.Gameplay.Movement
         
         public void Move(Vector3 displacement)
         {
-            _cachedDisplacement = displacement;
-
-            //_rb.MovePosition(_rb.position + displacement);
-        }
-
-        public void Apply()
-        {
-            transform.position += _cachedDisplacement;
-            _cachedDisplacement = Vector3.zero;
+            transform.position += displacement;
         }
 
 
