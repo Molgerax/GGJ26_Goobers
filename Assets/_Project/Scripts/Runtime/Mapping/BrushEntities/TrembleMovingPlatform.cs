@@ -1,4 +1,7 @@
-﻿using GGJ.Mapping.PointEntities;
+﻿using System.Collections.Generic;
+using GGJ.Gameplay.Movement;
+using GGJ.Mapping.PointEntities;
+using GGJ.Utility.Extensions;
 using TinyGoose.Tremble;
 using UnityEngine;
 
@@ -6,7 +9,7 @@ namespace GGJ.Mapping.BrushEntities
 {
     //[PointEntity("platform", category:"func", colour:"0 0.5 1.0", size: 16)]
     [BrushEntity("platform", category:"func", type: BrushType.Solid)]
-    public class TrembleMovingPlatform : MonoBehaviour, ITriggerTarget, IOnImportFromMapEntity
+    public class TrembleMovingPlatform : MonoBehaviour, ITriggerTarget, IMover, IOnImportFromMapEntity
     {
         [SerializeField, NoTremble] private float speed = 5f;
 
@@ -15,6 +18,8 @@ namespace GGJ.Mapping.BrushEntities
 
         [SerializeField] private bool autoStart;
 
+        private HashSet<IMovable> _attachedMovables = new();
+        
         private bool _triggered;
 
         private Vector3 _initPos;
@@ -72,14 +77,31 @@ namespace GGJ.Mapping.BrushEntities
             Vector3 posA = _offset + transform.position;
             Vector3 posB = _nextWaypoint.transform.position;
 
-            posA = Vector3.MoveTowards(posA, posB, Time.deltaTime * speed);
-            
-            if (Vector3.Distance(posA, posB) < 0.1f)
+            Vector3 toNextWaypoint = posB - posA;
+            Vector3 movement = toNextWaypoint.normalized * (Time.deltaTime * speed);
+
+            if (movement.magnitude >= toNextWaypoint.magnitude || movement.magnitude == 0f)
             {
                 OnReachWaypoint(_nextWaypoint);
+                movement = posA - posB;
                 posA = posB;
             }
+            else
+            {
+                posA += movement;
+            }
+            
             transform.position = posA - _offset;
+            
+            MoveAttachedObjects(movement);
+        }
+
+        private void MoveAttachedObjects(Vector3 movement)
+        {
+            foreach (IMovable movable in _attachedMovables)
+            {
+                movable.Move(movement);
+            }
         }
 
         private void OnReachWaypoint(Waypoint wp)
@@ -97,6 +119,21 @@ namespace GGJ.Mapping.BrushEntities
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {
             speed = (_trembleSpeed * TrembleSyncSettings.Get().ImportScale);
+
+            Rigidbody rb = gameObject.GetOrAddComponent<Rigidbody>();
+            rb.freezeRotation = true;
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
+
+        public bool AddMovable(IMovable movable)
+        {
+            return _attachedMovables.Add(movable);
+        }
+        
+        public bool RemoveMovable(IMovable movable)
+        {
+            return _attachedMovables.Remove(movable);
         }
     }
 }
