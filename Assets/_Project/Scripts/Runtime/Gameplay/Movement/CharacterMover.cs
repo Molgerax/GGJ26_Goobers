@@ -208,6 +208,16 @@ namespace GGJ.Gameplay.Movement
                 transform.position += moveStep;
         }
 
+        public void ResolveCollisions()
+        {
+            bool colliding = _collider.GetPenetrationsInLayer(_sensor.LayerMask, out Vector3 correction);
+            if (colliding)
+                correction += correction.normalized * 0.001f;
+
+            if (colliding)
+                transform.position += correction;
+        }
+
         
         private Vector3 CollideAndSlide(Vector3 velocity, Vector3 pos, Vector3 up, float radius, bool gravityPass, Vector3 velocityInit, int depth)
         {

@@ -84,6 +84,8 @@ namespace GGJ.Gameplay.Player
             _savedMovementVelocity = CalculateMovementVelocity();
 
             HandleCameraRotation(Time.deltaTime);
+
+            _mover.ResolveCollisions();
         }
 
 
