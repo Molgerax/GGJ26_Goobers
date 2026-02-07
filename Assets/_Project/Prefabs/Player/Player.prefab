@@ -209,9 +209,9 @@ GameObject:
   m_Component:
   - component: {fileID: 500969421252830875}
   - component: {fileID: 5037377609301211408}
-  - component: {fileID: 136423733024517488}
-  - component: {fileID: 1645312295181375011}
-  - component: {fileID: 1655958199029070583}
+  - component: {fileID: 2997984192507352112}
+  - component: {fileID: 8471243595266342917}
+  - component: {fileID: 3104676818670097624}
   - component: {fileID: 5848258470988043610}
   - component: {fileID: 5605789256493807069}
   - component: {fileID: 7727524461569091785}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972b9859c36d4f57a81d9c0448d630ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Inputs.PlayerInput
---- !u!114 &136423733024517488
+--- !u!114 &2997984192507352112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,15 +260,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8322476873672220204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d609105a772731d47b798e5e51e1f88c, type: 3}
+  m_Script: {fileID: 11500000, guid: 30228b68c8fe447fb4019e40a3ea9620, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GGJ.PlayerMovement
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Player.PlayerMovementController
   lookSpeed: 20
   maxAngles: {x: -80, y: 80}
   cameraChild: {fileID: 7730453111183875065}
   animator: {fileID: 185740252057922058}
---- !u!143 &1645312295181375011
-CharacterController:
+  accelerationSpeed: 10
+  stopSpeed: 5
+  movementSpeed: 11
+  airControlSpeed: 2
+  jumpSpeed: 7
+  groundFriction: 6
+  airFriction: 2
+  gravity: 20
+  useLocalMomentum: 0
+--- !u!136 &8471243595266342917
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -282,17 +291,15 @@ CharacterController:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
+  serializedVersion: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1655958199029070583
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!114 &3104676818670097624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,18 +308,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8322476873672220204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48e733beead7e84cbfdcc8b813a754b, type: 3}
+  m_Script: {fileID: 11500000, guid: d98b7d879b7940ec87106b9009f38864, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::QuakeLR.QuakeCharacterController
-  MaxWalkSpeed: 11.4
-  JumpPower: 9.64
-  Friction: 6
-  Gravity: 28.6
-  AccelerationSpeed: 10
-  StopSpeed: 5
-  GroundMask:
-    serializedVersion: 2
-    m_Bits: 1
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Movement.CharacterMover
+  stepHeightRatio: 0.25
+  colliderHeight: 2
+  colliderThickness: 1
+  colliderOffset: {x: 0, y: 0.5, z: 0}
+  skinWidth: 0.015
+  maxSlopeAngle: 55
+  isInDebugMode: 0
+  isUsingExtendedSensorRange: 1
+  Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &5848258470988043610
 MonoBehaviour:
   m_ObjectHideFlags: 0
