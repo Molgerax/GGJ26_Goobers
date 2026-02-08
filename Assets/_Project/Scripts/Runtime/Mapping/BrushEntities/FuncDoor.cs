@@ -12,12 +12,14 @@ namespace GGJ.Mapping.BrushEntities
         [SerializeField, NoTremble] private float speed = 5f;
         [SerializeField, NoTremble] private float distance = 16;
         [SerializeField, NoTremble] private bool toggle;
+        [SerializeField, NoTremble] private float wait;
         
         [SerializeField, NoTremble] private Vector3 moveDirection;
         
         [Tremble("lip")] private float _trembleLip = 0;
         [Tremble("speed")] private float _trembleSpeed = 64;
         [Tremble("angle")] private QuakeAngle _angle;
+        [Tremble("wait")] private float _wait = 3;
 
         [Tremble("toggle"), SpawnFlags()] private bool _toggle;
         
@@ -44,7 +46,9 @@ namespace GGJ.Mapping.BrushEntities
         {
             Idle = 0,
             Triggered = 1,
-            Finished = 2
+            Finished = 2,
+            Retract = 3,
+            Waiting = 4,
         }
 
         public void Trigger(TriggerData data)
@@ -58,26 +62,65 @@ namespace GGJ.Mapping.BrushEntities
 
         private void Update()
         {
-            if (_state != DoorState.Triggered)
-                return;
+            if (_state == DoorState.Triggered)
+                TickPressed(Time.deltaTime);
+            else if (_state == DoorState.Retract)
+                TickUnPressed(Time.deltaTime);
+            else if (_state == DoorState.Waiting)
+                TickWait(Time.deltaTime);
+        }
 
-            _timer = Mathf.MoveTowards(_timer, Duration, Time.deltaTime);
+        private void TickPressed(float deltaTime)
+        {
+            _timer += deltaTime;
 
-            Vector3 diff = transform.position;
+            Vector3 startPos = transform.position;
             
             if (_timer >= Duration)
             {
-                _state = DoorState.Finished;
+                _timer = 0;
                 transform.position = _targetPos;
+                _state = wait < 0 ? DoorState.Finished : DoorState.Waiting;
             }
             else
             {
                 transform.position = Vector3.Lerp(_initPos, _targetPos, _timer / Duration);
             }
-
-            diff = transform.position - diff;
-            MoveAttachedObjects(diff);
+            
+            MoveAttachedObjects(transform.position - startPos);
         }
+        
+        
+        private void TickUnPressed(float deltaTime)
+        {
+            _timer += deltaTime;
+            
+            Vector3 startPos = transform.position;
+
+            if (_timer >= Duration)
+            {
+                _timer = 0;
+                transform.position = _initPos;
+                _state = DoorState.Idle;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(_targetPos, _initPos, _timer / Duration);
+            }
+            
+            MoveAttachedObjects(transform.position - startPos);
+        }
+
+        private void TickWait(float deltaTime)
+        {
+            _timer += deltaTime;
+            if (_timer >= wait)
+            {
+                _timer = 0;
+                _state = DoorState.Retract;
+            }
+        }
+        
 
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {
@@ -90,6 +133,7 @@ namespace GGJ.Mapping.BrushEntities
             speed = (_trembleSpeed * entity.ImportScale);
 
             moveDirection = _angle;
+            wait = _wait;
         }
         
         private void MoveAttachedObjects(Vector3 movement)
