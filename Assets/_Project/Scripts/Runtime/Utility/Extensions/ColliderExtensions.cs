@@ -17,7 +17,7 @@ namespace GGJ.Utility.Extensions
                 source.bounds.center,
                 source.bounds.extents,
                 overlapCache,
-                source.transform.rotation, layerMask);
+                source.transform.rotation, layerMask, QueryTriggerInteraction.Ignore);
 
             bool collided = false;
 
