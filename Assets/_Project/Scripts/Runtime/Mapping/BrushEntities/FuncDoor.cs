@@ -1,11 +1,13 @@
-﻿using GGJ.Mapping.Tremble.Properties;
+﻿using System.Collections.Generic;
+using GGJ.Gameplay.Movement;
+using GGJ.Mapping.Tremble.Properties;
 using TinyGoose.Tremble;
 using UnityEngine;
 
 namespace GGJ.Mapping.BrushEntities
 {
     [BrushEntity("door", category:"func")]
-    public class TrembleDoor : MonoBehaviour, ITriggerTarget, IOnImportFromMapEntity
+    public class FuncDoor : MonoBehaviour, ITriggerTarget, IMover, IOnImportFromMapEntity
     {
         [SerializeField, NoTremble] private float speed = 5f;
         [SerializeField, NoTremble] private float distance = 16;
@@ -18,7 +20,9 @@ namespace GGJ.Mapping.BrushEntities
         [Tremble("angle")] private QuakeAngle _angle;
 
         [Tremble("toggle"), SpawnFlags()] private bool _toggle;
-
+        
+        private HashSet<IMovable> _attachedMovables = new();
+        
         private float _timer;
         private float Duration => speed > 0 ? distance / speed : 0;
 
@@ -58,15 +62,21 @@ namespace GGJ.Mapping.BrushEntities
                 return;
 
             _timer = Mathf.MoveTowards(_timer, Duration, Time.deltaTime);
+
+            Vector3 diff = transform.position;
             
             if (_timer >= Duration)
             {
                 _state = DoorState.Finished;
                 transform.position = _targetPos;
-                return;
             }
-            
-            transform.position = Vector3.Lerp(_initPos, _targetPos, _timer / Duration);
+            else
+            {
+                transform.position = Vector3.Lerp(_initPos, _targetPos, _timer / Duration);
+            }
+
+            diff = transform.position - diff;
+            MoveAttachedObjects(diff);
         }
 
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
@@ -80,6 +90,24 @@ namespace GGJ.Mapping.BrushEntities
             speed = (_trembleSpeed * entity.ImportScale);
 
             moveDirection = _angle;
+        }
+        
+        private void MoveAttachedObjects(Vector3 movement)
+        {
+            foreach (IMovable movable in _attachedMovables)
+            {
+                movable.Move(movement);
+            }
+        }
+        
+        public bool AddMovable(IMovable movable)
+        {
+            return _attachedMovables.Add(movable);
+        }
+        
+        public bool RemoveMovable(IMovable movable)
+        {
+            return _attachedMovables.Remove(movable);
         }
     }
 }

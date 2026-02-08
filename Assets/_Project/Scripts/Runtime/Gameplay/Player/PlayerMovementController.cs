@@ -1,9 +1,7 @@
-using System;
 using GGJ.Gameplay.Movement;
 using GGJ.Mapping.PointEntities;
 using GGJ.Utility;
 using GGJ.Utility.Extensions;
-using QuakeLR;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using PlayerInput = GGJ.Inputs.PlayerInput;
@@ -26,7 +24,6 @@ namespace GGJ.Gameplay.Player
         [SerializeField] private float airControlSpeed = 2f;
         [SerializeField] private float jumpSpeed = 7f;
         [SerializeField] private float groundFriction = 7f;
-        [SerializeField] private float airFriction = 7f;
         [SerializeField] private float gravity = 7f;
         [SerializeField] private bool useLocalMomentum;
         

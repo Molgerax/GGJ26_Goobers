@@ -9,7 +9,7 @@ namespace GGJ.Mapping.BrushEntities
 {
     //[PointEntity("platform", category:"func", colour:"0 0.5 1.0", size: 16)]
     [BrushEntity("platform", category:"func", type: BrushType.Solid)]
-    public class TrembleMovingPlatform : MonoBehaviour, ITriggerTarget, IMover, IOnImportFromMapEntity
+    public class FuncMovingPlatform : MonoBehaviour, ITriggerTarget, IMover, IOnImportFromMapEntity
     {
         [SerializeField, NoTremble] private float speed = 5f;
 
