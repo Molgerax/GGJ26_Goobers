@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GGJ.Gameplay;
+using GGJ.Gameplay.Movement;
 using GGJ.Mapping.PointEntities;
 using TinyGoose.Tremble;
 using UnityEngine;

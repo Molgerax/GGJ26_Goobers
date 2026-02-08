@@ -1,7 +1,7 @@
 ﻿using GGJ.Mapping.PointEntities;
 using UnityEngine;
 
-namespace GGJ.Gameplay
+namespace GGJ.Gameplay.Movement
 {
     public interface ITeleportable
     {
