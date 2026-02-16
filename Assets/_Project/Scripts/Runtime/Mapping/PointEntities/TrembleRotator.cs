@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("rotator", category:"func", TrembleColors.TrembleRotator)]
+    [PointEntity("rotator", category:"func")]
     public class TrembleRotator : MonoBehaviour, ITriggerTarget
     {
         [SerializeField, Tremble] private float amount = 180;

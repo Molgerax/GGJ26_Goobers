@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("scene_loader", "trigger", TrembleColors.TrembleSceneLoader)]
+    [PointEntity("scene_loader", "trigger")]
     public class TrembleSceneLoader : MonoBehaviour, ITriggerTarget, IOnImportFromMapEntity
     {
         [SerializeField, Tremble("scene")] private SceneLoadCollection scene;

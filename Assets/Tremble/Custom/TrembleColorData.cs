@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using GGJ.Core.Interfaces;
 using UnityEngine;
 
-namespace GGJ.Mapping
+namespace TinyGoose.Tremble
 {
-    [CreateAssetMenu(fileName = "TrembleColorData", menuName = "GGJ/Tremble/ColorData", order = 0)]
+    [CreateAssetMenu(fileName = "TrembleColorData", menuName = "Tremble/ColorData", order = 10)]
     public class TrembleColorData : ScriptableObject
     {
         [SerializeField] public List<DataPair> pairs = new();

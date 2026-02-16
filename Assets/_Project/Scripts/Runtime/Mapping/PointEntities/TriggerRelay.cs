@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("relay", "trigger", TrembleColors.TriggerRelay)]
+    [PointEntity("relay", "trigger")]
     public class TriggerRelay : TriggerSender, ITriggerTarget
     {
         [SerializeField] private float delay = 0f;

@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("kill", category:"func", TrembleColors.TrembleKill)]
+    [PointEntity("kill", category:"func")]
     public class TrembleKill : MonoBehaviour, ITriggerTarget, IOnImportFromMapEntity
     {
         public void Trigger(TriggerData data)

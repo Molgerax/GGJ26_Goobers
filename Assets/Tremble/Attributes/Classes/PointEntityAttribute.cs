@@ -37,7 +37,7 @@ namespace TinyGoose.Tremble
 		private readonly float m_Size;
 		private readonly string m_Prefab;
 
-		public Color Colour => m_Colour ?? Color.white;
+		public Color? Colour => m_Colour;
 		public string Sprite => m_Sprite;
 		public float Size => m_Size;
 		public string Prefab => m_Prefab;

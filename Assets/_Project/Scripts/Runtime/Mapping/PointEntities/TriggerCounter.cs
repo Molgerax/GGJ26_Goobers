@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("counter", "trigger", TrembleColors.TriggerCounter)]
+    [PointEntity("counter", "trigger")]
     public class TriggerCounter : TriggerSender, ITriggerTarget
     {
         [SerializeField] private int count = 1;

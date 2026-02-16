@@ -649,7 +649,7 @@ namespace TinyGoose.Tremble.Editor
 
 			FgdClass entityClass = new(FgdClassType.Point, name, $"[PointEntity] class {pointType.Name} ('{name}')")
 			{
-				Colour = pea.Colour,
+				Colour = GetColor(pointType, pea.Colour),
 				Box = new Bounds(Vector3.zero, Vector3.one * size),
 				Sprite = pea.Sprite
 			};
@@ -775,7 +775,7 @@ namespace TinyGoose.Tremble.Editor
 			FgdClass entityClass = new(FgdClassType.Point, name, $"[PointEntity] class {pointType.Name} ('{name}')")
 			{
 				HasModel = hasPrefab,
-				Colour = pea.Colour,
+				Colour = GetColor(pointType, pea.Colour),
 				Box = hasPrefab ? modelBounds : new Bounds(Vector3.zero, Vector3.one * size),
 				Sprite = hasPrefab ? null : pea.Sprite,
 			};
@@ -1192,6 +1192,30 @@ namespace TinyGoose.Tremble.Editor
 
 			TrembleEditorAPI.InvalidateMaterialAndPrefabCache(silent: true);
 			TrembleEditorAPI.SyncToTrenchBroom();
+		}
+
+		private static TrembleColorData _cachedColorData;
+		
+		private static Color GetColor(Type type, Color? attColour)
+		{
+			if (attColour.HasValue)
+				return attColour.Value;
+			
+			if (!_cachedColorData)
+				_cachedColorData =
+					TrembleAssetLoader.LoadAssetByPath<TrembleColorData>(TrembleAssetLoader
+						.FindAssetPath<TrembleColorData>());
+
+			if (!_cachedColorData)
+				return Color.white;
+
+			foreach (TrembleColorData.DataPair pair in _cachedColorData.pairs)
+			{
+				if (pair.Type.Type == type)
+					return pair.Color;
+			}
+			
+			return Color.white;
 		}
 	}
 }

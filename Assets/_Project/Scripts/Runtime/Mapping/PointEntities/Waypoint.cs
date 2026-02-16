@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GGJ.Mapping.PointEntities
 {
-    [PointEntity("waypoint", colour: TrembleColors.Waypoint)]
+    [PointEntity("waypoint")]
     public class Waypoint : MonoBehaviour, IOnImportFromMapEntity
     {
         [SerializeField, Tremble("target")] private Waypoint[] waypoints;
