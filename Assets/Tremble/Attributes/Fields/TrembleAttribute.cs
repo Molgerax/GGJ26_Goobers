@@ -36,4 +36,33 @@ namespace TinyGoose.Tremble
 	{
 		//NOTE: Change MapBspGetters if this changes!!
 	}
+	
+	/// <summary>
+	/// Marks a field as NEVER being serialised for maps (even if [SerializeField] is on)
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class)]
+	public class NoTrembleOverrideAttribute : Attribute
+	{
+		public NoTrembleOverrideAttribute(params string[] names)
+		{
+			//NOTE: Change MapBspGetters if this changes!!
+			m_OverrideNames = names;
+		}
+
+		private readonly string[] m_OverrideNames;
+		public string[] OverrideNames => m_OverrideNames;
+
+		public bool Contains(string key)
+		{
+			foreach (string ntoaOverrideName in OverrideNames)
+			{
+				if (String.CompareOrdinal(ntoaOverrideName, key) == 0)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
 }

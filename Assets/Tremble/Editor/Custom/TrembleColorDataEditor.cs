@@ -10,44 +10,60 @@ namespace TinyGoose.Tremble.Editor
     [CustomEditor(typeof(TrembleColorData))]
     public class TrembleColorDataEditor : UnityEditor.Editor
     {
+        private SerializedProperty _pairs;
+
+        private void OnEnable()
+        {
+            serializedObject.FindProperty("pairs");
+        }
+
         public override void OnInspectorGUI()
         {
             TrembleColorData colorData = (TrembleColorData) target;
-
-            EditorGUI.BeginChangeCheck();
-
-            foreach (var pair in colorData.pairs)
+            
+            for (var index = 0; index < colorData.pairs.Count; index++)
             {
+                //SerializedProperty prop = _pairs.GetArrayElementAtIndex(index);
+                //SerializedProperty colorProp = prop.FindPropertyRelative("Color");
+                
+                var pair = colorData.pairs[index];
                 if (pair == null)
                     continue;
-                
-                if (pair.Type == null || pair.Type.Type == null)
+
+                if (pair.Type.IsNullOrEmpty())
                     continue;
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(pair.Type.Type.Name);
+                EditorGUILayout.LabelField(pair.Type);
+
+                EditorGUI.BeginChangeCheck();
                 
                 Color newCol = EditorGUILayout.ColorField(pair.Color);
                 pair.Color = newCol;
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorUtility.SetDirty(target);
+                }
                 
                 EditorGUILayout.EndHorizontal();
             }
-            
-            if (EditorGUI.EndChangeCheck())
-                SaveChanges();
 
             if (GUILayout.Button("Generate"))
             {
                 Generate(colorData);
-                SaveChanges();
+                EditorUtility.SetDirty(target);
             }
         }
 
 
         private void Generate(TrembleColorData data)
         {
-            HashSet<Type> entityTypes = new();
-
+            HashSet<string> entityTypes = new();
+            
+            TrembleSyncSettings syncSettings = TrembleSyncSettings.Get();
+            NamingConvention typeNamingConvention = syncSettings.TypeNamingConvention;
+            
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             foreach (Assembly assembly in assemblies)
@@ -57,7 +73,22 @@ namespace TinyGoose.Tremble.Editor
                 foreach (Type type in types)
                 {
                     if (type.GetCustomAttributes(typeof(PointEntityAttribute)).FirstOrDefault() is PointEntityAttribute pointEntityAttribute)
-                        entityTypes.Add(type);
+                    {
+                        string baseName = pointEntityAttribute.TrenchBroomName ?? type.Name.ToNamingConvention(typeNamingConvention);
+                        string pointPrefix = pointEntityAttribute.Category ?? FgdConsts.POINT_PREFIX;
+                        string fullPointName = (pointPrefix.Length == 0) ? baseName : $"{pointPrefix}_{baseName}";
+                        
+                        entityTypes.Add(fullPointName);
+                    }
+                    
+                    if (type.GetCustomAttributes(typeof(PrefabEntityAttribute)).FirstOrDefault() is PrefabEntityAttribute prefabEntityAttribute)
+                    {
+                        string baseName = prefabEntityAttribute.TrenchBroomName ?? type.Name.ToNamingConvention(typeNamingConvention);
+                        string pointPrefix = prefabEntityAttribute.Category ?? FgdConsts.POINT_PREFIX;
+                        string fullPointName = (pointPrefix.Length == 0) ? baseName : $"{pointPrefix}_{baseName}";
+                        
+                        entityTypes.Add(fullPointName);
+                    }
                 }
             }
 
@@ -66,7 +97,7 @@ namespace TinyGoose.Tremble.Editor
             {
                 TrembleColorData.DataPair dataPair = data.pairs[index];
                 
-                if (dataPair?.Type?.Type == null)
+                if (dataPair?.Type.IsNullOrEmpty() ?? true)
                 {
                     data.pairs.RemoveAt(index);
                     continue;
@@ -78,7 +109,7 @@ namespace TinyGoose.Tremble.Editor
             }
 
             // make a new entry for each new type
-            foreach (Type type in entityTypes)
+            foreach (string type in entityTypes)
             {
                 bool exists = false;
                 foreach (var dataPair in data.pairs)
@@ -89,6 +120,8 @@ namespace TinyGoose.Tremble.Editor
                 if (!exists)
                     data.pairs.Add(new TrembleColorData.DataPair(type, Color.white));
             }
+            
+            data.pairs.Sort((s1, s2) => String.Compare(s1.Type, s2.Type, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

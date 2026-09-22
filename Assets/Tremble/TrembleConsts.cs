@@ -68,6 +68,8 @@ namespace TinyGoose.Tremble
 		public const string CLASS_MAP_BASE = "Tremble";
 		public const string CLASS_MAP_POINT_BASE = "PointEntity";
 		public const string CLASS_MAP_PREFAB_BASE = "PrefabEntity";
+		public const string CLASS_MAP_TARGETABLE = "Targetable";
+		public const string CLASS_MAP_ROTATABLE = "Rotatable";
 
 		// Properties
 		public const string WORLDSPAWN = "worldspawn";

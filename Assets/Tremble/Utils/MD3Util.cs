@@ -32,6 +32,9 @@ namespace TinyGoose.Tremble
 				if (!mf.sharedMesh)
 					continue;
 
+				if (mf.TryGetComponentInParent(out TrembleIgnoreMesh ignoreMesh))
+					continue;
+				
 				result = true;
 				GetTransformedMeshVertices(mr.transform, isSkinnedMesh: false, mf.sharedMesh, ref bounds);
 			}
@@ -41,13 +44,16 @@ namespace TinyGoose.Tremble
 				if (!smr.sharedMesh)
 					continue;
 
+				if (smr.TryGetComponentInParent(out TrembleIgnoreMesh ignoreMesh))
+					continue;
+				
 				result = true;
 				GetTransformedMeshVertices(smr.transform, isSkinnedMesh: true, smr.sharedMesh, ref bounds);
 			}
 
-			if (prefab.TryGetComponent(out TremblePrefabBounds prefabBounds))
+			if (prefab.TryGetComponentInChildren(out TremblePrefabBounds prefabBounds))
 			{
-				bounds.Encapsulate(prefabBounds.Bounds);
+				prefabBounds.ApplyToBounds(ref bounds);
 			}
 			
 			return result;
@@ -66,6 +72,9 @@ namespace TinyGoose.Tremble
 				if (!mf.sharedMesh)
 					continue;
 
+				if (mf.TryGetComponentInParent(out TrembleIgnoreMesh ignoreMesh))
+					continue;
+				
 				GetTransformedMeshVertices(mr.transform, isSkinnedMesh: false, mf.sharedMesh, ref boundingBox);
 			}
 
@@ -73,12 +82,16 @@ namespace TinyGoose.Tremble
 			{
 				if (!smr.sharedMesh)
 					continue;
+				
+				if (smr.TryGetComponentInParent(out TrembleIgnoreMesh ignoreMesh))
+					continue;
+				
 				GetTransformedMeshVertices(smr.transform, isSkinnedMesh: true, smr.sharedMesh, ref boundingBox);
 			}
 
-			if (prefab.TryGetComponent(out TremblePrefabBounds prefabBounds))
+			if (prefab.TryGetComponentInChildren(out TremblePrefabBounds prefabBounds))
 			{
-				boundingBox.Encapsulate(prefabBounds.Bounds);
+				prefabBounds.ApplyToBounds(ref boundingBox);
 			}
 
 			return boundingBox;
@@ -223,9 +236,9 @@ namespace TinyGoose.Tremble
 
 			boundingBox = new();
 
-			if (prefab.TryGetComponent(out TremblePrefabBounds prefabBounds))
+			if (prefab.TryGetComponentInChildren(out TremblePrefabBounds prefabBounds))
 			{
-				boundingBox.Encapsulate(prefabBounds.Bounds);
+				prefabBounds.ApplyToBounds(ref boundingBox);
 			}
 			
 			foreach (MeshFilter mf in prefab.GetComponentsInChildren<MeshFilter>())
@@ -233,15 +246,26 @@ namespace TinyGoose.Tremble
 				MeshRenderer mr = mf.GetComponent<MeshRenderer>();
 				if (!mr)
 					continue;
+				
+				if (mr.TryGetComponentInParent(out TrembleIgnoreMesh ignoreMesh))
+					continue;
 
 				AddMeshToMD3(mr.transform, isSkinnedMesh: false, mf.sharedMesh, mr.sharedMaterials, surfaces, materialNameLookup, ref allSurfacesSize, ref boundingBox);
 			}
 
 			foreach (SkinnedMeshRenderer smr in prefab.GetComponentsInChildren<SkinnedMeshRenderer>())
 			{
+				if (smr.TryGetComponentInParent(out TrembleIgnoreMesh ignoreMesh))
+					continue;
+			
 				AddMeshToMD3(smr.transform, isSkinnedMesh: true, smr.sharedMesh, smr.sharedMaterials, surfaces, materialNameLookup, ref allSurfacesSize, ref boundingBox);
 			}
 
+			if (prefab.TryGetComponentInChildren(out prefabBounds))
+			{
+				prefabBounds.ApplyToBounds(ref boundingBox);
+			}
+			
 			return surfaces;
 		}
 

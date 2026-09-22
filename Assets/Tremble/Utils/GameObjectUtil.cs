@@ -24,5 +24,32 @@ namespace TinyGoose.Tremble
 
 			return null;
 		}
+		
+		public static bool TryGetComponentInChildren<T>(this GameObject gameObject, out T component) where T : class
+		{
+			component = null;
+			if (gameObject == null)
+				return false;
+			component = gameObject.GetComponentInChildren<T>();
+
+			return component != null;
+		}
+		
+		public static bool TryGetComponentInParent<T>(this GameObject gameObject, out T component) where T : class
+		{
+			component = null;
+			if (gameObject == null)
+				return false;
+			component = gameObject.GetComponentInParent<T>(true);
+
+			return component != null;
+		}
+		
+		public static bool TryGetComponentInParent<T>(this Component c, out T component) where T : class
+		{
+			component = c.GetComponentInParent<T>(true);
+
+			return component != null;
+		}
 	}
 }

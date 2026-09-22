@@ -31,6 +31,8 @@ namespace TinyGoose.Tremble
 			AddMapBaseEntity();
 			AddMapPointBaseEntity();
 			AddMapPrefabBaseEntity();
+			AddMapTargetableEntity();
+			AddMapRotatableEntity();
 		}
 
 		public FgdClass WorldspawnClass
@@ -173,19 +175,19 @@ namespace TinyGoose.Tremble
 			FgdClass mapBase = new(FgdClassType.Base, FgdConsts.CLASS_MAP_BASE, "The base class for all map entities");
 			mapBase.Description = "Base class for common map properties";
 
-			mapBase.AddField(new FgdTargetSourceField
-			{
-				Name = TrembleSyncSettings.Get().IdentityPropertyName,
-				Description = "The ID/Name of this entity",
-				DefaultValue = ""
-			});
+			//mapBase.AddField(new FgdTargetSourceField
+			//{
+			//	Name = TrembleSyncSettings.Get().IdentityPropertyName,
+			//	Description = "The ID/Name of this entity",
+			//	DefaultValue = ""
+			//});
 
-			mapBase.AddField(new FgdAnglesField
-			{
-				Name = FgdConsts.PROPERTY_ANGLES,
-				Description = "Rotation Angles",
-				DefaultValue = Vector3.zero
-			});
+			//mapBase.AddField(new FgdAnglesField
+			//{
+			//	Name = FgdConsts.PROPERTY_ANGLES,
+			//	Description = "Rotation Angles",
+			//	DefaultValue = Vector3.zero
+			//});
 
 			mapBase.AddField(new FgdVectorField
 			{
@@ -198,6 +200,36 @@ namespace TinyGoose.Tremble
 
 			AddClass(mapBase);
 		}
+		
+		private void AddMapTargetableEntity()
+		{
+			FgdClass mapBase = new(FgdClassType.Base, FgdConsts.CLASS_MAP_TARGETABLE, "A class for all targetable entities.");
+			mapBase.Description = "Base class for common map properties";
+
+			mapBase.AddField(new FgdTargetSourceField
+			{
+				Name = TrembleSyncSettings.Get().IdentityPropertyName,
+				Description = "The ID/Name of this entity",
+				DefaultValue = ""
+			});
+
+			AddClass(mapBase);
+		}
+
+		private void AddMapRotatableEntity()
+		{
+			FgdClass mapBase = new(FgdClassType.Base, FgdConsts.CLASS_MAP_ROTATABLE, "A class for all rotatable entities.");
+			mapBase.Description = "Base class for common map properties";
+
+			mapBase.AddField(new FgdAnglesField
+			{
+				Name = FgdConsts.PROPERTY_ANGLES,
+				Description = "Rotation Angles",
+				DefaultValue = Vector3.zero
+			});
+			AddClass(mapBase);
+		}
+		
 		private void AddMapPointBaseEntity()
 		{
 			FgdClass mapBase = new(FgdClassType.Base, FgdConsts.CLASS_MAP_POINT_BASE, "The base class for all Point entities");

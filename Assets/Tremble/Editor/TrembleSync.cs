@@ -555,15 +555,35 @@ namespace TinyGoose.Tremble.Editor
 					? $"Tremble Spawnable Prefab '{unityPrefabName}'"
 					: $"[PrefabEntity] class {prefabType.Name}, from prefab '{Path.GetFileNameWithoutExtension(prefabPath)}'";
 
+				string baseName = pea.TrenchBroomName ?? prefabType.Name.ToNamingConvention(SyncSettings.TypeNamingConvention);
+				string pointPrefix = pea.Category ?? FgdConsts.POINT_PREFIX;
+				string fullPointName = (pointPrefix.Length == 0) ? baseName : $"{pointPrefix}_{baseName}";
+				
 				FgdClass entityClass = new(FgdClassType.Point, prefabName, prefabTypeDescription)
 				{
 					HasModel = hasModel,
 					Sprite = overrideSprite,
 					Box = hasModel ? modelBounds : null,
+					Colour = GetColor(fullPointName, null),
 				};
 
+				bool hasOverrides = (prefabType.TryGetCustomAttribute(out NoTrembleOverrideAttribute ntoa));
+				
 				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_BASE);
-				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_PREFAB_BASE);
+				
+				if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_SCALE))
+					entityClass.AddBaseClass(FgdConsts.CLASS_MAP_PREFAB_BASE);
+				
+				if (!hasOverrides || !ntoa.Contains(SyncSettings.IdentityPropertyName))
+					entityClass.AddBaseClass(FgdConsts.CLASS_MAP_TARGETABLE);
+
+				if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_ANGLES))
+					entityClass.AddBaseClass(FgdConsts.CLASS_MAP_ROTATABLE);
+			
+				if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_PARENT))
+					entityClass.AddBaseClass(FgdConsts.CLASS_MAP_POINT_BASE);
+
+				
 				entityClass.AddBaseClassInterfaces(prefabType);
 				AddExposedFieldsToEntity(prefabType, entityClass, fieldConverter, scriptableObjectTypes, prefab.GetComponent(prefabType));
 
@@ -649,7 +669,7 @@ namespace TinyGoose.Tremble.Editor
 
 			FgdClass entityClass = new(FgdClassType.Point, name, $"[PointEntity] class {pointType.Name} ('{name}')")
 			{
-				Colour = GetColor(pointType, pea.Colour),
+				Colour = GetColor(name, pea.Colour),
 				Box = new Bounds(Vector3.zero, Vector3.one * size),
 				Sprite = pea.Sprite
 			};
@@ -760,7 +780,7 @@ namespace TinyGoose.Tremble.Editor
 						FullTypeName = typeof(GameObject).FullName,
 
 #if ADDRESSABLES_INSTALLED
-					AddressableName = TrembleSyncAddressables.GetExistingEntryForPath(prefabPath)?.address ?? unityPrefabName,
+					AddressableName = TrembleSyncAddressables.GetExistingEntryForPath(prefabPath)?.address ?? prefabName,
 #endif
 						SpawnOffset = MD3Util.GetPrefabUnitySpawnOffset(prefab, SyncSettings.ImportScale)
 					});
@@ -775,13 +795,25 @@ namespace TinyGoose.Tremble.Editor
 			FgdClass entityClass = new(FgdClassType.Point, name, $"[PointEntity] class {pointType.Name} ('{name}')")
 			{
 				HasModel = hasPrefab,
-				Colour = GetColor(pointType, pea.Colour),
+				Colour = GetColor(name, pea.Colour),
 				Box = hasPrefab ? modelBounds : new Bounds(Vector3.zero, Vector3.one * size),
 				Sprite = hasPrefab ? null : pea.Sprite,
 			};
 
+			
+			bool hasOverrides = (pointType.TryGetCustomAttribute(out NoTrembleOverrideAttribute ntoa));
+			
 			entityClass.AddBaseClass(FgdConsts.CLASS_MAP_BASE);
-			entityClass.AddBaseClass(FgdConsts.CLASS_MAP_POINT_BASE);
+			
+			if (!hasOverrides || !ntoa.Contains(SyncSettings.IdentityPropertyName))
+				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_TARGETABLE);
+
+			if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_ANGLES))
+				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_ROTATABLE);
+			
+			if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_PARENT))
+				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_POINT_BASE);
+
 			entityClass.AddBaseClassInterfaces(pointType);
 			AddExposedFieldsToEntity(pointType, entityClass, fieldConverter, scriptableObjectTypes);
 			fgdWriter.AddClass(entityClass);
@@ -828,7 +860,19 @@ namespace TinyGoose.Tremble.Editor
 			}
 
 			FgdClass entityClass = new(FgdClassType.Brush, name, $"[BrushEntity] class {brushType.Name} ('{name}')");
+			
+			bool hasOverrides = (brushType.TryGetCustomAttribute(out NoTrembleOverrideAttribute ntoa));
 			entityClass.AddBaseClass(FgdConsts.CLASS_MAP_BASE);
+			
+			if (!hasOverrides || !ntoa.Contains(SyncSettings.IdentityPropertyName))
+				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_TARGETABLE);
+
+			if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_ANGLES))
+				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_ROTATABLE);
+			
+			if (!hasOverrides || !ntoa.Contains(FgdConsts.PROPERTY_PARENT))
+				entityClass.AddBaseClass(FgdConsts.CLASS_MAP_POINT_BASE);
+			
 			entityClass.AddBaseClassInterfaces(brushType);
 			AddExposedFieldsToEntity(brushType, entityClass, fieldConverter, scriptableObjectTypes);
 			fgdWriter.AddClass(entityClass);
@@ -936,6 +980,20 @@ namespace TinyGoose.Tremble.Editor
 				}
 
 				string fieldName = overrideName ?? target.Name.GetFieldNameInMap(SyncSettings.FieldNamingConvention);
+
+				if (scriptType.TryGetCustomAttribute(out NoTrembleOverrideAttribute ntoa))
+				{
+					if (ntoa.Contains(fieldName))
+					{
+						if (addComments)
+						{
+							entityClass.AddComment($"Skipped {target.FieldType.Name} {target.Name} - saw [NoTrembleOverride].");
+						}
+						continue;
+					}
+				}
+				
+				
 				TrembleFieldConverter converter = fieldConverter.GetConverterForType(target.FieldType);
 
 				if (target.FieldType.IsSubclassOf(typeof(ScriptableObject)))
@@ -1196,7 +1254,7 @@ namespace TinyGoose.Tremble.Editor
 
 		private static TrembleColorData _cachedColorData;
 		
-		private static Color GetColor(Type type, Color? attColour)
+		private static Color GetColor(string fullName, Color? attColour)
 		{
 			if (attColour.HasValue)
 				return attColour.Value;
@@ -1211,7 +1269,7 @@ namespace TinyGoose.Tremble.Editor
 
 			foreach (TrembleColorData.DataPair pair in _cachedColorData.pairs)
 			{
-				if (pair.Type.Type == type)
+				if (pair.Type == fullName)
 					return pair.Color;
 			}
 			

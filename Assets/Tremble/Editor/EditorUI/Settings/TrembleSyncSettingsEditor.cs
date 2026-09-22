@@ -796,7 +796,7 @@ namespace TinyGoose.Tremble.Editor
 			{
 				Label("64 map units", GUILayout.Width(80f));
 				Label("=", GUILayout.Width(20f));
-				oneMetre = FloatField(oneMetre / 64f) * 64f;
+				oneMetre = 64f / FloatField(64f / oneMetre);
 				Label("metre(s)", GUILayout.Width(80f));
 			}
 			EndHorizontal();
