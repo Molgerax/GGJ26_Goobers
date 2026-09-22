@@ -256,6 +256,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5599121378446501662, guid: e8b37ac14253f5d469ea20f8e7770710, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5444600920131546753, guid: e8b37ac14253f5d469ea20f8e7770710, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.69
@@ -400,8 +404,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5587d240927ed9f40a41801b1bbdf600, type: 2}
+  m_sharedMaterial: {fileID: 4272685123367382056, guid: 5587d240927ed9f40a41801b1bbdf600, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2154,7 +2158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1960495572
 MonoBehaviour:
   m_ObjectHideFlags: 0
