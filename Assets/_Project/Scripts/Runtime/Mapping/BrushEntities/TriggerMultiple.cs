@@ -21,15 +21,9 @@ namespace GGJ.Mapping.BrushEntities
         {
             if (!layerMask.Contains(other))
                 return;
-
-            if (expressionAmount > 0)
-            {
-                if (other.TryGetComponent(out PlayerFace face))
-                {
-                    if (!face.HasExpressionPercentage(requireExpression, expressionAmount))
-                        return;
-                }
-            }
+            
+            if (!HasRequirementsForExpression(other))
+                return;
 
             SendTrigger();
             _timer = 0f;
@@ -40,14 +34,8 @@ namespace GGJ.Mapping.BrushEntities
             if (!layerMask.Contains(other))
                 return;
 
-            if (expressionAmount > 0)
-            {
-                if (other.TryGetComponent(out PlayerFace face))
-                {
-                    if (!face.HasExpressionPercentage(requireExpression, expressionAmount))
-                        return;
-                }
-            }
+            if (!HasRequirementsForExpression(other))
+                return;
 
             _timer += Time.deltaTime;
 
@@ -56,6 +44,24 @@ namespace GGJ.Mapping.BrushEntities
                 _timer = 0;
                 SendTrigger();
             }
+        }
+
+        private bool HasRequirementsForExpression(Collider other)
+        {
+            if (expressionAmount > 0)
+            {
+                if (other.TryGetComponent(out PlayerFace face))
+                {
+                    if (!face.HasExpressionPercentage(requireExpression, expressionAmount))
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
         
         public override void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
