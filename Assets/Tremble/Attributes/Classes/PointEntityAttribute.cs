@@ -26,7 +26,7 @@ namespace TinyGoose.Tremble
 		public PointEntityAttribute(string trenchBroomName = null, string category = null, string colour = null, string sprite = null, float size = 0f, string prefab = null)
 			: base(trenchBroomName, category)
 		{
-			m_Size = size > 0f ? size : 4f;
+			m_Size = size > 0f ? size : 0.25f;
 			m_Sprite = sprite;
 			m_Colour = colour.TryParseQ3Colour(out Color value) ? value : null;
 			m_Prefab = prefab;

@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2b5e098544b83acfaa088081decf8, type: 3}
   m_Name: TrembleColorData
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Mapping.TrembleColorData
-  pairs: []
+  pairs:
+  - Type: ent_character
+    Color: {r: 1, g: 1, b: 1, a: 1}
+  - Type: ent_TrembleSpawnablePrefab
+    Color: {r: 1, g: 1, b: 1, a: 1}
+  - Type: ent_TrembleTriggerPrefab
+    Color: {r: 1, g: 1, b: 1, a: 1}
+  - Type: ent_waypoint
+    Color: {r: 0, g: 1, b: 1, a: 1}
+  - Type: func_kill
+    Color: {r: 1, g: 0, b: 0, a: 1}
+  - Type: func_rotator
+    Color: {r: 0, g: 0, b: 1, a: 1}
+  - Type: info_teleport_destination
+    Color: {r: 0, g: 1, b: 0, a: 1}
+  - Type: misc_message
+    Color: {r: 1, g: 1, b: 1, a: 1}
+  - Type: trigger_counter
+    Color: {r: 1, g: 0.5, b: 0, a: 1}
+  - Type: trigger_message
+    Color: {r: 1, g: 1, b: 1, a: 1}
+  - Type: trigger_relay
+    Color: {r: 1, g: 0.5019608, b: 0, a: 1}
+  - Type: trigger_scene_loader
+    Color: {r: 1, g: 1, b: 1, a: 1}
