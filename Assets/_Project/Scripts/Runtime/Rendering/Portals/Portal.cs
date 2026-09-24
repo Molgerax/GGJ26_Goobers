@@ -16,6 +16,8 @@ namespace GGJ.Rendering.Portals
         [SerializeField] private Portal otherPortal;
         [SerializeField, Range(0, 10)] private int iteration = 0;
 
+        public static float PortalDepth => 0.5f;
+        
         private Camera _mainCamera;
 
         public Vector2 Size => size;
@@ -33,7 +35,8 @@ namespace GGJ.Rendering.Portals
             get
             {
                 Pose pose = transform.ToPose();
-                return CameraUtility.GetRotatedBoxBounds(pose.position, pose.rotation, size);
+                Vector3 offset = pose.rotation * new Vector3(0, 0, -0.5f * PortalDepth);
+                return CameraUtility.GetRotatedBoxBounds(pose.position + offset, pose.rotation, new Vector3(size.x, size.y, PortalDepth));
             }
         }
 
