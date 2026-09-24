@@ -48,6 +48,12 @@ namespace GGJ.Rendering.Portals
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
             [Range(1, 20)] public int maxIterations = 5;
             [Range(0, 1)] public int stencilReference = 1;
+
+            public float depthFactor;
+            public int depthOffset;
+            public CullMode cullMode;
+            public bool depthClip;
+            public RasterState RasterState => new RasterState(cullMode, depthOffset, depthFactor, depthClip);
             
             public Material material;
             public Mesh mesh;
@@ -72,6 +78,7 @@ namespace GGJ.Rendering.Portals
             {
                 public UniversalCameraData CameraData;
                 public RendererListHandle RendererListHdl;
+                public RendererListHandle SkyboxList;
 
                 public Pose PortalPose;
                 public Pose PortalOutPose;
@@ -84,7 +91,7 @@ namespace GGJ.Rendering.Portals
             }
             
             private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData,
-                ref PassData passData, ScriptableRenderContext context, RenderGraph renderGraph)
+                ref PassData passData, ScriptableRenderContext context, RenderGraph renderGraph, float depthBias, int depthOffset)
             {
                 SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
                 DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
@@ -106,7 +113,13 @@ namespace GGJ.Rendering.Portals
                 RenderStateBlock stencilBlock = new RenderStateBlock(RenderStateMask.Stencil);
                 stencilBlock.stencilReference = _settings.stencilReference;
                 stencilBlock.stencilState = new StencilState(true, 255, 255, CompareFunction.LessEqual, StencilOp.Keep);
+                
+                stencilBlock.mask |= RenderStateMask.Raster;
+                stencilBlock.rasterState = new RasterState(CullMode.Back, 1, 1);
+                //stencilBlock.rasterState = _settings.RasterState;
+                
                 blocks[0] = stencilBlock;
+
                 
                 listParams.stateBlocks = blocks;
                 listParams.tagValues = tags;
@@ -131,9 +144,18 @@ namespace GGJ.Rendering.Portals
                     Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, Portal.PortalDepth));
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
+
+                obliqueProjectionMatrix = data.CameraData.GetProjectionMatrix();
+
+                Plane plane = new Plane(data.PortalOutPose.forward, data.PortalOutPose.position);
+                context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance));
                 
                 context.cmd.SetViewProjectionMatrices(data.CameraPose.ToViewMatrix(), obliqueProjectionMatrix);
                 context.cmd.DrawRendererList(data.RendererListHdl);
+                context.cmd.DrawRendererList(data.SkyboxList);
+                
+                
+                context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(0, 1, 0, 100000));
                 
                 context.cmd.SetViewProjectionMatrices(data.CameraData.GetViewMatrix(), data.CameraData.GetProjectionMatrix());
                 
@@ -163,6 +185,9 @@ namespace GGJ.Rendering.Portals
                     if (!CameraUtility.IsVisibleFromCamera(p.Bounds, cameraData.camera))
                         continue;
                     
+                    if (!p.OtherPortal)
+                        continue;
+                    
                     p.UpdateDistanceToCamera(cameraData.camera);
                     _portals.Add(p);
                 }
@@ -190,6 +215,8 @@ namespace GGJ.Rendering.Portals
                         Pose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
                             cameraData.camera.transform.ToPose());
 
+                        var skyboxRendererList = renderGraph.CreateSkyboxRendererList(cameraData.camera);
+                        passData.SkyboxList = skyboxRendererList;
                         passData.CameraPose = cameraPose;
                         passData.PortalOutPose = portal.OtherPortal.transform.ToPose();
                         passData.PortalPose = portal.transform.ToPose();
@@ -198,7 +225,9 @@ namespace GGJ.Rendering.Portals
                         passData.Mesh = _settings.mesh;
 
                         passData.CameraData = cameraData;
-                        InitRendererLists(_forwardTag, renderingData, lightData, ref passData, default, renderGraph);
+
+                        Portal.GetDepthBiasPlanes(passData.PortalOutPose, passData.CameraPose, cameraData.camera, out float biasFactor, out int biasUnits);
+                        InitRendererLists(_forwardTag, renderingData, lightData, ref passData, default, renderGraph, biasFactor, biasUnits);
 
                         // Setup pass inputs and outputs through the builder interface.
                         // Eg:
@@ -206,8 +235,9 @@ namespace GGJ.Rendering.Portals
                         // TextureHandle destination = UniversalRenderer.CreateRenderGraphTexture(renderGraph, cameraData.cameraTargetDescriptor, "Destination Texture", false);
 
                         //builder.AllowPassCulling(false);
-                        //builder.AllowGlobalStateModification(true);
+                        builder.AllowGlobalStateModification(true);
                         builder.UseRendererList(passData.RendererListHdl);
+                        builder.UseRendererList(passData.SkyboxList);
 
                         // This sets the render target of the pass to the active color texture. Change it to your own render target as needed.
                         builder.SetRenderAttachment(resourceData.activeColorTexture, 0);

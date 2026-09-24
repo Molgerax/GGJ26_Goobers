@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using GGJ.Gameplay.Movement;
+using GGJ.Mapping.BrushEntities;
 using GGJ.Utility;
 using GGJ.Utility.Extensions;
 using UnityEngine;
@@ -7,7 +9,7 @@ using UnityEngine;
 namespace GGJ.Rendering.Portals
 {
     [ExecuteInEditMode]
-    public class Portal : MonoBehaviour, IComparable
+    public class Portal : MonoBehaviour, IComparable, ITeleportDestination
     {
         public static readonly List<Portal> ActivePortals = new();
         
@@ -16,12 +18,20 @@ namespace GGJ.Rendering.Portals
         [SerializeField] private Portal otherPortal;
         [SerializeField, Range(0, 10)] private int iteration = 0;
 
-        public static float PortalDepth => 0.5f;
+        [SerializeField] private TriggerSeamlessTeleport otherPortalTremble;
+        
+        public void Setup(TriggerSeamlessTeleport target, Vector2 scale)
+        {
+            size = scale;
+            otherPortalTremble = target;
+        }
+        
+        public static float PortalDepth => 1f;
         
         private Camera _mainCamera;
 
         public Vector2 Size => size;
-        public Portal OtherPortal => otherPortal;
+        public Portal OtherPortal => otherPortal ? otherPortal : (otherPortalTremble ? otherPortalTremble.portal : null);
 
         private float _distanceToCamera;
 
@@ -56,12 +66,59 @@ namespace GGJ.Rendering.Portals
             ActivePortals.Remove(this);
         }
 
-        public bool IsFacingView(Vector3 cameraForward)
+        
+        private List<Transform> _currentTeleportables = new();
+        
+
+        private void OnTriggerEnter(Collider other)
         {
-            float dot = Vector3.Dot(cameraForward, transform.forward);
-            return dot <= 0;
+            if (!other.TryGetComponent(out ITeleportable teleportable))
+                return;
+            _currentTeleportables.Add(other.transform);
         }
         
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.TryGetComponent(out ITeleportable teleportable))
+                return;
+            _currentTeleportables.Remove(other.transform);
+        }
+
+        private void LateUpdate()
+        {
+            if (!OtherPortal)
+                return;
+            
+            for (var i = _currentTeleportables.Count - 1; i >= 0; i--)
+            {
+                var currentTeleportable = _currentTeleportables[i];
+                if (transform.IsBehind(currentTeleportable.position))
+                {
+                    currentTeleportable.TryGetComponent(out ITeleportable t);
+                    t.Teleport(OtherPortal, GetTeleportData());
+                    _currentTeleportables.RemoveAt(i);
+                }
+            }
+        }
+
+        private TeleportData GetTeleportData()
+        {
+            Transform t = transform;
+            Quaternion localRotation = Quaternion.LookRotation(-t.forward, t.up);
+            Vector3 position = t.position;
+
+            TeleportData teleportData = new TeleportData()
+            {
+                RelativePosition = position,
+                RelativeRotation = localRotation,
+            };
+
+            return teleportData;
+        }
+
+        public bool UseRelativeRotation => true;
+        public bool UseRelativePosition => true;
+        public Pose Transform => transform.ToPose();
 
         private void OnDrawGizmos()
         {
@@ -77,11 +134,11 @@ namespace GGJ.Rendering.Portals
             if (!_mainCamera)
                 return;
 
-            if (!otherPortal)
+            if (!OtherPortal)
                 return;
 
             Gizmos.color = new(1, 0, 0, 0.25f);
-            bool overlap = CameraUtility.ScreenBoundsOverlap(bounds, otherPortal.Bounds, _mainCamera);
+            bool overlap = CameraUtility.ScreenBoundsOverlap(bounds, OtherPortal.Bounds, _mainCamera);
 
             if (overlap)
                 Gizmos.color = new(0, 1, 0, 0.25f);
@@ -92,7 +149,7 @@ namespace GGJ.Rendering.Portals
             float t = iteration / 10f;
             Gizmos.color = Color.HSVToRGB(t, 1, 1);
 
-            Pose camPose = GetCameraPose(this, otherPortal, _mainCamera.transform.ToPose(), iteration);
+            Pose camPose = GetCameraPose(this, OtherPortal, _mainCamera.transform.ToPose(), iteration);
             
             Gizmos.matrix = Matrix4x4.TRS(camPose.position, camPose.rotation, Vector3.one);
             Gizmos.DrawWireSphere(Vector3.zero, 1f);
@@ -128,6 +185,28 @@ namespace GGJ.Rendering.Portals
                 * clipPlaneWorldSpace;
 
             return mainCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
+        }
+        
+        public static void GetDepthBiasPlanes(Pose outPortalPose, Pose portalCameraPose, Camera mainCamera, out float biasFactor, out int biasUnits)
+        {
+            Plane p = new Plane(outPortalPose.forward, outPortalPose.position);
+            Vector4 clipPlaneWorldSpace = new(p.normal.x, p.normal.y, p.normal.z, p.distance);
+            Vector4 clipPlaneCameraSpace = 
+                Matrix4x4.Transpose(Matrix4x4.Inverse(portalCameraPose.ToViewMatrix())) 
+                * clipPlaneWorldSpace;
+
+            Vector3 cNormal = portalCameraPose.ToViewMatrix().MultiplyVector(outPortalPose.forward).normalized;
+            Vector3 cPos = portalCameraPose.ToViewMatrix().MultiplyPoint(outPortalPose.position);
+            clipPlaneCameraSpace = new Vector4(cNormal.x, cNormal.y, cNormal.z, -Vector3.Dot(cPos, cNormal));
+            
+            // 2. Compute the exact depth bias factors based on the oblique slope
+            // N_x / N_z and N_y / N_z define the slope distortions
+            float slopeX = clipPlaneCameraSpace.x / clipPlaneCameraSpace.z;
+            float slopeY = clipPlaneCameraSpace.y / clipPlaneCameraSpace.z;
+            // Calculate the magnitude of the slope offset factor
+            biasFactor = Mathf.Sqrt(slopeX * slopeX + slopeY * slopeY);
+            // Units offset handles the depth translation shift
+            biasUnits = Mathf.RoundToInt(clipPlaneCameraSpace.w / clipPlaneCameraSpace.z * 2.0f);
         }
 
         public int CompareTo(object obj)
