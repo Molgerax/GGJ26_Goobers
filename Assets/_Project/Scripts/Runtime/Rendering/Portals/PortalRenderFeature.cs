@@ -85,6 +85,7 @@ namespace GGJ.Rendering.Portals
                 public Pose CameraPose;
 
                 public Vector2 PortalSize;
+                public float PortalDepth;
 
                 public Material Material;
                 public Mesh Mesh;
@@ -138,10 +139,10 @@ namespace GGJ.Rendering.Portals
                     Portal.GetProjectionMatrix(data.PortalOutPose, data.CameraPose,
                         data.CameraData.camera);
 
-                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * Portal.PortalDepth);
+                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
                 
                 Matrix4x4 portalMatrix =
-                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, Portal.PortalDepth));
+                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
 
@@ -221,6 +222,7 @@ namespace GGJ.Rendering.Portals
                         passData.PortalOutPose = portal.OtherPortal.transform.ToPose();
                         passData.PortalPose = portal.transform.ToPose();
                         passData.PortalSize = portal.Size;
+                        passData.PortalDepth = portal.PortalDepth;
                         passData.Material = _settings.material;
                         passData.Mesh = _settings.mesh;
 

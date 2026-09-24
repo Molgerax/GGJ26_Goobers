@@ -19,14 +19,17 @@ namespace GGJ.Rendering.Portals
         [SerializeField, Range(0, 10)] private int iteration = 0;
 
         [SerializeField] private TriggerSeamlessTeleport otherPortalTremble;
+
+        [SerializeField] private float portalDepth = 1f;
         
-        public void Setup(TriggerSeamlessTeleport target, Vector2 scale)
+        public void Setup(TriggerSeamlessTeleport target, Vector2 scale, float depth)
         {
             size = scale;
             otherPortalTremble = target;
+            portalDepth = depth;
         }
         
-        public static float PortalDepth => 1f;
+        public float PortalDepth => portalDepth;
         
         private Camera _mainCamera;
 

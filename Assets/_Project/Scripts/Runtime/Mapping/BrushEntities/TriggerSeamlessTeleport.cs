@@ -43,11 +43,11 @@ namespace GGJ.Mapping.BrushEntities
             transform.position += direction * distance * 0.5f;
             
             portal = gameObject.AddComponent<Portal>();
-            portal.Setup(destination, size);
+            portal.Setup(destination, size, distance);
 
             BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
-            boxCollider.size = new Vector3(size.x, size.y, Portal.PortalDepth * 2);
+            boxCollider.size = new Vector3(size.x, size.y, distance * 2);
         }
     }
 }
