@@ -46,13 +46,15 @@ Shader "Custom/PortalStencil"
             ColorMask 0
             ZTest LEqual
             ZWrite Off
-            Cull Off
+            Cull Front
+            ZClip Off
+            Offset -1, -0.1
             
             Stencil
             {
                 Ref 1
                 Comp Always
-                Pass Replace
+                Pass IncrSat
             }
             
             
@@ -68,12 +70,14 @@ Shader "Custom/PortalStencil"
             ColorMask 0
             ZTest Always
             ZWrite On
-            Cull Off
+            Cull Front
+            ZClip Off
+            Offset -1,-0.
             
             Stencil
             {
                 Ref 1
-                Comp Equal
+                Comp GEqual
                 Pass DecrSat
                 ZFail DecrSat
             }
