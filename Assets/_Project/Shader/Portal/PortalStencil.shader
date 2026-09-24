@@ -48,7 +48,7 @@ Shader "Custom/PortalStencil"
             ZWrite Off
             Cull Front
             ZClip Off
-            Offset -1, -0.1
+            Offset -1, 0
             
             Stencil
             {
@@ -68,11 +68,11 @@ Shader "Custom/PortalStencil"
         Pass
         {
             ColorMask 0
-            ZTest Always
+            ZTest LEqual
             ZWrite On
             Cull Front
             ZClip Off
-            Offset -1,-0.
+            Offset -1, 0
             
             Stencil
             {

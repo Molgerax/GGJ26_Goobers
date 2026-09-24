@@ -37,6 +37,10 @@ MonoBehaviour:
     renderPassEvent: 250
     maxIterations: 1
     stencilReference: 1
+    depthFactor: 0
+    depthOffset: 0
+    cullMode: 2
+    depthClip: 0
     material: {fileID: 2100000, guid: 5fa6e4fa1abab4b499d2d98773049e73, type: 2}
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &11400000
