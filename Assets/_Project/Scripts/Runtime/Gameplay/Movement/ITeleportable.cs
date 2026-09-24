@@ -5,7 +5,14 @@ namespace GGJ.Gameplay.Movement
 {
     public interface ITeleportable
     {
-        public void Teleport(InfoTeleportDestination destination, TeleportData data);
+        public void Teleport(ITeleportDestination destination, TeleportData data);
+    }
+
+    public interface ITeleportDestination
+    {
+        public bool UseRelativeRotation { get; }
+        public bool UseRelativePosition { get; }
+        public Pose Transform { get; }
     }
 
     public struct TeleportData

@@ -1,5 +1,6 @@
 using GGJ.Gameplay.Movement;
 using GGJ.Mapping.PointEntities;
+using GGJ.Utility.Extensions;
 using QuakeLR;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -87,7 +88,7 @@ namespace GGJ.Gameplay.Player
             }
         }
 
-        public void Teleport(InfoTeleportDestination destination, TeleportData data)
+        public void Teleport(ITeleportDestination destination, TeleportData data)
         {
             Transform t = transform;
             Vector3 localVelocity = t.InverseTransformVector(_quakeController.Velocity);
@@ -97,7 +98,7 @@ namespace GGJ.Gameplay.Player
             if (destination.UseRelativeRotation)
                 localVelocity = Quaternion.Inverse(data.RelativeRotation) * _quakeController.Velocity;
             
-            Transform destinationTransform = destination.transform;
+            Pose destinationTransform = destination.Transform;
             _quakeController.Velocity = destinationTransform.TransformVector(localVelocity);
 
             Quaternion inverse = Quaternion.Inverse(data.RelativeRotation) * t.rotation;
