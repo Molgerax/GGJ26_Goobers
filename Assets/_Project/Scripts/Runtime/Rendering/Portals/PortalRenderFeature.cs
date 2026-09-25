@@ -52,6 +52,8 @@ namespace GGJ.Rendering.Portals
             public Material material;
             public Mesh mesh;
         }
+        
+        public static Plane[] ClippingPlanes = new Plane[6];
 
         class PortalRenderFeaturePass : ScriptableRenderPass
         {
@@ -86,8 +88,8 @@ namespace GGJ.Rendering.Portals
                 public Mesh Mesh;
             }
             
-            private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData,
-                ref PassData passData, ScriptableRenderContext context, RenderGraph renderGraph, bool mirror)
+            private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData, CullContextData cullData,
+                ref PassData passData, RenderGraph renderGraph, bool mirror)
             {
                 SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
                 DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
@@ -96,7 +98,32 @@ namespace GGJ.Rendering.Portals
                 filteringSettings.layerMask = Int32.MaxValue;
                 filteringSettings.renderQueueRange = RenderQueueRange.all;
                 
-                RendererListParams listParams = new RendererListParams(renderingData.cullResults, drawingSettings,
+                
+                passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
+                
+
+                for (int i = 0; i < 6; i++)
+                {
+                    Plane plane = cullParams.GetCullingPlane(i);
+                    Vector4 p = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+                    
+                    p = passData.CameraData.camera.transform.worldToLocalMatrix.inverse.transpose * p;
+                    p = passData.CameraPose.ToMatrix().inverse.transpose * p;
+
+                    plane = new Plane(p, p.w);
+                    
+                    if (i == 4)
+                        plane = new Plane(passData.PortalOutPose.forward, passData.PortalOutPose.position);
+                    
+                    cullParams.SetCullingPlane(i, plane);
+
+                    if (passData.CameraData.cameraType == CameraType.Game)
+                        ClippingPlanes[i] = plane;
+                }
+
+                var cullResults = cullData.Cull(ref cullParams);
+                
+                RendererListParams listParams = new RendererListParams(cullResults, drawingSettings,
                     filteringSettings);
                 
                 
@@ -181,6 +208,7 @@ namespace GGJ.Rendering.Portals
                 UniversalRenderingData renderingData = frameData.Get<UniversalRenderingData>();
                 UniversalLightData lightData = frameData.Get<UniversalLightData>();
                 UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
+                CullContextData cullContextData = frameData.Get<CullContextData>();
 
                 _portals.Clear();
                 foreach (Portal p in Portal.ActivePortals)
@@ -234,7 +262,7 @@ namespace GGJ.Rendering.Portals
 
                         passData.CameraData = cameraData;
 
-                        InitRendererLists(_forwardTag, renderingData, lightData, ref passData, default, renderGraph, passData.PortalMirror);
+                        InitRendererLists(_forwardTag, renderingData, lightData, cullContextData, ref passData, renderGraph, passData.PortalMirror);
 
                         // Setup pass inputs and outputs through the builder interface.
                         // Eg:
