@@ -48,12 +48,6 @@ namespace GGJ.Rendering.Portals
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
             [Range(1, 20)] public int maxIterations = 5;
             [Range(0, 1)] public int stencilReference = 1;
-
-            public float depthFactor;
-            public int depthOffset;
-            public CullMode cullMode;
-            public bool depthClip;
-            public RasterState RasterState => new RasterState(cullMode, depthOffset, depthFactor, depthClip);
             
             public Material material;
             public Mesh mesh;
@@ -83,16 +77,17 @@ namespace GGJ.Rendering.Portals
                 public Pose PortalPose;
                 public Pose PortalOutPose;
                 public Pose CameraPose;
-
+                
                 public Vector2 PortalSize;
                 public float PortalDepth;
-
+                public bool PortalMirror;
+                
                 public Material Material;
                 public Mesh Mesh;
             }
             
             private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData,
-                ref PassData passData, ScriptableRenderContext context, RenderGraph renderGraph, float depthBias, int depthOffset)
+                ref PassData passData, ScriptableRenderContext context, RenderGraph renderGraph, bool mirror)
             {
                 SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
                 DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
@@ -116,8 +111,11 @@ namespace GGJ.Rendering.Portals
                 stencilBlock.stencilState = new StencilState(true, 255, 255, CompareFunction.LessEqual, StencilOp.Keep);
                 
                 stencilBlock.mask |= RenderStateMask.Raster;
-                stencilBlock.rasterState = new RasterState(CullMode.Back, 1, 1);
-                //stencilBlock.rasterState = _settings.RasterState;
+
+                CullMode cull = CullMode.Back;
+                if (mirror)
+                    cull = CullMode.Front;
+                stencilBlock.rasterState = new RasterState(cull, 1, 1);
                 
                 blocks[0] = stencilBlock;
 
@@ -148,10 +146,17 @@ namespace GGJ.Rendering.Portals
 
                 obliqueProjectionMatrix = data.CameraData.GetProjectionMatrix();
 
+                //if (data.PortalMirror)
+                //    obliqueProjectionMatrix *= Matrix4x4.Scale(new Vector3(-1, 1, 1));// * obliqueProjectionMatrix;
+
+                Matrix4x4 viewMatrix = data.CameraPose.ToViewMatrix();
+                if (data.PortalMirror)
+                    viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
+                
                 Plane plane = new Plane(data.PortalOutPose.forward, data.PortalOutPose.position);
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance));
                 
-                context.cmd.SetViewProjectionMatrices(data.CameraPose.ToViewMatrix(), obliqueProjectionMatrix);
+                context.cmd.SetViewProjectionMatrices(viewMatrix, obliqueProjectionMatrix);
                 context.cmd.DrawRendererList(data.RendererListHdl);
                 context.cmd.DrawRendererList(data.SkyboxList);
                 
@@ -223,13 +228,13 @@ namespace GGJ.Rendering.Portals
                         passData.PortalPose = portal.transform.ToPose();
                         passData.PortalSize = portal.Size;
                         passData.PortalDepth = portal.PortalDepth;
+                        passData.PortalMirror = portal.OtherPortal.Mirror;
                         passData.Material = _settings.material;
                         passData.Mesh = _settings.mesh;
 
                         passData.CameraData = cameraData;
 
-                        Portal.GetDepthBiasPlanes(passData.PortalOutPose, passData.CameraPose, cameraData.camera, out float biasFactor, out int biasUnits);
-                        InitRendererLists(_forwardTag, renderingData, lightData, ref passData, default, renderGraph, biasFactor, biasUnits);
+                        InitRendererLists(_forwardTag, renderingData, lightData, ref passData, default, renderGraph, passData.PortalMirror);
 
                         // Setup pass inputs and outputs through the builder interface.
                         // Eg:

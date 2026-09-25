@@ -21,12 +21,17 @@ namespace GGJ.Rendering.Portals
         [SerializeField] private TriggerSeamlessTeleport otherPortalTremble;
 
         [SerializeField] private float portalDepth = 1f;
+
+        [SerializeField] private bool passable;
+        [SerializeField] private bool mirror;
         
-        public void Setup(TriggerSeamlessTeleport target, Vector2 scale, float depth)
+        public void Setup(TriggerSeamlessTeleport target, Vector2 scale, float depth, bool canPassThrough, bool doesMirror)
         {
             size = scale;
             otherPortalTremble = target;
             portalDepth = depth;
+            passable = canPassThrough;
+            mirror = doesMirror;
         }
         
         public float PortalDepth => portalDepth;
@@ -36,6 +41,8 @@ namespace GGJ.Rendering.Portals
         public Vector2 Size => size;
         public Portal OtherPortal => otherPortal ? otherPortal : (otherPortalTremble ? otherPortalTremble.portal : null);
 
+        public bool Mirror => mirror;
+        
         private float _distanceToCamera;
 
         public void UpdateDistanceToCamera(Camera cam)
@@ -75,6 +82,9 @@ namespace GGJ.Rendering.Portals
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!passable)
+                return;
+            
             if (!other.TryGetComponent(out ITeleportable teleportable))
                 return;
             _currentTeleportables.Add(other.transform);
@@ -82,6 +92,9 @@ namespace GGJ.Rendering.Portals
         
         private void OnTriggerExit(Collider other)
         {
+            if (!passable)
+                return;
+            
             if (!other.TryGetComponent(out ITeleportable teleportable))
                 return;
             _currentTeleportables.Remove(other.transform);
@@ -89,6 +102,9 @@ namespace GGJ.Rendering.Portals
 
         private void LateUpdate()
         {
+            if (!passable)
+                return;
+            
             if (!OtherPortal)
                 return;
             
@@ -169,10 +185,21 @@ namespace GGJ.Rendering.Portals
             {
                 Vector3 relativePos = inPose.InverseTransformPoint(cameraPose.position);
                 relativePos = Quaternion.Euler(0, 180, 0) * relativePos;
+
+                if (outPortal.Mirror)
+                    relativePos.x *= -1;
+                
                 cameraPose.position = outPose.TransformPoint(relativePos);
 
                 Quaternion relativeRot = Quaternion.Inverse(inPose.rotation) * cameraPose.rotation;
                 relativeRot = Quaternion.Euler(0, 180, 0) * relativeRot;
+                
+                if (outPortal.Mirror)
+                {
+                    relativeRot.y *= -1;
+                    relativeRot.z *= -1;
+                } 
+                
                 cameraPose.rotation = outPose.rotation * relativeRot;
             }
 

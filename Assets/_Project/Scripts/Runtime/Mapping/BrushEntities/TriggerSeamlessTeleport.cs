@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using GGJ.Gameplay;
-using GGJ.Gameplay.Movement;
-using GGJ.Mapping.PointEntities;
 using GGJ.Mapping.Tremble.Properties;
 using GGJ.Rendering.Portals;
 using TinyGoose.Tremble;
@@ -16,6 +12,11 @@ namespace GGJ.Mapping.BrushEntities
         [SerializeField, Tremble("target")] private TriggerSeamlessTeleport destination;
         [SerializeField, Tremble("angle")] private QuakeAngle angle;
 
+        [SerializeField, Tremble("passable"), SpawnFlags]
+        private bool passable;
+        [SerializeField, Tremble("mirror"), SpawnFlags]
+        private bool mirror;
+        
         [NoTremble] public Portal portal;
         
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
@@ -43,7 +44,7 @@ namespace GGJ.Mapping.BrushEntities
             transform.position += direction * distance * 0.5f;
             
             portal = gameObject.AddComponent<Portal>();
-            portal.Setup(destination, size, distance);
+            portal.Setup(destination, size, distance, passable, mirror);
 
             BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
