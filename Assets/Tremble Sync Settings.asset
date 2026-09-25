@@ -1552,7 +1552,7 @@ MonoBehaviour:
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: special/Trigger
-    Path: Assets/_Project/Materials/Mapping/trigger.mat
+    Path: Assets/_Project/Materials/Mapping/Trigger.mat
     FullTypeName: UnityEngine.Material
     SpawnOffset: {x: 0, y: 0, z: 0}
   - MapName: special/Skybox
