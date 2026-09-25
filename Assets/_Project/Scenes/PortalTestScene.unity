@@ -294,6 +294,10 @@ MonoBehaviour:
   size: {x: 3, y: 4}
   otherPortal: {fileID: 964557311}
   iteration: 0
+  otherPortalTremble: {fileID: 0}
+  portalDepth: 1
+  passable: 0
+  mirror: 0
 --- !u!4 &256922960
 Transform:
   m_ObjectHideFlags: 0
@@ -691,6 +695,10 @@ MonoBehaviour:
   size: {x: 4, y: 4}
   otherPortal: {fileID: 1496509588}
   iteration: 0
+  otherPortalTremble: {fileID: 0}
+  portalDepth: 1
+  passable: 0
+  mirror: 0
 --- !u!4 &863674812
 Transform:
   m_ObjectHideFlags: 0
@@ -754,6 +762,10 @@ MonoBehaviour:
   size: {x: 3, y: 4}
   otherPortal: {fileID: 256922959}
   iteration: 0
+  otherPortalTremble: {fileID: 0}
+  portalDepth: 1
+  passable: 0
+  mirror: 0
 --- !u!65 &964557312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -914,7 +926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1269708385
 Transform:
   m_ObjectHideFlags: 0
@@ -1128,7 +1140,7 @@ Transform:
   m_GameObject: {fileID: 1493457080}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 2.5, z: -6}
+  m_LocalPosition: {x: -8.71, y: 2.5, z: 10.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1242,6 +1254,10 @@ MonoBehaviour:
   size: {x: 4, y: 4}
   otherPortal: {fileID: 863674811}
   iteration: 0
+  otherPortalTremble: {fileID: 0}
+  portalDepth: 1
+  passable: 0
+  mirror: 0
 --- !u!4 &1496509589
 Transform:
   m_ObjectHideFlags: 0
@@ -1702,7 +1718,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 500969421252830875, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -8.71
       objectReference: {fileID: 0}
     - target: {fileID: 500969421252830875, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1710,7 +1726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 500969421252830875, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: 10.05
       objectReference: {fileID: 0}
     - target: {fileID: 500969421252830875, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1748,6 +1764,10 @@ PrefabInstance:
       propertyPath: UITextMeshPro
       value: 
       objectReference: {fileID: 256014506}
+    - target: {fileID: 5323143224014083656, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8322476873672220204, guid: 75892c9635c1b8c4ea9ce44684287a57, type: 3}
       propertyPath: m_Name
       value: Player
