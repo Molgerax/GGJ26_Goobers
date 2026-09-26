@@ -91,16 +91,9 @@ namespace GGJ.Rendering.Portals
             private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData, CullContextData cullData,
                 ref PassData passData, RenderGraph renderGraph, bool mirror)
             {
-                SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
-                DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
-
-                FilteringSettings filteringSettings = FilteringSettings.defaultValue;
-                filteringSettings.layerMask = Int32.MaxValue;
-                filteringSettings.renderQueueRange = RenderQueueRange.all;
-                
-                
                 passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
                 
+                cullParams.origin = passData.CameraPose.position;
 
                 for (int i = 0; i < 6; i++)
                 {
@@ -116,12 +109,21 @@ namespace GGJ.Rendering.Portals
                         plane = new Plane(passData.PortalOutPose.forward, passData.PortalOutPose.position);
                     
                     cullParams.SetCullingPlane(i, plane);
-
+                    
                     if (passData.CameraData.cameraType == CameraType.Game)
                         ClippingPlanes[i] = plane;
                 }
-
+                
+                //cullParams.cullingOptions &= ~CullingOptions.NeedsLighting;
                 var cullResults = cullData.Cull(ref cullParams);
+
+                
+                SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
+                DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
+                
+                FilteringSettings filteringSettings = FilteringSettings.defaultValue;
+                filteringSettings.layerMask = Int32.MaxValue;
+                filteringSettings.renderQueueRange = RenderQueueRange.all;
                 
                 RendererListParams listParams = new RendererListParams(cullResults, drawingSettings,
                     filteringSettings);
@@ -155,15 +157,12 @@ namespace GGJ.Rendering.Portals
                 
                 passData.RendererListHdl = renderGraph.CreateRendererList(listParams);
             }
+            
 
             // This static method is passed as the RenderFunc delegate to the RenderGraph render pass.
             // It is used to execute draw commands.
             static void ExecutePass(PassData data, RasterGraphContext context)
             {
-                Matrix4x4 obliqueProjectionMatrix =
-                    Portal.GetProjectionMatrix(data.PortalOutPose, data.CameraPose,
-                        data.CameraData.camera);
-
                 Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
                 
                 Matrix4x4 portalMatrix =
@@ -171,10 +170,7 @@ namespace GGJ.Rendering.Portals
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
 
-                obliqueProjectionMatrix = data.CameraData.GetProjectionMatrix();
-
-                //if (data.PortalMirror)
-                //    obliqueProjectionMatrix *= Matrix4x4.Scale(new Vector3(-1, 1, 1));// * obliqueProjectionMatrix;
+                Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
 
                 Matrix4x4 viewMatrix = data.CameraPose.ToViewMatrix();
                 if (data.PortalMirror)
@@ -183,7 +179,7 @@ namespace GGJ.Rendering.Portals
                 Plane plane = new Plane(data.PortalOutPose.forward, data.PortalOutPose.position);
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance));
                 
-                context.cmd.SetViewProjectionMatrices(viewMatrix, obliqueProjectionMatrix);
+                context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
                 context.cmd.DrawRendererList(data.RendererListHdl);
                 context.cmd.DrawRendererList(data.SkyboxList);
                 
