@@ -14,6 +14,8 @@ namespace GGJ.Rendering.Portals
     {
         [SerializeField] PortalRenderFeatureSettings settings;
         PortalRenderFeaturePass _scriptablePass;
+
+        private static List<Portal> _portals = new();
         
         /// <inheritdoc/>
         public override void Create()
@@ -39,6 +41,85 @@ namespace GGJ.Rendering.Portals
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
             renderer.EnqueuePass(_scriptablePass);
+        }
+        
+        public override void OnCameraPreCull(ScriptableRenderer renderer, in CameraData cameraData)
+        {
+            foreach (var lightEnforcer in LightEnforcer.ActiveLightEnforcers)
+            {
+                lightEnforcer.ForceVisible = false;
+                lightEnforcer.SetForcedVisible(false);
+            }
+            
+            _portals.Clear();
+            foreach (Portal p in Portal.ActivePortals)
+            {
+                if (!p.transform.IsInFrontOf(cameraData.camera.transform.position))
+                    continue;
+
+                if (!CameraUtility.IsVisibleFromCamera(p.Bounds, cameraData.camera))
+                    continue;
+                    
+                if (!p.OtherPortal)
+                    continue;
+                    
+                p.UpdateDistanceToCamera(cameraData.camera);
+                _portals.Add(p);
+            }
+
+
+            if (_portals.Count == 0)
+                return;
+                
+            _portals.Sort();
+
+
+            foreach (Portal portal in _portals)
+            {
+                Pose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
+                    cameraData.camera.transform.ToPose());
+                Pose portalOutPose = portal.OtherPortal.Transform;
+                
+                cameraData.camera.TryGetCullingParameters(out var cullParams);
+
+                for (int i = 0; i < 6; i++)
+                {
+                    Plane plane = cullParams.GetCullingPlane(i);
+                    Vector4 p = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+
+                    p = cameraData.camera.transform.worldToLocalMatrix.inverse.transpose * p;
+                    p = cameraPose.ToMatrix().inverse.transpose * p;
+
+                    plane = new Plane(p, p.w);
+
+                    if (i == 4)
+                        plane = new Plane(portalOutPose.forward, portalOutPose.position);
+                    ClippingPlanes[i] = plane;
+                }
+
+                foreach (var lightEnforcer in LightEnforcer.ActiveLightEnforcers)
+                {
+                    bool visible = true;
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Plane p = ClippingPlanes[i];
+                        Vector3 pos = lightEnforcer.transform.position;
+                        pos += p.normal * lightEnforcer.Light.dilatedRange;
+                        
+                        if (!p.GetSide(pos))
+                            visible = false;
+                    }
+
+                    if (visible)
+                        lightEnforcer.ForceVisible = true;
+                }
+            }
+            
+            foreach (var lightEnforcer in LightEnforcer.ActiveLightEnforcers)
+            {
+                if (lightEnforcer.ForceVisible)
+                    lightEnforcer.SetForcedVisible(true);
+            }
         }
 
         // Use this class to pass around settings from the feature to the pass
@@ -92,8 +173,7 @@ namespace GGJ.Rendering.Portals
                 ref PassData passData, RenderGraph renderGraph, bool mirror)
             {
                 passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
-                
-                cullParams.origin = passData.CameraPose.position;
+                //cullParams.origin = passData.CameraPose.position;
 
                 for (int i = 0; i < 6; i++)
                 {
@@ -191,8 +271,6 @@ namespace GGJ.Rendering.Portals
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 1);
             }
-
-            private List<Portal> _portals = new();
             
             // RecordRenderGraph is where the RenderGraph handle can be accessed, through which render passes can be added to the graph.
             // FrameData is a context container through which URP resources can be accessed and managed.
@@ -206,27 +284,8 @@ namespace GGJ.Rendering.Portals
                 UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
                 CullContextData cullContextData = frameData.Get<CullContextData>();
 
-                _portals.Clear();
-                foreach (Portal p in Portal.ActivePortals)
-                {
-                    if (!p.transform.IsInFrontOf(cameraData.camera.transform.position))
-                        continue;
-
-                    if (!CameraUtility.IsVisibleFromCamera(p.Bounds, cameraData.camera))
-                        continue;
-                    
-                    if (!p.OtherPortal)
-                        continue;
-                    
-                    p.UpdateDistanceToCamera(cameraData.camera);
-                    _portals.Add(p);
-                }
-
-
                 if (_portals.Count == 0)
                     return;
-                
-                _portals.Sort();
                 
                 if (!_settings.mesh || !_settings.material)
                     return;
