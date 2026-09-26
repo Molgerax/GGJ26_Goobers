@@ -26,6 +26,7 @@ Shader "Custom/Environment_Clip"
     {
     	float4 pos : POSITION;
     	float4 uv : TEXCOORD0;
+    	float4 uv2 : TEXCOORD1;
     	float3 normal : NORMAL;
     	float4 tangent : TANGENT;
     };
@@ -79,7 +80,7 @@ Shader "Custom/Environment_Clip"
     	
     	OUT.clipDistance = dot(OUT.positionWS, -plane.xyz) - plane.w;
     	
-		OUTPUT_LIGHTMAP_UV( vert.uv, unity_LightmapST, output.lightmap);
+		OUTPUT_LIGHTMAP_UV( IN.uv2, unity_LightmapST, OUT.lightmapUV);
 		OUTPUT_SH(OUT.normalWS.xyz, OUT.vertexSH);
     	
     	return OUT;
