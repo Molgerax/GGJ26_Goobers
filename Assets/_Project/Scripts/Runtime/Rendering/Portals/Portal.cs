@@ -176,6 +176,105 @@ namespace GGJ.Rendering.Portals
         }
 
 
+        private void OnDrawGizmosSelected()
+        {
+            if (PortalRenderFeature.ClippingPlanes == null)
+                return;
+
+            Gizmos.color = Color.red;
+            DrawPlaneIntersections();
+            
+            for (int i = 0; i < 6; i++)
+            {
+                float t = i / 6f;
+                var col = Color.HSVToRGB(t, 1, 1);
+                col.a = 0.25f;
+                Gizmos.color = col;
+                
+                Plane p = PortalRenderFeature.ClippingPlanes[i];
+                DrawPlane(p, 50);
+            }
+        }
+
+        public void DrawPlane(Plane p, float width, int count = 16)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(-p.normal * p.distance, Quaternion.LookRotation(p.normal), Vector3.one);
+            
+            for (int x = 0; x < count; x++)
+            {
+                float t = x / (count - 1f);
+                t = 2 * t - 1;
+                Gizmos.DrawLine(
+                    new Vector3(-width, t * width, 0),
+                    new Vector3(+width, t * width, 0));
+                
+                Gizmos.DrawLine(
+                    new Vector3(t * width, -width, 0),
+                    new Vector3(t * width, +width, 0));
+            }
+        }
+
+        public static Vector3[] CornerList = new Vector3[16];
+        
+        public void DrawPlaneIntersections()
+        {
+            Gizmos.matrix = Matrix4x4.identity;
+            int i = 0;
+            
+            for (int a = 0; a < 6; a++)
+            {
+                for (int b = 0; b < 6; b++)
+                {
+                    for (int c = 0; c < 6; c++)
+                    {
+                        if (a == b || a == c || b == c)
+                            continue;
+                        
+                        if (planesIntersectAtSinglePoint(
+                                PortalRenderFeature.ClippingPlanes[a], 
+                                PortalRenderFeature.ClippingPlanes[b], 
+                                PortalRenderFeature.ClippingPlanes[c], out Vector3 point))
+                        {
+                            
+                            if (i < 16)
+                                CornerList[i++] = point;
+                            Gizmos.DrawSphere(point, 0.1f);
+                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j < i; j++)
+            {
+                for (int k = 0; k < i; k++)
+                {
+                    if (j == k)
+                        continue;
+                    Gizmos.DrawLine(CornerList[j], CornerList[k]);
+                }
+            }
+        }
+        
+        private bool planesIntersectAtSinglePoint( Plane p0, Plane p1, Plane p2, out Vector3 intersectionPoint )
+        {
+            const float EPSILON = 1e-4f;
+
+            var det = Vector3.Dot( Vector3.Cross( p0.normal, p1.normal ), p2.normal );
+            if( det < EPSILON )
+            {
+                intersectionPoint = Vector3.zero;
+                return false;
+            }
+
+            intersectionPoint = 
+                ( -( p0.distance * Vector3.Cross( p1.normal, p2.normal ) ) -
+                  ( p1.distance * Vector3.Cross( p2.normal, p0.normal ) ) -
+                  ( p2.distance * Vector3.Cross( p0.normal, p1.normal ) ) ) / det;
+
+            return true;
+        }
+
+
         public static Pose GetCameraPose(Portal inPortal, Portal outPortal, Pose cameraPose, int iterationID = 0)
         {
             Pose inPose = inPortal.transform.ToPose();
