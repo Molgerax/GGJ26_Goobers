@@ -193,10 +193,34 @@ namespace GGJ.Rendering.Portals
                     if (passData.CameraData.cameraType == CameraType.Game)
                         ClippingPlanes[i] = plane;
                 }
-                
-                //cullParams.cullingOptions &= ~CullingOptions.NeedsLighting;
+
+
+                //cullParams.cullingOptions |= CullingOptions.DisablePerObjectCulling;
+                //cullParams.cullingOptions |= CullingOptions.DisablePerObjectCulling; 
+                cullParams.cullingOptions |= CullingOptions.NeedsLighting;
                 var cullResults = cullData.Cull(ref cullParams);
 
+                
+                //cullResults = renderingData.cullResults;
+                
+                //string debug = "\nOld: ";
+                //var lightMap = renderingData.cullResults.GetLightIndexMap(Allocator.Temp);
+                //foreach (var l in lightMap)
+                //{
+                //    debug += $"{l}, ";
+                //}
+                //lightMap = cullResults.GetLightIndexMap(Allocator.Temp);
+                //debug += "\nNew: ";
+                //foreach (var l in lightMap)
+                //{
+                //    debug += $"{l}, ";
+                //}
+
+                //debug +=
+                //    $"\n{passData.CameraData.cameraType}, Old: {renderingData.cullResults.lightIndexCount}, New: {cullResults.lightIndexCount}";
+                //
+                //Debug.Log(debug);
+                
                 
                 SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
                 DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
