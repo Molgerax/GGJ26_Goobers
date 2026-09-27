@@ -11,6 +11,27 @@ namespace GGJ.Utility
             return GeometryUtility.TestPlanesAABB(FrustumPlanes, bounds);
         }
         
+        public static bool IsVisibleFromCameraAdjusted(Bounds bounds, Camera cam, Pose camPose)
+        {
+            GeometryUtility.CalculateFrustumPlanes(cam, FrustumPlanes);
+            Matrix4x4 camMat = cam.transform.worldToLocalMatrix.inverse.transpose;
+            Matrix4x4 newCamMat = camPose.ToMatrix().inverse.transpose;
+            
+            for (int i = 0; i < 6; i++)
+            {
+                Plane plane = FrustumPlanes[i];
+                Vector4 p = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+
+                p = camMat * p;
+                p = newCamMat * p;
+
+                plane = new Plane(p, p.w);
+                FrustumPlanes[i] = plane;
+            }
+            
+            return GeometryUtility.TestPlanesAABB(FrustumPlanes, bounds);
+        }
+        
         public static readonly Plane[] FrustumPlanes = new Plane[6];
 
         
@@ -19,12 +40,23 @@ namespace GGJ.Utility
             return ScreenBoundsOverlap(nearObject, Pose.identity, farObject, Pose.identity, camera);
         }
         
-        public static bool ScreenBoundsOverlap (Bounds nearLocalBounds, Pose nearPose, Bounds farLocalBounds, Pose farPose, Camera camera) 
+        public static bool ScreenBoundsOverlap (Bounds nearLocalBounds, Pose nearPose, Bounds farLocalBounds, Pose farPose, Camera camera)
         {
+            return ScreenBoundsOverlap(out _, nearLocalBounds, nearPose, farLocalBounds, farPose, camera.transform.ToPose(),
+                camera.projectionMatrix);
+        }
+        
+        public static bool ScreenBoundsOverlap (out Bounds summedBounds, Bounds nearLocalBounds, Pose nearPose, Bounds farLocalBounds, Pose farPose, Pose cameraPose, Matrix4x4 projectionMatrix)
+        {
+            var near = GetScreenRectFromBounds (nearLocalBounds, nearPose, cameraPose, projectionMatrix);
+            var far = GetScreenRectFromBounds (farLocalBounds, farPose, cameraPose, projectionMatrix);
 
-            var near = GetScreenRectFromBounds (nearLocalBounds, nearPose, camera);
-            var far = GetScreenRectFromBounds (farLocalBounds, farPose, camera);
+            summedBounds = new Bounds();
 
+            summedBounds.min = Vector3.Max(near.min, far.min);
+            summedBounds.max = Vector3.Min(near.max, far.max);
+
+            
             // ensure far object is indeed further away than near object
             if (far.max.z > near.min.z) 
             {
@@ -43,7 +75,6 @@ namespace GGJ.Utility
             }
             return false;
         }
-        
         
         public static Bounds GetScreenRectFromBounds (Bounds worldSpaceBounds, Camera camera) 
         {

@@ -127,7 +127,7 @@ namespace GGJ.Rendering.Portals
         public class PortalRenderFeatureSettings
         {
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
-            [Range(1, 20)] public int maxIterations = 5;
+            [Range(0, 5)] public int maxIterations = 5;
             [Range(0, 1)] public int stencilReference = 1;
             
             public Material material;
@@ -141,8 +141,7 @@ namespace GGJ.Rendering.Portals
             readonly PortalRenderFeatureSettings _settings;
             
             private ShaderTagId _forwardTag = new ShaderTagId("UniversalForward");
-            private ShaderTagId _stencilTag = new ShaderTagId("UniversalForwardStencil");
-            private ShaderTagId _srpUnlit = new ShaderTagId("SRPDefaultUnlit");
+            private ShaderTagId _shadowTag = new ShaderTagId("ShadowCaster");
 
             public PortalRenderFeaturePass(PortalRenderFeatureSettings settings)
             {
@@ -160,6 +159,7 @@ namespace GGJ.Rendering.Portals
                 public Pose PortalPose;
                 public Pose PortalOutPose;
                 public Pose CameraPose;
+                public Pose CameraInitPose;
                 
                 public Vector2 PortalSize;
                 public float PortalDepth;
@@ -167,13 +167,23 @@ namespace GGJ.Rendering.Portals
                 
                 public Material Material;
                 public Mesh Mesh;
+                public int RecursionLevel;
+            }
+
+            private struct PortalData
+            {
+                public UniversalCameraData cameraData;
+                public UniversalRenderingData renderingData;
+                public UniversalLightData lightData;
+                public UniversalResourceData resourceData;
+                public CullContextData cullContextData;
             }
             
             private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData, CullContextData cullData,
                 ref PassData passData, RenderGraph renderGraph, bool mirror)
             {
                 passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
-                //cullParams.origin = passData.CameraPose.position;
+                cullParams.origin = passData.CameraPose.position;
 
                 for (int i = 0; i < 6; i++)
                 {
@@ -195,8 +205,6 @@ namespace GGJ.Rendering.Portals
                 }
 
 
-                //cullParams.cullingOptions |= CullingOptions.DisablePerObjectCulling;
-                //cullParams.cullingOptions |= CullingOptions.DisablePerObjectCulling; 
                 cullParams.cullingOptions |= CullingOptions.NeedsLighting;
                 var cullResults = cullData.Cull(ref cullParams);
 
@@ -240,8 +248,8 @@ namespace GGJ.Rendering.Portals
                 var blocks = new NativeArray<RenderStateBlock>(1, Allocator.Temp);
                 
                 RenderStateBlock stencilBlock = new RenderStateBlock(RenderStateMask.Stencil);
-                stencilBlock.stencilReference = _settings.stencilReference;
-                stencilBlock.stencilState = new StencilState(true, 255, 255, CompareFunction.LessEqual, StencilOp.Keep);
+                stencilBlock.stencilReference = passData.RecursionLevel + 1;
+                stencilBlock.stencilState = new StencilState(true, 255, 255, CompareFunction.Equal, StencilOp.Keep);
                 
                 stencilBlock.mask |= RenderStateMask.Raster;
 
@@ -268,15 +276,18 @@ namespace GGJ.Rendering.Portals
             static void ExecutePass(PassData data, RasterGraphContext context)
             {
                 Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
+
+                Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
+                Matrix4x4 viewMatrix = data.CameraInitPose.ToViewMatrix();
+                context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
+                
                 
                 Matrix4x4 portalMatrix =
                     Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
                 
-                context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
+                //context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
 
-                Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
-
-                Matrix4x4 viewMatrix = data.CameraPose.ToViewMatrix();
+                viewMatrix = data.CameraPose.ToViewMatrix();
                 if (data.PortalMirror)
                     viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
                 
@@ -290,10 +301,26 @@ namespace GGJ.Rendering.Portals
                 
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(0, 1, 0, 100000));
                 
-                context.cmd.SetViewProjectionMatrices(data.CameraData.GetViewMatrix(), data.CameraData.GetProjectionMatrix());
+                context.cmd.SetViewProjectionMatrices(data.CameraInitPose.ToViewMatrix(), data.CameraData.GetProjectionMatrix());
                 
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 1);
+            }
+            
+            static void ExecutePortalQuadPass(PassData data, RasterGraphContext context)
+            {
+                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
+                Matrix4x4 viewMatrix = data.CameraInitPose.ToViewMatrix();
+                Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
+
+                //if (data.PortalMirror)
+                //    viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
+                context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
+                
+                Matrix4x4 portalMatrix =
+                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
+                
+                context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
             }
             
             // RecordRenderGraph is where the RenderGraph handle can be accessed, through which render passes can be added to the graph.
@@ -308,6 +335,15 @@ namespace GGJ.Rendering.Portals
                 UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
                 CullContextData cullContextData = frameData.Get<CullContextData>();
 
+                PortalData portalData = new PortalData()
+                {
+                    cameraData = cameraData,
+                    renderingData = renderingData,
+                    resourceData = resourceData,
+                    lightData = lightData,
+                    cullContextData = cullContextData,
+                };
+                
                 if (_portals.Count == 0)
                     return;
                 
@@ -317,6 +353,14 @@ namespace GGJ.Rendering.Portals
                 // This adds a raster render pass to the graph, specifying the name and the data type that will be passed to the ExecutePass function.
                 foreach (Portal portal in _portals)
                 {
+                    Pose camPose = cameraData.camera.transform.ToPose();
+
+                    Bounds visibleBounds = CameraUtility.GetScreenRectFromBounds(portal.Bounds, cameraData.camera);
+                    
+                    DrawRecursivePortals(portalData, renderGraph, portal, camPose, visibleBounds, _settings.maxIterations, 0);
+                    
+                    continue;
+                    
                     using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName, out var passData))
                     {
                         // Use this scope to set the required inputs and outputs of the pass and to
@@ -331,6 +375,7 @@ namespace GGJ.Rendering.Portals
                         var skyboxRendererList = renderGraph.CreateSkyboxRendererList(cameraData.camera);
                         passData.SkyboxList = skyboxRendererList;
                         passData.CameraPose = cameraPose;
+                        passData.CameraInitPose = cameraData.camera.transform.ToPose();
                         passData.PortalOutPose = portal.OtherPortal.transform.ToPose();
                         passData.PortalPose = portal.transform.ToPose();
                         passData.PortalSize = portal.Size;
@@ -338,6 +383,7 @@ namespace GGJ.Rendering.Portals
                         passData.PortalMirror = portal.OtherPortal.Mirror;
                         passData.Material = _settings.material;
                         passData.Mesh = _settings.mesh;
+                        passData.RecursionLevel = 0;
 
                         passData.CameraData = cameraData;
 
@@ -364,10 +410,100 @@ namespace GGJ.Rendering.Portals
                 }
             }
 
-            private void DrawRecursivePortals(Matrix4x4 viewMat, Matrix4x4 projMat, int maxRecursionLevel,
-                int recursionLevel)
+            private void DrawRecursivePortals(PortalData portalData, RenderGraph renderGraph, Portal portal,
+                Pose cameraPose, Bounds visibleBounds,
+                int maxRecursionLevel, int recursionLevel)
             {
+                const string passName = "Render Portal Quad";
+                const string passName2 = "Render Portal Pass Inside";
                 
+                var newCameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
+                    cameraPose);
+
+
+                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName + $"_{recursionLevel}", out var passData))
+                {
+                    passData.CameraPose = newCameraPose;
+                    passData.CameraInitPose = cameraPose;
+                    passData.PortalPose = portal.transform.ToPose();
+                    passData.PortalSize = portal.Size;
+                    passData.PortalDepth = portal.PortalDepth * _settings.mesh.bounds.size.z;
+                    passData.PortalMirror = portal.OtherPortal.Mirror;
+                    passData.Material = _settings.material;
+                    passData.Mesh = _settings.mesh;
+                    passData.RecursionLevel = recursionLevel;
+
+                    passData.CameraData = portalData.cameraData;
+
+                    builder.AllowGlobalStateModification(true);
+
+                    // This sets the render target of the pass to the active color texture. Change it to your own render target as needed.
+                    builder.SetRenderAttachment(portalData.resourceData.activeColorTexture, 0);
+                    builder.SetRenderAttachmentDepth(portalData.resourceData.activeDepthTexture);
+
+                    // Assigns the ExecutePass function to the render pass delegate. This will be called by the render graph when executing the pass.
+                    builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
+                        ExecutePortalQuadPass(data, context));
+                }
+                
+                if (recursionLevel < maxRecursionLevel)
+                {
+                    foreach (Portal activePortal in Portal.ActivePortals)
+                    {
+                        if (activePortal == portal.OtherPortal)
+                            continue;
+                        
+                        if (!activePortal.OtherPortal)
+                            continue;
+                        if (!activePortal.transform.IsInFrontOf(newCameraPose.position))
+                            continue;
+                        if (!CameraUtility.IsVisibleFromCameraAdjusted(activePortal.Bounds,
+                                portalData.cameraData.camera, newCameraPose))
+                            continue;
+
+                        //if (!CameraUtility.ScreenBoundsOverlap(out Bounds summedBounds, visibleBounds, Pose.identity,
+                        //        activePortal.Bounds, Pose.identity, newCameraPose,
+                        //        portalData.cameraData.GetProjectionMatrix()))
+                        //    summedBounds = visibleBounds;
+                        
+                        DrawRecursivePortals(portalData, renderGraph, portal, newCameraPose, visibleBounds,
+                            maxRecursionLevel, recursionLevel + 1);
+                    }
+                }
+
+                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName2 + $"_{recursionLevel}", out var passData))
+                {
+                    var skyboxRendererList = renderGraph.CreateSkyboxRendererList(portalData.cameraData.camera);
+                    passData.SkyboxList = skyboxRendererList;
+                    passData.CameraPose = newCameraPose;
+                    passData.CameraInitPose = cameraPose;
+                    passData.PortalOutPose = portal.OtherPortal.transform.ToPose();
+                    passData.PortalPose = portal.transform.ToPose();
+                    passData.PortalSize = portal.Size;
+                    passData.PortalDepth = portal.PortalDepth * _settings.mesh.bounds.size.z;
+                    passData.PortalMirror = portal.OtherPortal.Mirror;
+                    passData.Material = _settings.material;
+                    passData.Mesh = _settings.mesh;
+                    passData.RecursionLevel = recursionLevel;
+
+                    passData.CameraData = portalData.cameraData;
+
+                    InitRendererLists(_forwardTag, portalData.renderingData, portalData.lightData,
+                        portalData.cullContextData, ref passData, renderGraph,
+                        passData.PortalMirror);
+
+                    builder.AllowGlobalStateModification(true);
+                    builder.UseRendererList(passData.RendererListHdl);
+                    builder.UseRendererList(passData.SkyboxList);
+
+                    // This sets the render target of the pass to the active color texture. Change it to your own render target as needed.
+                    builder.SetRenderAttachment(portalData.resourceData.activeColorTexture, 0);
+                    builder.SetRenderAttachmentDepth(portalData.resourceData.activeDepthTexture);
+
+                    // Assigns the ExecutePass function to the render pass delegate. This will be called by the render graph when executing the pass.
+                    builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
+                        ExecutePass(data, context));
+                }
             }
         }
     }
