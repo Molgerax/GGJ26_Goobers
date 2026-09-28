@@ -127,10 +127,14 @@ namespace GGJ.Rendering.Portals
         public class PortalRenderFeatureSettings
         {
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
-            [Range(0, 5)] public int maxIterations = 5;
+            [Range(0, 15)] public int maxIterations = 5;
+
+            public int offsetUnits = 0;
+            public int offsetFactor = 0;
             
             public Material materialFirst;
             public Material materialSecond;
+            public Material materialEnd;
             public Mesh mesh;
         }
         
@@ -167,8 +171,10 @@ namespace GGJ.Rendering.Portals
                 
                 public Material MaterialFirst;
                 public Material MaterialSecond;
+                public Material MaterialEnd;
                 public Mesh Mesh;
                 public int RecursionLevel;
+                public int MaxRecursionLevel;
             }
 
             private struct PortalData
@@ -257,7 +263,7 @@ namespace GGJ.Rendering.Portals
                 CullMode cull = CullMode.Back;
                 if (mirror)
                     cull = CullMode.Front;
-                stencilBlock.rasterState = new RasterState(cull, 1, 1);
+                stencilBlock.rasterState = new RasterState(cull, _settings.offsetUnits, _settings.offsetFactor);
                 
                 blocks[0] = stencilBlock;
 
@@ -276,8 +282,6 @@ namespace GGJ.Rendering.Portals
             // It is used to execute draw commands.
             static void ExecutePass(PassData data, RasterGraphContext context)
             {
-                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
-
                 Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
                 Matrix4x4 viewMatrix = data.CameraInitPose.ToViewMatrix();
                 context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
@@ -299,26 +303,37 @@ namespace GGJ.Rendering.Portals
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(0, 1, 0, 100000));
                 
                 context.cmd.SetViewProjectionMatrices(data.CameraInitPose.ToViewMatrix(), data.CameraData.GetProjectionMatrix());
+
+                float depth = data.PortalDepth <= 0.01f ? 1 : data.PortalDepth;
+                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
                 Matrix4x4 portalMatrix =
-                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
+                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, depth));
+
+                if (data.CameraInitPose.scale.x < 0)
+                    portalMatrix *= Matrix4x4.Scale(new Vector3(-1, 1, 1));
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.MaterialSecond, 0, data.RecursionLevel + 1);
+
+                if (data.RecursionLevel == data.MaxRecursionLevel)
+                {
+                    //context.cmd.DrawMesh(data.Mesh, portalMatrix, data.MaterialEnd, 0, data.RecursionLevel);
+                }
             }
             
             static void ExecutePortalQuadPass(PassData data, RasterGraphContext context)
             {
-                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
                 Matrix4x4 viewMatrix = data.CameraInitPose.ToViewMatrix();
                 Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
 
-                //if (data.PortalMirror)
-                //    viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
                 context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
                 
+                float depth = data.PortalDepth <= 0.01f ? 1 : data.PortalDepth;
+                Vector3 offset = data.PortalPose.rotation * new Vector3(0, 0, -0.5f * data.PortalDepth);
                 Matrix4x4 portalMatrix =
-                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
-                
-                //data.Material.SetInt("_StencilReference", data.RecursionLevel);
+                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, depth));
+
+                if (data.CameraInitPose.scale.x < 0)
+                    portalMatrix *= Matrix4x4.Scale(new Vector3(-1, 1, 1));
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.MaterialFirst, 0, data.RecursionLevel);
             }
@@ -359,56 +374,6 @@ namespace GGJ.Rendering.Portals
                        continue;
                     
                     DrawRecursivePortals(portalData, renderGraph, portal, camPose, visibleBounds, _settings.maxIterations, 0);
-                    
-                    continue;
-                    
-                    using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName, out var passData))
-                    {
-                        // Use this scope to set the required inputs and outputs of the pass and to
-                        // setup the passData with the required properties needed at pass execution time.
-
-                        // Make use of frameData to access resources and camera data through the dedicated containers.
-                        // Eg:
-
-                        ScaledPose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
-                            cameraData.camera.transform.ToPose());
-
-                        var skyboxRendererList = renderGraph.CreateSkyboxRendererList(cameraData.camera);
-                        passData.SkyboxList = skyboxRendererList;
-                        passData.CameraPose = cameraPose;
-                        passData.CameraInitPose = cameraData.camera.transform.ToPose();
-                        passData.PortalOutPose = portal.OtherPortal.transform.ToPose();
-                        passData.PortalPose = portal.transform.ToPose();
-                        passData.PortalSize = portal.Size;
-                        passData.PortalDepth = portal.PortalDepth;
-                        passData.PortalMirror = portal.OtherPortal.Mirror;
-                        passData.MaterialFirst = _settings.materialFirst;
-                        passData.MaterialSecond = _settings.materialSecond;
-                        passData.Mesh = _settings.mesh;
-                        passData.RecursionLevel = 0;
-
-                        passData.CameraData = cameraData;
-
-                        InitRendererLists(_forwardTag, renderingData, lightData, cullContextData, ref passData, renderGraph, passData.PortalMirror);
-
-                        // Setup pass inputs and outputs through the builder interface.
-                        // Eg:
-                        // builder.UseTexture(sourceTexture);
-                        // TextureHandle destination = UniversalRenderer.CreateRenderGraphTexture(renderGraph, cameraData.cameraTargetDescriptor, "Destination Texture", false);
-
-                        //builder.AllowPassCulling(false);
-                        builder.AllowGlobalStateModification(true);
-                        builder.UseRendererList(passData.RendererListHdl);
-                        builder.UseRendererList(passData.SkyboxList);
-
-                        // This sets the render target of the pass to the active color texture. Change it to your own render target as needed.
-                        builder.SetRenderAttachment(resourceData.activeColorTexture, 0);
-                        builder.SetRenderAttachmentDepth(resourceData.activeDepthTexture);
-
-                        // Assigns the ExecutePass function to the render pass delegate. This will be called by the render graph when executing the pass.
-                        builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
-                            ExecutePass(data, context));
-                    }
                 }
             }
 
@@ -423,7 +388,7 @@ namespace GGJ.Rendering.Portals
                     cameraPose);
 
 
-                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName + $"_{recursionLevel}", out var passData))
+                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName, out var passData))
                 {
                     passData.CameraPose = newCameraPose;
                     passData.CameraInitPose = cameraPose;
@@ -437,13 +402,13 @@ namespace GGJ.Rendering.Portals
                     passData.MaterialSecond = _settings.materialSecond;
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
+                    passData.MaxRecursionLevel = maxRecursionLevel;
 
                     passData.CameraData = portalData.cameraData;
 
                     builder.AllowGlobalStateModification(true);
 
                     // This sets the render target of the pass to the active color texture. Change it to your own render target as needed.
-                    builder.SetRenderAttachment(portalData.resourceData.activeColorTexture, 0);
                     builder.SetRenderAttachmentDepth(portalData.resourceData.activeDepthTexture);
 
                     // Assigns the ExecutePass function to the render pass delegate. This will be called by the render graph when executing the pass.
@@ -479,7 +444,7 @@ namespace GGJ.Rendering.Portals
                     }
                 }
 
-                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName2 + $"_{recursionLevel}", out var passData))
+                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName2, out var passData))
                 {
                     var skyboxRendererList = renderGraph.CreateSkyboxRendererList(portalData.cameraData.camera);
                     passData.SkyboxList = skyboxRendererList;
@@ -494,8 +459,10 @@ namespace GGJ.Rendering.Portals
                         passData.PortalMirror = !passData.PortalMirror;
                     passData.MaterialFirst = _settings.materialFirst;
                     passData.MaterialSecond = _settings.materialSecond;
+                    passData.MaterialEnd = _settings.materialEnd;
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
+                    passData.MaxRecursionLevel = maxRecursionLevel;
 
                     passData.CameraData = portalData.cameraData;
 

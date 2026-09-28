@@ -61,6 +61,9 @@ namespace GGJ.Editor.Rendering
         private void DrawPortalsRecursive(Portal p, ScaledPose camPose, Bounds screenBounds, Matrix4x4 projMat,
             int maxRecursionLevel, int recursionLevel)
         {
+            if (!p.OtherPortal)
+                return;
+            
             ScaledPose newCamPose = Portal.GetCameraPose(p, p.OtherPortal, camPose);
             
             foreach (Portal activePortal in Portal.ActivePortals)
