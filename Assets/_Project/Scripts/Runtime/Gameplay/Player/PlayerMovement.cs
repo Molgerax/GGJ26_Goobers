@@ -1,5 +1,6 @@
 using GGJ.Gameplay.Movement;
 using GGJ.Mapping.PointEntities;
+using GGJ.Utility;
 using GGJ.Utility.Extensions;
 using QuakeLR;
 using UnityEngine;
@@ -98,7 +99,7 @@ namespace GGJ.Gameplay.Player
             if (destination.UseRelativeRotation)
                 localVelocity = Quaternion.Inverse(data.RelativeRotation) * _quakeController.Velocity;
             
-            Pose destinationTransform = destination.Transform;
+            ScaledPose destinationTransform = destination.Transform;
             _quakeController.Velocity = destinationTransform.TransformVector(localVelocity);
 
             Quaternion inverse = Quaternion.Inverse(data.RelativeRotation) * t.rotation;

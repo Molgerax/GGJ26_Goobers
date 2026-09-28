@@ -1,4 +1,5 @@
 ﻿using GGJ.Gameplay.Movement;
+using GGJ.Utility;
 using GGJ.Utility.Extensions;
 using TinyGoose.Tremble;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace GGJ.Mapping.PointEntities
 
         public bool UseRelativeRotation => useRelativeRotation;
         public bool UseRelativePosition => useRelativePosition;
-        public Pose Transform => transform.ToPose();
+        public ScaledPose Transform => transform.ToPose();
 
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {

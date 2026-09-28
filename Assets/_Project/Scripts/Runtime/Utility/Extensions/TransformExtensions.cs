@@ -9,40 +9,40 @@ namespace GGJ.Utility.Extensions
             transform.SetPositionAndRotation(target.position, target.rotation);
         }
 
-        public static Pose ToLocalPose(this Transform transform)
+        public static ScaledPose ToLocalPose(this Transform transform)
         {
             transform.GetLocalPositionAndRotation(out var position, out var rotation);
-            return new Pose(position, rotation);
+            return new ScaledPose(position, rotation, transform.localScale);
         }
 
-        public static Pose ToPose(this Transform transform)
+        public static ScaledPose ToPose(this Transform transform)
         {
             transform.GetPositionAndRotation(out var position, out var rotation);
-            return new Pose(position, rotation);
+            return new ScaledPose(position, rotation);
         }
 
-        public static Matrix4x4 ToMatrix(this Pose pose)
+        public static Matrix4x4 ToMatrix(this ScaledPose pose)
         {
-            return Matrix4x4.TRS(pose.position, pose.rotation, Vector3.one);
+            return Matrix4x4.TRS(pose.position, pose.rotation, pose.scale);
         }
         
-        public static Matrix4x4 ToViewMatrix(this Pose pose)
+        public static Matrix4x4 ToViewMatrix(this ScaledPose pose)
         {
             return Matrix4x4.Scale(new Vector3(1, 1, -1)) * pose.ToMatrix().inverse;
         }
 
-        public static Vector3 InverseTransformPoint(this Pose pose, Vector3 point)
+        public static Vector3 InverseTransformPoint(this ScaledPose pose, Vector3 point)
         {
             point = point - pose.position;
             return Quaternion.Inverse(pose.rotation) * point;
         }
         
-        public static Vector3 TransformPoint(this Pose pose, Vector3 point)
+        public static Vector3 TransformPoint(this ScaledPose pose, Vector3 point)
         {
             point = pose.rotation * point;
             return point + pose.position;
         }
-        public static Vector3 TransformVector(this Pose pose, Vector3 vector)
+        public static Vector3 TransformVector(this ScaledPose pose, Vector3 vector)
         {
             return pose.rotation * vector;
         }

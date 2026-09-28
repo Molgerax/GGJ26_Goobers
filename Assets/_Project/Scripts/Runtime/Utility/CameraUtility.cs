@@ -11,7 +11,7 @@ namespace GGJ.Utility
             return GeometryUtility.TestPlanesAABB(FrustumPlanes, bounds);
         }
         
-        public static bool IsVisibleFromCameraAdjusted(Bounds bounds, Camera cam, Pose camPose)
+        public static bool IsVisibleFromCameraAdjusted(Bounds bounds, Camera cam, ScaledPose camPose)
         {
             GeometryUtility.CalculateFrustumPlanes(cam, FrustumPlanes);
             Matrix4x4 camMat = cam.transform.worldToLocalMatrix.inverse.transpose;
@@ -37,21 +37,50 @@ namespace GGJ.Utility
         
         public static bool ScreenBoundsOverlap (Bounds nearObject, Bounds farObject, Camera camera)
         {
-            return ScreenBoundsOverlap(nearObject, Pose.identity, farObject, Pose.identity, camera);
+            return ScreenBoundsOverlap(nearObject, ScaledPose.identity, farObject, ScaledPose.identity, camera);
         }
         
-        public static bool ScreenBoundsOverlap (Bounds nearLocalBounds, Pose nearPose, Bounds farLocalBounds, Pose farPose, Camera camera)
+        public static bool ScreenBoundsOverlap (Bounds nearLocalBounds, ScaledPose nearPose, Bounds farLocalBounds, ScaledPose farPose, Camera camera)
         {
             return ScreenBoundsOverlap(out _, nearLocalBounds, nearPose, farLocalBounds, farPose, camera.transform.ToPose(),
                 camera.projectionMatrix);
         }
         
-        public static bool ScreenBoundsOverlap (out Bounds summedBounds, Bounds nearLocalBounds, Pose nearPose, Bounds farLocalBounds, Pose farPose, Pose cameraPose, Matrix4x4 projectionMatrix)
+        public static bool ScreenBoundsOverlap (out Bounds summedBounds, Bounds near, Bounds far)
         {
-            var near = GetScreenRectFromBounds (nearLocalBounds, nearPose, cameraPose, projectionMatrix);
-            var far = GetScreenRectFromBounds (farLocalBounds, farPose, cameraPose, projectionMatrix);
-
             summedBounds = new Bounds();
+
+            summedBounds.min = Vector3.Max(near.min, far.min);//.With(z: far.min.z);
+            summedBounds.max = Vector3.Min(near.max, far.max);//.With(z: far.max.z);
+            
+            
+            // ensure far object is indeed further away than near object
+            if (far.max.z > near.min.z) 
+            {
+                // Doesn't overlap on x axis
+                if (far.max.x < near.min.x || far.min.x > near.max.x) 
+                {
+                    return false;
+                }
+                // Doesn't overlap on y axis
+                if (far.max.y < near.min.y || far.min.y > near.max.y) 
+                {
+                    return false;
+                }
+                // Overlaps
+                return true;
+            }
+            return false;
+        }
+        
+        public static bool ScreenBoundsOverlap (out Bounds summedBounds, Bounds nearLocalBounds, ScaledPose nearPose, Bounds farLocalBounds, ScaledPose farPose, ScaledPose cameraPose, Matrix4x4 projectionMatrix)
+        {
+            summedBounds = new Bounds();
+            if (!TryGetScreenRectFromBounds (nearLocalBounds, nearPose, cameraPose.ToViewMatrix(), projectionMatrix, out var near))
+                return false;
+            if (!TryGetScreenRectFromBounds (farLocalBounds, farPose, cameraPose.ToViewMatrix(), projectionMatrix, out var far))
+                return false;
+
 
             summedBounds.min = Vector3.Max(near.min, far.min);
             summedBounds.max = Vector3.Min(near.max, far.max);
@@ -76,26 +105,26 @@ namespace GGJ.Utility
             return false;
         }
         
-        public static Bounds GetScreenRectFromBounds (Bounds worldSpaceBounds, Camera camera) 
+        public static bool TryGetScreenRectFromBounds (Bounds worldSpaceBounds, Camera camera, out Bounds screenSpaceBounds) 
         {
-            return GetScreenRectFromBounds(worldSpaceBounds, Pose.identity, camera);
+            return TryGetScreenRectFromBounds(worldSpaceBounds, ScaledPose.identity, camera, out screenSpaceBounds);
             
         }
-        
-        public static Bounds GetScreenRectFromBounds (Bounds localBounds, Pose localToWorld, Camera camera)
+
+        public static bool TryGetScreenRectFromBounds(Bounds localBounds, ScaledPose localToWorld, Camera camera, out Bounds screenSpaceBounds)
         {
-            return GetScreenRectFromBounds(localBounds, localToWorld, camera.transform.ToPose(),
-                camera.projectionMatrix);
+            return TryGetScreenRectFromBounds(localBounds, localToWorld, camera.worldToCameraMatrix,
+                camera.projectionMatrix, out screenSpaceBounds);
         }
         
-        public static Bounds GetScreenRectFromBounds (Bounds localBounds, Pose localToWorld, Pose cameraPose, Matrix4x4 projectionMatrix) 
+        public static bool TryGetScreenRectFromBounds (Bounds localBounds, ScaledPose localToWorld, Matrix4x4 viewMatrix, Matrix4x4 projectionMatrix, out Bounds screenSpaceBounds) 
         {
-            Bounds result = new Bounds
+            screenSpaceBounds = new Bounds
             {
                 min = Vector3.positiveInfinity,
-                max = Vector3.positiveInfinity
+                max = Vector3.negativeInfinity
             };
-
+            
             bool anyPointIsInFrontOfCamera = false;
 
             for (int i = 0; i < 8; i++)
@@ -129,9 +158,9 @@ namespace GGJ.Utility
 
         public static readonly Vector3[] ScreenBoundsExtents = new Vector3[8];
         
-        public static Vector3 WorldToViewportPoint(Pose cameraPose, Matrix4x4 cameraProjection, Vector3 worldPoint)
+        public static Vector3 WorldToViewportPoint(ScaledPose cameraPose, Matrix4x4 cameraProjection, Vector3 worldPoint)
         {
-            return WorldToViewportPoint(Matrix4x4.Scale(new Vector3(1, 1, -1)) * cameraPose.ToMatrix().inverse, cameraProjection, worldPoint);
+            return WorldToViewportPoint(cameraPose.ToViewMatrix(), cameraProjection, worldPoint);
         }
         
         public static Vector3 WorldToViewportPoint(Matrix4x4 cameraView, Matrix4x4 cameraProjection, Vector3 worldPoint)

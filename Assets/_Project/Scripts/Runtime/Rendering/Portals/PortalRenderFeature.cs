@@ -76,9 +76,9 @@ namespace GGJ.Rendering.Portals
 
             foreach (Portal portal in _portals)
             {
-                Pose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
+                ScaledPose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
                     cameraData.camera.transform.ToPose());
-                Pose portalOutPose = portal.OtherPortal.Transform;
+                ScaledPose portalOutPose = portal.OtherPortal.Transform;
                 
                 cameraData.camera.TryGetCullingParameters(out var cullParams);
 
@@ -156,10 +156,10 @@ namespace GGJ.Rendering.Portals
                 public RendererListHandle RendererListHdl;
                 public RendererListHandle SkyboxList;
 
-                public Pose PortalPose;
-                public Pose PortalOutPose;
-                public Pose CameraPose;
-                public Pose CameraInitPose;
+                public ScaledPose PortalPose;
+                public ScaledPose PortalOutPose;
+                public ScaledPose CameraPose;
+                public ScaledPose CameraInitPose;
                 
                 public Vector2 PortalSize;
                 public float PortalDepth;
@@ -353,7 +353,7 @@ namespace GGJ.Rendering.Portals
                 // This adds a raster render pass to the graph, specifying the name and the data type that will be passed to the ExecutePass function.
                 foreach (Portal portal in _portals)
                 {
-                    Pose camPose = cameraData.camera.transform.ToPose();
+                    ScaledPose camPose = cameraData.camera.transform.ToPose();
 
                     Bounds visibleBounds = CameraUtility.GetScreenRectFromBounds(portal.Bounds, cameraData.camera);
                     
@@ -369,7 +369,7 @@ namespace GGJ.Rendering.Portals
                         // Make use of frameData to access resources and camera data through the dedicated containers.
                         // Eg:
 
-                        Pose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
+                        ScaledPose cameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
                             cameraData.camera.transform.ToPose());
 
                         var skyboxRendererList = renderGraph.CreateSkyboxRendererList(cameraData.camera);
@@ -411,7 +411,7 @@ namespace GGJ.Rendering.Portals
             }
 
             private void DrawRecursivePortals(PortalData portalData, RenderGraph renderGraph, Portal portal,
-                Pose cameraPose, Bounds visibleBounds,
+                ScaledPose cameraPose, Bounds visibleBounds,
                 int maxRecursionLevel, int recursionLevel)
             {
                 const string passName = "Render Portal Quad";

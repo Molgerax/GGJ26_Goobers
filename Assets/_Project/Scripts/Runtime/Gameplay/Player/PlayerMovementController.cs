@@ -241,7 +241,7 @@ namespace GGJ.Gameplay.Player
             if (destination.UseRelativeRotation)
                 localVelocity = Quaternion.Inverse(data.RelativeRotation) * _momentum;
             
-            Pose destinationTransform = destination.Transform;
+            ScaledPose destinationTransform = destination.Transform;
             _momentum = destinationTransform.TransformVector(localVelocity);
 
             Quaternion inverse = Quaternion.Inverse(data.RelativeRotation) * t.rotation;

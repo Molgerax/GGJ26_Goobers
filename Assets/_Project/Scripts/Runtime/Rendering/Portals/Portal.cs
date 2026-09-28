@@ -54,7 +54,7 @@ namespace GGJ.Rendering.Portals
         {
             get
             {
-                Pose pose = transform.ToPose();
+                ScaledPose pose = transform.ToPose();
                 Vector3 offset = pose.rotation * new Vector3(0, 0, -0.5f * PortalDepth);
                 return CameraUtility.GetRotatedBoxBounds(pose.position + offset, pose.rotation, new Vector3(size.x, size.y, PortalDepth));
             }
@@ -137,7 +137,7 @@ namespace GGJ.Rendering.Portals
 
         public bool UseRelativeRotation => true;
         public bool UseRelativePosition => true;
-        public Pose Transform => transform.ToPose();
+        public ScaledPose Transform => transform.ToPose();
 
         private void OnDrawGizmos()
         {
@@ -168,7 +168,7 @@ namespace GGJ.Rendering.Portals
             float t = iteration / 10f;
             Gizmos.color = Color.HSVToRGB(t, 1, 1);
 
-            Pose camPose = GetCameraPose(this, OtherPortal, _mainCamera.transform.ToPose(), iteration);
+            ScaledPose camPose = GetCameraPose(this, OtherPortal, _mainCamera.transform.ToPose(), iteration);
             
             Gizmos.matrix = Matrix4x4.TRS(camPose.position, camPose.rotation, Vector3.one);
             Gizmos.DrawWireSphere(Vector3.zero, 1f);
@@ -275,10 +275,10 @@ namespace GGJ.Rendering.Portals
         }
 
 
-        public static Pose GetCameraPose(Portal inPortal, Portal outPortal, Pose cameraPose, int iterationID = 0)
+        public static ScaledPose GetCameraPose(Portal inPortal, Portal outPortal, ScaledPose cameraPose, int iterationID = 0)
         {
-            Pose inPose = inPortal.transform.ToPose();
-            Pose outPose = outPortal.transform.ToPose();
+            ScaledPose inPose = inPortal.transform.ToPose();
+            ScaledPose outPose = outPortal.transform.ToPose();
             
             for (int i = 0; i <= iterationID; i++)
             {
@@ -305,7 +305,7 @@ namespace GGJ.Rendering.Portals
             return cameraPose;
         }
 
-        public static Matrix4x4 GetProjectionMatrix(Pose outPortalPose, Pose portalCameraPose, Camera mainCamera)
+        public static Matrix4x4 GetProjectionMatrix(ScaledPose outPortalPose, ScaledPose portalCameraPose, Camera mainCamera)
         {
             Plane p = new Plane(outPortalPose.forward, outPortalPose.position);
             Vector4 clipPlaneWorldSpace = new(p.normal.x, p.normal.y, p.normal.z, p.distance);
@@ -316,7 +316,7 @@ namespace GGJ.Rendering.Portals
             return mainCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
         }
         
-        public static void GetDepthBiasPlanes(Pose outPortalPose, Pose portalCameraPose, Camera mainCamera, out float biasFactor, out int biasUnits)
+        public static void GetDepthBiasPlanes(ScaledPose outPortalPose, ScaledPose portalCameraPose, Camera mainCamera, out float biasFactor, out int biasUnits)
         {
             Plane p = new Plane(outPortalPose.forward, outPortalPose.position);
             Vector4 clipPlaneWorldSpace = new(p.normal.x, p.normal.y, p.normal.z, p.distance);

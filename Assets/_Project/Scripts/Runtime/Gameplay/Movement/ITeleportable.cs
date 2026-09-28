@@ -1,4 +1,4 @@
-﻿using GGJ.Mapping.PointEntities;
+﻿using GGJ.Utility;
 using UnityEngine;
 
 namespace GGJ.Gameplay.Movement
@@ -12,7 +12,7 @@ namespace GGJ.Gameplay.Movement
     {
         public bool UseRelativeRotation { get; }
         public bool UseRelativePosition { get; }
-        public Pose Transform { get; }
+        public ScaledPose Transform { get; }
     }
 
     public struct TeleportData
