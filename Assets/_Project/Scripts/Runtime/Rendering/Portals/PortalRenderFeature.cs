@@ -282,18 +282,13 @@ namespace GGJ.Rendering.Portals
                 Matrix4x4 viewMatrix = data.CameraInitPose.ToViewMatrix();
                 context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
                 
-                
-                Matrix4x4 portalMatrix =
-                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
-                
-                //context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
 
                 viewMatrix = data.CameraPose.ToViewMatrix();
-                //if (data.PortalMirror)
-                //    viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
                 
                 Plane plane = new Plane(data.PortalOutPose.forward, data.PortalOutPose.position);
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance));
+                
+                context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraPose.position);
                 
                 context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
                 context.cmd.DrawRendererList(data.RendererListHdl);
@@ -303,6 +298,8 @@ namespace GGJ.Rendering.Portals
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(0, 1, 0, 100000));
                 
                 context.cmd.SetViewProjectionMatrices(data.CameraInitPose.ToViewMatrix(), data.CameraData.GetProjectionMatrix());
+                Matrix4x4 portalMatrix =
+                    Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
                 
                 context.cmd.DrawMesh(data.Mesh, portalMatrix, data.MaterialSecond, 0, data.RecursionLevel + 1);
             }
