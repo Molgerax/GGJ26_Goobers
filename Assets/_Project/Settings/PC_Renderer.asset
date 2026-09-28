@@ -35,7 +35,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     renderPassEvent: 250
-    maxIterations: 5
+    maxIterations: 6
     materialFirst: {fileID: 2100000, guid: c6a2700406390cd45b4fd971f67dd7ed, type: 2}
     materialSecond: {fileID: 2100000, guid: 106b56966356619459192d3ec0b70d80, type: 2}
     materialEnd: {fileID: 2100000, guid: fed534aca55fa1149b840aab00d17b95, type: 2}
@@ -71,7 +71,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -6738083365244017176}
   - {fileID: -5460272230997006780}
-  m_RendererFeatureMap: e865a913e1847da244667eee553739b4
+  - {fileID: 507062540624803045}
+  m_RendererFeatureMap: e865a913e1847da244667eee553739b4e534d9b4b1720907
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -86,17 +87,34 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_DefaultStencilState:
-    overrideStencilState: 0
-    stencilReference: 1
-    stencilCompareFunction: 0
-    passOperation: 0
+    overrideStencilState: 1
+    stencilReference: 0
+    stencilCompareFunction: 8
+    passOperation: 1
     failOperation: 0
     zFailOperation: 0
   m_ShadowTransparentReceive: 0
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 2
+  m_CopyDepthMode: 0
   m_DepthAttachmentFormat: 92
   m_DepthTextureFormat: 92
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &507062540624803045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28548e3aee644ea80e52d4dac37c3c6, type: 3}
+  m_Name: EraseDepthRenderFeature
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.EraseDepthRenderFeature
+  m_Active: 1
+  settings:
+    renderPassEvent: 400
+    material: {fileID: 2100000, guid: 68a8ee145d0af694581b1cd094dada0d, type: 2}
+    mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

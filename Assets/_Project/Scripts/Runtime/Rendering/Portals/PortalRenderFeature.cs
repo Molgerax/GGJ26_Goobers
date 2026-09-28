@@ -152,7 +152,8 @@ namespace GGJ.Rendering.Portals
             readonly PortalRenderFeatureSettings _settings;
             
             private ShaderTagId _forwardTag = new ShaderTagId("UniversalForward");
-            private ShaderTagId _shadowTag = new ShaderTagId("ShadowCaster");
+            private ShaderTagId _clearDepthTag = new ShaderTagId("ClearDepth");
+            private ShaderTagId _lightModeTag = new ShaderTagId("LightMode");
 
             public PortalRenderFeaturePass(PortalRenderFeatureSettings settings)
             {
@@ -192,8 +193,9 @@ namespace GGJ.Rendering.Portals
                 public UniversalResourceData resourceData;
                 public CullContextData cullContextData;
             }
-            
-            private void InitRendererLists(ShaderTagId tagId, UniversalRenderingData renderingData, UniversalLightData lightData, CullContextData cullData,
+
+            private void InitRendererLists(UniversalRenderingData renderingData, UniversalLightData lightData,
+                CullContextData cullData,
                 ref PassData passData, RenderGraph renderGraph, bool mirror)
             {
                 passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
@@ -203,17 +205,17 @@ namespace GGJ.Rendering.Portals
                 {
                     Plane plane = cullParams.GetCullingPlane(i);
                     Vector4 p = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
-                    
+
                     p = passData.CameraData.camera.transform.worldToLocalMatrix.inverse.transpose * p;
                     p = passData.CameraPose.ToMatrix().inverse.transpose * p;
 
                     plane = new Plane(p, p.w);
-                    
+
                     if (i == 4)
                         plane = new Plane(passData.PortalOutPose.forward, passData.PortalOutPose.position);
-                    
+
                     cullParams.SetCullingPlane(i, plane);
-                    
+
                     if (passData.CameraData.cameraType == CameraType.Game)
                         ClippingPlanes[i] = plane;
                 }
@@ -221,68 +223,51 @@ namespace GGJ.Rendering.Portals
 
                 cullParams.cullingOptions |= CullingOptions.NeedsLighting;
                 var cullResults = cullData.Cull(ref cullParams);
+                
 
-                
-                //cullResults = renderingData.cullResults;
-                
-                //string debug = "\nOld: ";
-                //var lightMap = renderingData.cullResults.GetLightIndexMap(Allocator.Temp);
-                //foreach (var l in lightMap)
-                //{
-                //    debug += $"{l}, ";
-                //}
-                //lightMap = cullResults.GetLightIndexMap(Allocator.Temp);
-                //debug += "\nNew: ";
-                //foreach (var l in lightMap)
-                //{
-                //    debug += $"{l}, ";
-                //}
 
-                //debug +=
-                //    $"\n{passData.CameraData.cameraType}, Old: {renderingData.cullResults.lightIndexCount}, New: {cullResults.lightIndexCount}";
-                //
-                //Debug.Log(debug);
-                
-                
                 SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
-                DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(tagId, renderingData, passData.CameraData, lightData, sortingCriteria);
-                
+                DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(_forwardTag, renderingData,
+                    passData.CameraData, lightData, sortingCriteria);
                 FilteringSettings filteringSettings = FilteringSettings.defaultValue;
                 filteringSettings.layerMask = Int32.MaxValue;
                 filteringSettings.renderQueueRange = RenderQueueRange.all;
+
+                drawingSettings.SetShaderPassName(1, _clearDepthTag);
                 
-                RendererListParams listParams = new RendererListParams(cullResults, drawingSettings,
-                    filteringSettings);
-                
-                
-                listParams.tagName = tagId;
-                var tags = new NativeArray<ShaderTagId>(1, Allocator.Temp);
-                tags[0] = ShaderTagId.none;
-                
-                var blocks = new NativeArray<RenderStateBlock>(1, Allocator.Temp);
-                
+                var tags = new NativeArray<ShaderTagId>(2, Allocator.Temp);
+                tags[0] = _forwardTag;
+                tags[1] = _clearDepthTag;
+
+                var blocks = new NativeArray<RenderStateBlock>(2, Allocator.Temp);
+
                 RenderStateBlock stencilBlock = new RenderStateBlock(RenderStateMask.Stencil);
                 stencilBlock.stencilReference = passData.RecursionLevel + 1;
-                stencilBlock.stencilState = new StencilState(true, 255, 255, CompareFunction.Equal, StencilOp.Keep);
+                stencilBlock.stencilState = new StencilState(true, 31, 32, CompareFunction.Equal, StencilOp.Zero);
 
                 if (_settings.debugStencilOff)
                     stencilBlock.stencilState = new StencilState(false);
                 
                 stencilBlock.mask |= RenderStateMask.Raster;
-
                 CullMode cull = CullMode.Back;
                 if (mirror)
                     cull = CullMode.Front;
                 stencilBlock.rasterState = new RasterState(cull, _settings.offsetUnits, _settings.offsetFactor);
-                
+
                 blocks[0] = stencilBlock;
+                stencilBlock.stencilState = new StencilState(true, 31, 32, CompareFunction.Equal, StencilOp.Invert);
+                blocks[1] = stencilBlock;
 
-                
-                listParams.stateBlocks = blocks;
-                listParams.tagValues = tags;
 
-                listParams.isPassTagName = false;
-                
+                RendererListParams listParams = new RendererListParams(cullResults, drawingSettings,
+                    filteringSettings)
+                {
+                    tagValues = tags,
+                    stateBlocks = blocks,
+                    isPassTagName = true,
+                    tagName = _lightModeTag
+                };
+
                 
                 passData.RendererListHdl = renderGraph.CreateRendererList(listParams);
             }
@@ -479,7 +464,7 @@ namespace GGJ.Rendering.Portals
 
                     passData.CameraData = portalData.cameraData;
 
-                    InitRendererLists(_forwardTag, portalData.renderingData, portalData.lightData,
+                    InitRendererLists(portalData.renderingData, portalData.lightData,
                         portalData.cullContextData, ref passData, renderGraph,
                         passData.PortalMirror);
 

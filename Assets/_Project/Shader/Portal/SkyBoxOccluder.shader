@@ -34,7 +34,12 @@ Shader "Custom/SkyboxOccluder"
     }
     
 
-    float frag(Varyings IN) : SV_Depth
+    float4 frag(Varyings IN) : SV_Target
+    {
+        return 0;
+    }
+    
+    float fragDepth(Varyings IN) : SV_Depth
     {
         float2 uv = GetNormalizedScreenSpaceUV(IN.positionHCS);
         float depth = SampleSceneDepth(uv);
@@ -52,15 +57,22 @@ Shader "Custom/SkyboxOccluder"
     
     SubShader
     {
-        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "Queue" = "Geometry"}
+        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "Queue" = "AlphaTest"}
 
         Pass
         {
-            Tags { "LightMode" = "UniversalForward" }
+            Tags { "LightMode" = "ClearDepth" }
             
             ColorMask 0
-            ZTest Always
-            ZWrite On
+            ZTest LEqual
+            ZWrite Off
+            
+            Stencil
+            {
+                Ref 32
+                WriteMask 32
+                Pass Replace
+            }
             
             HLSLPROGRAM
 
