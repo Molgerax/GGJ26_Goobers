@@ -3,6 +3,7 @@ Shader "Custom/PortalStencil"
     Properties
     {
         [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+        _StencilReference("StencilReference", Int) = 1
     }
 
     HLSLINCLUDE
@@ -19,6 +20,8 @@ Shader "Custom/PortalStencil"
         float4 positionHCS : SV_POSITION;
     };
 
+    int _StencilReference;
+    
     CBUFFER_START(UnityPerMaterial)
         half4 _BaseColor;
     CBUFFER_END
@@ -52,8 +55,8 @@ Shader "Custom/PortalStencil"
             
             Stencil
             {
-                Ref 1
-                Comp Always
+                Ref [_StencilReference]
+                Comp Equal
                 Pass IncrSat
             }
             
@@ -76,8 +79,8 @@ Shader "Custom/PortalStencil"
             
             Stencil
             {
-                Ref 1
-                Comp GEqual
+                Ref [_StencilReference]
+                Comp Equal
                 Pass DecrSat
                 ZFail DecrSat
             }

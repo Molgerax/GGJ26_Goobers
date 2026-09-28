@@ -965,7 +965,10 @@ MonoBehaviour:
   m_PipelineSimplifyCollisionMeshes: 1
   m_PipelineUnwrapUV2: 1
   m_PipelineRunMapProcessors: 1
-  m_MapProcessors: []
+  m_MapProcessors:
+  - Class:
+      m_MapClassName: GGJ.Mapping.Tremble.MapProcessors.LightEnforcerMapProcessor
+    Enabled: 1
   m_LogOnImportAndSync: 0
   m_UseLiveUpdate: 1
   m_AutomaticallyReimportWhenDependencyChanges: 1

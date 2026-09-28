@@ -107,6 +107,7 @@ Shader "Custom/Environment_Clip"
 		lightingInput.shadowCoord = TransformWorldToShadowCoord(IN.positionWS); // In Shadows.hlsl
 		lightingInput.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.positionHCS);
     	lightingInput.bakedGI = SAMPLE_GI(IN.lightmapUV, IN.vertexSH, IN.normalWS);
+    	lightingInput.shadowMask = 0;
 		SurfaceData surfaceInput = (SurfaceData)0;
 		surfaceInput.albedo = color;
 		surfaceInput.alpha = 1;
@@ -184,6 +185,23 @@ Shader "Custom/Environment_Clip"
             half fragDepth(Varyings input) : SV_TARGET
 			{
 				return input.positionHCS.z;
+			}
+            
+			ENDHLSL
+        }
+
+		Pass
+        {
+			Tags {"LightMode" = "ShadowCaster"}
+
+            HLSLPROGRAM
+
+            #pragma vertex vert
+            #pragma fragment fragShadow
+            
+            half fragShadow(Varyings input) : SV_TARGET
+			{
+				return 0;
 			}
             
 			ENDHLSL
