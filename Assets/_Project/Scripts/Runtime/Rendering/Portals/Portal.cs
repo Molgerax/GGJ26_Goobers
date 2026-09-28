@@ -141,6 +141,8 @@ namespace GGJ.Rendering.Portals
 
         private void OnDrawGizmos()
         {
+            return;
+            
             Gizmos.color = Color.red;
             Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
             Gizmos.DrawWireCube(Vector3.zero, new Vector3( size.x, size.y, 0.01f));
@@ -181,6 +183,8 @@ namespace GGJ.Rendering.Portals
             if (PortalRenderFeature.ClippingPlanes == null)
                 return;
 
+            return;
+            
             Gizmos.color = Color.red;
             DrawPlaneIntersections();
             
