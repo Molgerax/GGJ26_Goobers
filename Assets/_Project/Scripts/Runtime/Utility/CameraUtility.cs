@@ -131,9 +131,9 @@ namespace GGJ.Utility
             {
                 Vector3 localSpaceCorner = localBounds.center + Vector3.Scale(localBounds.size, Corners[i]);
                 Vector3 worldSpaceCorner = localToWorld.TransformPoint(localSpaceCorner);
-                Vector3 viewportSpaceCorner = WorldToViewportPoint (cameraPose, projectionMatrix, worldSpaceCorner);
-
-                if (viewportSpaceCorner.z > 0) 
+                Vector3 viewportSpaceCorner = (projectionMatrix * viewMatrix).MultiplyPoint(worldSpaceCorner);
+                
+                if (viewportSpaceCorner.z <= 1 && viewportSpaceCorner.z > 0)
                 {
                     anyPointIsInFrontOfCamera = true;
                 } 
@@ -141,19 +141,29 @@ namespace GGJ.Utility
                 {
                     // If point is behind camera, it gets flipped to the opposite side
                     // So clamp to opposite edge to correct for this
-                    viewportSpaceCorner.x = (viewportSpaceCorner.x <= 0.5f) ? 1 : 0;
-                    viewportSpaceCorner.y = (viewportSpaceCorner.y <= 0.5f) ? 1 : 0;
+                    if (viewportSpaceCorner.z > 0)
+                    {
+                        viewportSpaceCorner.x = (viewportSpaceCorner.x <= 0f) ? 1.01f : -1.01f;
+                        viewportSpaceCorner.y = (viewportSpaceCorner.y <= 0f) ? 1.01f : -1.01f;
+                    }
                 }
-
+                
+                viewportSpaceCorner.x = Mathf.Clamp(viewportSpaceCorner.x, -1.01f, 1.01f);
+                viewportSpaceCorner.y = Mathf.Clamp(viewportSpaceCorner.y, -1.01f, 1.01f);
+                
                 // Update bounds with new corner point
-                result.Encapsulate(viewportSpaceCorner);
+                screenSpaceBounds.Encapsulate(viewportSpaceCorner);
             }
 
             // All points are behind camera so just return empty bounds
             if (!anyPointIsInFrontOfCamera) 
-                return new Bounds();
+                return false;
 
-            return result;
+            if (screenSpaceBounds.min.x > 1 || screenSpaceBounds.min.y > 1 ||
+                screenSpaceBounds.max.x < -1 || screenSpaceBounds.max.y < -1)
+                return false;
+            
+            return true;
         }
 
         public static readonly Vector3[] ScreenBoundsExtents = new Vector3[8];
