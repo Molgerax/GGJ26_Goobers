@@ -77,9 +77,7 @@ Shader "Custom/Environment_Clip"
     	
     	
     	float4 plane = _ClippingPlane;
-    	plane *= -1;
-    	
-    	OUT.clipDistance = dot(OUT.positionWS, -plane.xyz) - plane.w;
+    	OUT.clipDistance = dot(OUT.positionWS, plane.xyz) + plane.w;
     	VertexPositionInputs vpi = GetVertexPositionInputs(IN.pos);
     	OUT.fogFactor = ComputeFogFactor(vpi.positionCS.z);
     	
