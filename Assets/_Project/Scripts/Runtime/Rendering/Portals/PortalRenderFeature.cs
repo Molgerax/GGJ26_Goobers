@@ -128,9 +128,9 @@ namespace GGJ.Rendering.Portals
         {
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
             [Range(0, 5)] public int maxIterations = 5;
-            [Range(0, 1)] public int stencilReference = 1;
             
-            public Material material;
+            public Material materialFirst;
+            public Material materialSecond;
             public Mesh mesh;
         }
         
@@ -165,7 +165,8 @@ namespace GGJ.Rendering.Portals
                 public float PortalDepth;
                 public bool PortalMirror;
                 
-                public Material Material;
+                public Material MaterialFirst;
+                public Material MaterialSecond;
                 public Mesh Mesh;
                 public int RecursionLevel;
             }
@@ -303,8 +304,7 @@ namespace GGJ.Rendering.Portals
                 
                 context.cmd.SetViewProjectionMatrices(data.CameraInitPose.ToViewMatrix(), data.CameraData.GetProjectionMatrix());
                 
-                
-                context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 1);
+                context.cmd.DrawMesh(data.Mesh, portalMatrix, data.MaterialSecond, 0, data.RecursionLevel + 1);
             }
             
             static void ExecutePortalQuadPass(PassData data, RasterGraphContext context)
@@ -320,7 +320,9 @@ namespace GGJ.Rendering.Portals
                 Matrix4x4 portalMatrix =
                     Matrix4x4.TRS(data.PortalPose.position + offset, data.PortalPose.rotation, new Vector3(data.PortalSize.x, data.PortalSize.y, data.PortalDepth));
                 
-                context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
+                //data.Material.SetInt("_StencilReference", data.RecursionLevel);
+                
+                context.cmd.DrawMesh(data.Mesh, portalMatrix, data.MaterialFirst, 0, data.RecursionLevel);
             }
             
             // RecordRenderGraph is where the RenderGraph handle can be accessed, through which render passes can be added to the graph.
@@ -347,7 +349,7 @@ namespace GGJ.Rendering.Portals
                 if (_portals.Count == 0)
                     return;
                 
-                if (!_settings.mesh || !_settings.material)
+                if (!_settings.mesh || !_settings.materialFirst || !_settings.materialSecond)
                     return;
 
                 // This adds a raster render pass to the graph, specifying the name and the data type that will be passed to the ExecutePass function.
@@ -382,7 +384,8 @@ namespace GGJ.Rendering.Portals
                         passData.PortalSize = portal.Size;
                         passData.PortalDepth = portal.PortalDepth;
                         passData.PortalMirror = portal.OtherPortal.Mirror;
-                        passData.Material = _settings.material;
+                        passData.MaterialFirst = _settings.materialFirst;
+                        passData.MaterialSecond = _settings.materialSecond;
                         passData.Mesh = _settings.mesh;
                         passData.RecursionLevel = 0;
 
@@ -430,9 +433,10 @@ namespace GGJ.Rendering.Portals
                     passData.PortalSize = portal.Size;
                     passData.PortalDepth = portal.PortalDepth * _settings.mesh.bounds.size.z;
                     passData.PortalMirror = portal.OtherPortal.Mirror;
-                    passData.Material = _settings.material;
                     if (cameraPose.scale.x < 0)
                         passData.PortalMirror = !passData.PortalMirror;
+                    passData.MaterialFirst = _settings.materialFirst;
+                    passData.MaterialSecond = _settings.materialSecond;
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
 
@@ -464,12 +468,15 @@ namespace GGJ.Rendering.Portals
                                 portalData.cameraData.camera, newCameraPose))
                             continue;
 
-                        //if (!CameraUtility.ScreenBoundsOverlap(out Bounds summedBounds, visibleBounds, Pose.identity,
-                        //        activePortal.Bounds, Pose.identity, newCameraPose,
-                        //        portalData.cameraData.GetProjectionMatrix()))
-                        //    summedBounds = visibleBounds;
+                        if (!CameraUtility.TryGetScreenRectFromBounds(activePortal.Bounds,
+                                ScaledPose.identity, newCameraPose.ToViewMatrix(),
+                                portalData.cameraData.GetProjectionMatrix(), out var newScreenBounds))
+                            continue;
                         
-                        DrawRecursivePortals(portalData, renderGraph, portal, newCameraPose, visibleBounds,
+                        if (!CameraUtility.ScreenBoundsOverlap(out Bounds summedBounds, visibleBounds, newScreenBounds))
+                            continue;
+                        
+                        DrawRecursivePortals(portalData, renderGraph, activePortal, newCameraPose, summedBounds,
                             maxRecursionLevel, recursionLevel + 1);
                     }
                 }
