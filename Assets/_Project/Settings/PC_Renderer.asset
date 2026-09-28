@@ -35,7 +35,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     renderPassEvent: 250
-    maxIterations: 1
+    maxIterations: 5
     materialFirst: {fileID: 2100000, guid: c6a2700406390cd45b4fd971f67dd7ed, type: 2}
     materialSecond: {fileID: 2100000, guid: 106b56966356619459192d3ec0b70d80, type: 2}
     materialEnd: {fileID: 2100000, guid: fed534aca55fa1149b840aab00d17b95, type: 2}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 0
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 0
+  m_CopyDepthMode: 2
   m_DepthAttachmentFormat: 92
   m_DepthTextureFormat: 92
   m_AccurateGbufferNormals: 0
