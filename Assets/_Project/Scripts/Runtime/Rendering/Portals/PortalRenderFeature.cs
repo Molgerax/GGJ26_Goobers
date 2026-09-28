@@ -45,6 +45,9 @@ namespace GGJ.Rendering.Portals
         
         public override void OnCameraPreCull(ScriptableRenderer renderer, in CameraData cameraData)
         {
+            if (cameraData.cameraType == CameraType.SceneView && !settings.showInSceneView)
+                return;
+            
             foreach (var lightEnforcer in LightEnforcer.ActiveLightEnforcers)
             {
                 lightEnforcer.ForceVisible = false;
@@ -128,14 +131,18 @@ namespace GGJ.Rendering.Portals
         {
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
             [Range(0, 15)] public int maxIterations = 5;
-
-            public int offsetUnits = 0;
-            public int offsetFactor = 0;
             
             public Material materialFirst;
             public Material materialSecond;
             public Material materialEnd;
             public Mesh mesh;
+            
+            [Header("Debug")]
+            public bool showInSceneView = true;
+            public bool debugStencilOff = false;
+            
+            public int offsetUnits = 0;
+            public int offsetFactor = 0;
         }
         
         public static Plane[] ClippingPlanes = new Plane[6];
@@ -257,6 +264,9 @@ namespace GGJ.Rendering.Portals
                 RenderStateBlock stencilBlock = new RenderStateBlock(RenderStateMask.Stencil);
                 stencilBlock.stencilReference = passData.RecursionLevel + 1;
                 stencilBlock.stencilState = new StencilState(true, 255, 255, CompareFunction.Equal, StencilOp.Keep);
+
+                if (_settings.debugStencilOff)
+                    stencilBlock.stencilState = new StencilState(false);
                 
                 stencilBlock.mask |= RenderStateMask.Raster;
 
@@ -349,7 +359,10 @@ namespace GGJ.Rendering.Portals
                 UniversalLightData lightData = frameData.Get<UniversalLightData>();
                 UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
                 CullContextData cullContextData = frameData.Get<CullContextData>();
-
+                
+                if (cameraData.cameraType == CameraType.SceneView && !_settings.showInSceneView)
+                    return;
+                
                 PortalData portalData = new PortalData()
                 {
                     cameraData = cameraData,
