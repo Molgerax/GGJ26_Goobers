@@ -133,7 +133,7 @@ namespace GGJ.Utility
                 Vector3 worldSpaceCorner = localToWorld.TransformPoint(localSpaceCorner);
                 Vector3 viewportSpaceCorner = (projectionMatrix * viewMatrix).MultiplyPoint(worldSpaceCorner);
                 
-                if (viewportSpaceCorner.z <= 1 && viewportSpaceCorner.z > 0)
+                if (viewportSpaceCorner.z <= 1 && viewportSpaceCorner.z > -1)
                 {
                     anyPointIsInFrontOfCamera = true;
                 } 
@@ -143,13 +143,18 @@ namespace GGJ.Utility
                     // So clamp to opposite edge to correct for this
                     if (viewportSpaceCorner.z > 0)
                     {
-                        viewportSpaceCorner.x = (viewportSpaceCorner.x <= 0f) ? 1.01f : -1.01f;
-                        viewportSpaceCorner.y = (viewportSpaceCorner.y <= 0f) ? 1.01f : -1.01f;
+                        viewportSpaceCorner.x = (viewportSpaceCorner.x <= 0f) ? 1f : -1f;
+                        viewportSpaceCorner.y = (viewportSpaceCorner.y <= 0f) ? 1f : -1f;
                     }
+
+                    if (viewportSpaceCorner.z > 1)
+                        viewportSpaceCorner.z = 1;
+                    if (viewportSpaceCorner.z < -1)
+                        viewportSpaceCorner.z = 1;
                 }
                 
-                viewportSpaceCorner.x = Mathf.Clamp(viewportSpaceCorner.x, -1.01f, 1.01f);
-                viewportSpaceCorner.y = Mathf.Clamp(viewportSpaceCorner.y, -1.01f, 1.01f);
+                viewportSpaceCorner.x = Mathf.Clamp(viewportSpaceCorner.x, -1f, 1f);
+                viewportSpaceCorner.y = Mathf.Clamp(viewportSpaceCorner.y, -1f, 1f);
                 
                 // Update bounds with new corner point
                 screenSpaceBounds.Encapsulate(viewportSpaceCorner);
@@ -159,8 +164,11 @@ namespace GGJ.Utility
             if (!anyPointIsInFrontOfCamera) 
                 return false;
 
-            if (screenSpaceBounds.min.x > 1 || screenSpaceBounds.min.y > 1 ||
-                screenSpaceBounds.max.x < -1 || screenSpaceBounds.max.y < -1)
+            if (screenSpaceBounds.min.x >= 1 || screenSpaceBounds.min.y >= 1 ||
+                screenSpaceBounds.max.x <= -1 || screenSpaceBounds.max.y <= -1)
+                return false;
+
+            if (screenSpaceBounds.size.x * screenSpaceBounds.size.y == 0)
                 return false;
             
             return true;

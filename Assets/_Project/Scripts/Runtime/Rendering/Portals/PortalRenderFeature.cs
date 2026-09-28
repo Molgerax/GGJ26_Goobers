@@ -294,6 +294,7 @@ namespace GGJ.Rendering.Portals
                 context.cmd.DrawRendererList(data.RendererListHdl);
                 context.cmd.DrawRendererList(data.SkyboxList);
                 
+                context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraData.worldSpaceCameraPos);
                 
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(0, 1, 0, 100000));
                 
