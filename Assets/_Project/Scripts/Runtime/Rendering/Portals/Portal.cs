@@ -306,6 +306,11 @@ namespace GGJ.Rendering.Portals
                 cameraPose.rotation = outPose.rotation * relativeRot;
             }
 
+            if (outPortal.mirror)
+            {
+                cameraPose.scale.x *= -1;
+            }
+            
             return cameraPose;
         }
 

@@ -288,8 +288,8 @@ namespace GGJ.Rendering.Portals
                 //context.cmd.DrawMesh(data.Mesh, portalMatrix, data.Material, 0, 0);
 
                 viewMatrix = data.CameraPose.ToViewMatrix();
-                if (data.PortalMirror)
-                    viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
+                //if (data.PortalMirror)
+                //    viewMatrix = Matrix4x4.Scale(new Vector3(-1, 1, 1)) * viewMatrix;
                 
                 Plane plane = new Plane(data.PortalOutPose.forward, data.PortalOutPose.position);
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance));
@@ -355,7 +355,8 @@ namespace GGJ.Rendering.Portals
                 {
                     ScaledPose camPose = cameraData.camera.transform.ToPose();
 
-                    Bounds visibleBounds = CameraUtility.GetScreenRectFromBounds(portal.Bounds, cameraData.camera);
+                    if(!CameraUtility.TryGetScreenRectFromBounds(portal.Bounds, cameraData.camera, out var visibleBounds))
+                       continue;
                     
                     DrawRecursivePortals(portalData, renderGraph, portal, camPose, visibleBounds, _settings.maxIterations, 0);
                     
@@ -430,6 +431,8 @@ namespace GGJ.Rendering.Portals
                     passData.PortalDepth = portal.PortalDepth * _settings.mesh.bounds.size.z;
                     passData.PortalMirror = portal.OtherPortal.Mirror;
                     passData.Material = _settings.material;
+                    if (cameraPose.scale.x < 0)
+                        passData.PortalMirror = !passData.PortalMirror;
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
 
@@ -482,7 +485,10 @@ namespace GGJ.Rendering.Portals
                     passData.PortalSize = portal.Size;
                     passData.PortalDepth = portal.PortalDepth * _settings.mesh.bounds.size.z;
                     passData.PortalMirror = portal.OtherPortal.Mirror;
-                    passData.Material = _settings.material;
+                    if (cameraPose.scale.x < 0)
+                        passData.PortalMirror = !passData.PortalMirror;
+                    passData.MaterialFirst = _settings.materialFirst;
+                    passData.MaterialSecond = _settings.materialSecond;
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
 
@@ -492,6 +498,7 @@ namespace GGJ.Rendering.Portals
                         portalData.cullContextData, ref passData, renderGraph,
                         passData.PortalMirror);
 
+                    
                     builder.AllowGlobalStateModification(true);
                     builder.UseRendererList(passData.RendererListHdl);
                     builder.UseRendererList(passData.SkyboxList);
