@@ -1,4 +1,4 @@
-Shader "Stencil/StencilIterator"
+Shader "Stencil/StencilIterator_Fill"
 {
     Properties
     {
@@ -89,7 +89,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -124,7 +124,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -159,7 +159,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -194,7 +194,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -229,7 +229,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -264,7 +264,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -299,7 +299,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -334,7 +334,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -369,7 +369,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -404,7 +404,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -439,7 +439,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -474,7 +474,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -509,7 +509,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -544,7 +544,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -579,7 +579,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -614,7 +614,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
@@ -649,7 +649,7 @@ Shader "Stencil/StencilIterator"
                 ZFailFront [_ZFailFront]
             }
             
-            ColorMask 0
+            ColorMask RGBA
             ZTest [_ZTest]
             ZWrite [_ZWrite]
             ZClip [_ZClip]
