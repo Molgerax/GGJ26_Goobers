@@ -41,6 +41,7 @@ Shader "Custom/Environment_Clip"
     	float clipDistance	: SV_ClipDistance;
     	
 		DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 4);
+    	float fogFactor : TEXCOORD5;
     };
     
     
@@ -79,6 +80,8 @@ Shader "Custom/Environment_Clip"
     	plane *= -1;
     	
     	OUT.clipDistance = dot(OUT.positionWS, -plane.xyz) - plane.w;
+    	VertexPositionInputs vpi = GetVertexPositionInputs(IN.pos);
+    	OUT.fogFactor = ComputeFogFactor(vpi.positionCS.z);
     	
 		OUTPUT_LIGHTMAP_UV( IN.uv2, unity_LightmapST, OUT.lightmapUV);
 		OUTPUT_SH(OUT.normalWS.xyz, OUT.vertexSH);
@@ -108,6 +111,9 @@ Shader "Custom/Environment_Clip"
 		lightingInput.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.positionHCS);
     	lightingInput.bakedGI = SAMPLE_GI(IN.lightmapUV, IN.vertexSH, IN.normalWS);
     	lightingInput.shadowMask = 0;
+    	
+    	lightingInput.fogCoord = InitializeInputDataFog(float4(IN.positionWS, 1), IN.fogFactor);
+    	
 		SurfaceData surfaceInput = (SurfaceData)0;
 		surfaceInput.albedo = color;
 		surfaceInput.alpha = 1;
@@ -122,8 +128,10 @@ Shader "Custom/Environment_Clip"
 		//surfaceInput.occlusion *= aoFactor.directAmbientOcclusion;
 		#endif
 
-	
-		return UniversalFragmentPBR(lightingInput, surfaceInput);
+    	float4 finalColor = UniversalFragmentPBR(lightingInput, surfaceInput);
+    
+    	finalColor.rgb = MixFog(finalColor.rgb, lightingInput.fogCoord);
+		return finalColor;
     }
     
     ENDHLSL
@@ -164,6 +172,7 @@ Shader "Custom/Environment_Clip"
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
             #pragma multi_compile _ _LIGHT_LAYERS
             #pragma multi_compile _ _FORWARD_PLUS
+        	#pragma multi_compile_fog
 
         	
             #pragma multi_compile_fragment _ DEBUG_DISPLAY
