@@ -38,8 +38,8 @@ namespace GGJ.Editor.Rendering
                 DrawPlaneIntersections(out _);
                 for (var i = 0; i < PortalRenderFeature.ClippingPlanes.Length; i++)
                 {
-                    Color cyan = Color.HSVToRGB(i / 6f, 1, 1);
-                    cyan.a = 0.25f;
+                    Color cyan = Color.HSVToRGB(1, 0, i / 5f);
+                    cyan.a = 0.5f;
 
                     Handles.color = cyan;
                     var plane = PortalRenderFeature.ClippingPlanes[i];

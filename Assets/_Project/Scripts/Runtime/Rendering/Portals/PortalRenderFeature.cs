@@ -172,6 +172,10 @@ namespace GGJ.Rendering.Portals
                 public ScaledPose PortalOutPose;
                 public ScaledPose CameraPose;
                 public ScaledPose CameraInitPose;
+
+                public Portal.PortalCorners PortalCorners;
+                public ClippingPlaneCollection ClippingPlanesCollection;
+                
                 
                 public Vector2 PortalSize;
                 public float PortalDepth;
@@ -201,6 +205,8 @@ namespace GGJ.Rendering.Portals
                 passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
                 cullParams.origin = passData.CameraPose.position;
 
+                // Culling planes:
+                // 0 -> left, 1 -> right, 2 -> bottom, 3 -> top, 4 -> near, 5 -> far
                 for (int i = 0; i < 6; i++)
                 {
                     Plane plane = cullParams.GetCullingPlane(i);
@@ -211,14 +217,30 @@ namespace GGJ.Rendering.Portals
 
                     plane = new Plane(p, p.w);
 
+                    if (i == 0)
+                        plane = new Plane(passData.CameraPose.position, passData.PortalCorners.TopLeft, passData.PortalCorners.BottomLeft);
+                    
+                    if (i == 1)
+                        plane = new Plane(passData.CameraPose.position, passData.PortalCorners.BottomRight, passData.PortalCorners.TopRight);
+                    
+                    if (i == 2)
+                        plane = new Plane(passData.CameraPose.position, passData.PortalCorners.BottomLeft, passData.PortalCorners.BottomRight);
+                    
+                    if (i == 3)
+                        plane = new Plane(passData.CameraPose.position, passData.PortalCorners.TopRight, passData.PortalCorners.TopLeft);
+                    
                     if (i == 4)
                         plane = new Plane(passData.PortalOutPose.forward, passData.PortalOutPose.position);
 
                     cullParams.SetCullingPlane(i, plane);
 
+                    ShaderClippingPlanes[i] = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+                    
                     if (passData.CameraData.cameraType == CameraType.Game)
                         ClippingPlanes[i] = plane;
                 }
+                
+                passData.ClippingPlanesCollection = ClippingPlaneCollection.FromArray(ShaderClippingPlanes);
 
 
                 cullParams.cullingOptions |= CullingOptions.NeedsLighting;
@@ -271,7 +293,53 @@ namespace GGJ.Rendering.Portals
                 
                 passData.RendererListHdl = renderGraph.CreateRendererList(listParams);
             }
+
+            public static readonly Vector4[] NullPlanes = new[]
+            {
+                new Vector4(0, 1, 0, 100000),
+                new Vector4(0, 1, 0, 100000),
+                new Vector4(0, 1, 0, 100000),
+                new Vector4(0, 1, 0, 100000),
+                new Vector4(0, 1, 0, 100000),
+                new Vector4(0, 1, 0, 100000)
+            };
+
+            public struct ClippingPlaneCollection
+            {
+                public Vector4 Left;
+                public Vector4 Right;
+                public Vector4 Bottom;
+                public Vector4 Top;
+                public Vector4 Near;
+                public Vector4 Far;
+
+                public static ClippingPlaneCollection FromArray(Vector4[] array)
+                {
+                    return new ClippingPlaneCollection()
+                    {
+                        Left = array[0],
+                        Right = array[1],
+                        Bottom = array[2],
+                        Top = array[3],
+                        Near = array[4],
+                        Far = array[5],
+                    };
+                }
+
+                public void ToArray(Vector4[] array)
+                {
+                    array[0] = Left;
+                    array[1] = Right;
+                    array[2] = Bottom;
+                    array[3] = Top;
+                    array[4] = Near;
+                    array[5] = Far;
+                }
+            }
+
+            private static Vector4 PlaneToVec4(Plane p) => new Vector4(p.normal.x, p.normal.y, p.normal.z, p.distance);
             
+            public static readonly Vector4[] ShaderClippingPlanes = new Vector4[6];
 
             // This static method is passed as the RenderFunc delegate to the RenderGraph render pass.
             // It is used to execute draw commands.
@@ -287,6 +355,9 @@ namespace GGJ.Rendering.Portals
                 Plane plane = new Plane(data.PortalOutPose.forward, data.PortalOutPose.position);
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance));
                 
+                data.ClippingPlanesCollection.ToArray(ShaderClippingPlanes);
+                context.cmd.SetGlobalVectorArray("_ClippingPlanes", ShaderClippingPlanes);
+                
                 context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraPose.position);
                 
                 context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
@@ -296,6 +367,8 @@ namespace GGJ.Rendering.Portals
                 context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraData.worldSpaceCameraPos);
                 
                 context.cmd.SetGlobalVector("_ClippingPlane", new Vector4(0, 1, 0, 100000));
+                
+                context.cmd.SetGlobalVectorArray("_ClippingPlanes", NullPlanes);
                 
                 context.cmd.SetViewProjectionMatrices(data.CameraInitPose.ToViewMatrix(), data.CameraData.GetProjectionMatrix());
 
@@ -461,6 +534,7 @@ namespace GGJ.Rendering.Portals
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
                     passData.MaxRecursionLevel = maxRecursionLevel;
+                    passData.PortalCorners = portal.OtherPortal.GetCorners();
 
                     passData.CameraData = portalData.cameraData;
 

@@ -11,6 +11,14 @@ namespace GGJ.Rendering.Portals
     [ExecuteInEditMode]
     public class Portal : MonoBehaviour, IComparable, ITeleportDestination
     {
+        public struct PortalCorners
+        {
+            public Vector3 BottomLeft;
+            public Vector3 BottomRight;
+            public Vector3 TopLeft;
+            public Vector3 TopRight;
+        }
+        
         public static readonly List<Portal> ActivePortals = new();
         
         [SerializeField] private Vector2 size;
@@ -44,6 +52,23 @@ namespace GGJ.Rendering.Portals
         public bool Mirror => mirror;
         
         private float _distanceToCamera;
+
+
+        public PortalCorners GetCorners()
+        {
+            ScaledPose pose = Transform;
+            Vector3 right = pose.rotation * Vector3.right;
+            Vector3 up = pose.rotation * Vector3.up;
+            var corners = new PortalCorners()
+            {
+                BottomLeft = pose.position - right * size.x * 0.5f - up * size.y * 0.5f,
+                BottomRight = pose.position + right * size.x * 0.5f - up * size.y * 0.5f,
+                TopLeft = pose.position - right * size.x * 0.5f + up * size.y * 0.5f,
+                TopRight = pose.position + right * size.x * 0.5f + up * size.y * 0.5f,
+            };
+            return corners;
+        }
+        
 
         public void UpdateDistanceToCamera(Camera cam)
         {

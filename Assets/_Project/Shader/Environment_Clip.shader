@@ -38,7 +38,9 @@ Shader "Custom/Environment_Clip"
     	float3 positionWS : TEXCOORD1;
     	float4 tangentWS : TEXCOORD2;
     	float3 normalWS : TEXCOORD3;
-    	float clipDistance	: SV_ClipDistance;
+    	//float clipDistance	: SV_ClipDistance;
+    	float4 clipDist0	: SV_ClipDistance0;
+    	float4 clipDist1	: SV_ClipDistance1;
     	
 		DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 4);
     	float fogFactor : TEXCOORD5;
@@ -51,6 +53,10 @@ Shader "Custom/Environment_Clip"
     SAMPLER(sampler_BumpMap);
 	
     float4 _ClippingPlane;
+
+    
+    float4 _ClippingPlanes[6];
+
     
     CBUFFER_START(UnityPerMaterial)
 		float4 _MainTex_ST;
@@ -77,7 +83,21 @@ Shader "Custom/Environment_Clip"
     	
     	
     	float4 plane = _ClippingPlane;
-    	OUT.clipDistance = dot(OUT.positionWS, plane.xyz) + plane.w;
+
+    	float4 pos = float4(OUT.positionWS, 1);
+
+    	OUT.clipDist0 = 1000;
+    	OUT.clipDist1 = 1000;
+    	
+    	OUT.clipDist0[0] = dot(_ClippingPlanes[0], pos);
+		OUT.clipDist0[1] = dot(_ClippingPlanes[1], pos);
+		OUT.clipDist0[2] = dot(_ClippingPlanes[2], pos);
+		OUT.clipDist0[3] = dot(_ClippingPlanes[3], pos);
+		OUT.clipDist1[0] = dot(_ClippingPlanes[4], pos);
+		OUT.clipDist1[1] = dot(_ClippingPlanes[5], pos);
+    	
+    	//OUT.clipDistance = dist;
+
     	VertexPositionInputs vpi = GetVertexPositionInputs(IN.pos);
     	OUT.fogFactor = ComputeFogFactor(vpi.positionCS.z);
     	
