@@ -182,11 +182,11 @@ namespace GGJ.Rendering.Portals
         {
             if (PortalRenderFeature.ClippingPlanes == null)
                 return;
-
+            
             return;
             
             Gizmos.color = Color.red;
-            DrawPlaneIntersections();
+            DrawPlaneIntersections(out var center);
             
             for (int i = 0; i < 6; i++)
             {
@@ -196,13 +196,16 @@ namespace GGJ.Rendering.Portals
                 Gizmos.color = col;
                 
                 Plane p = PortalRenderFeature.ClippingPlanes[i];
-                DrawPlane(p, 50);
+                DrawPlane(p, center, 50);
             }
         }
 
-        public void DrawPlane(Plane p, float width, int count = 16)
+        public void DrawPlane(Plane p, Vector3 center, float width, int count = 16)
         {
-            Gizmos.matrix = Matrix4x4.TRS(-p.normal * p.distance, Quaternion.LookRotation(p.normal), Vector3.one);
+            Vector3 closest = p.ClosestPointOnPlane(center);
+            Vector3 pos = -p.normal * p.distance;
+            Gizmos.matrix = Matrix4x4.TRS(pos, Quaternion.LookRotation(p.normal), Vector3.one);
+
             
             for (int x = 0; x < count; x++)
             {
@@ -220,10 +223,12 @@ namespace GGJ.Rendering.Portals
 
         public static Vector3[] CornerList = new Vector3[16];
         
-        public void DrawPlaneIntersections()
+        public void DrawPlaneIntersections(out Vector3 frustumMiddle)
         {
             Gizmos.matrix = Matrix4x4.identity;
             int i = 0;
+         
+            frustumMiddle = Vector3.zero;
             
             for (int a = 0; a < 6; a++)
             {
@@ -248,6 +253,16 @@ namespace GGJ.Rendering.Portals
                 }
             }
 
+            if (i == 0)
+                return;
+            
+            for (int index = 0; index < i; index++)
+            {
+                frustumMiddle += CornerList[index];
+            }
+
+            frustumMiddle /= i;
+            
             for (int j = 0; j < i; j++)
             {
                 for (int k = 0; k < i; k++)
