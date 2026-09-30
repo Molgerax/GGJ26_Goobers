@@ -55,6 +55,8 @@ namespace GGJ.Rendering.Portals
         public Portal OtherPortal => otherPortal ? otherPortal : (otherPortalTremble ? otherPortalTremble.portal : null);
 
         public bool Mirror => mirror;
+
+        public bool Passable => passable;
         
         private float _distanceToCamera;
 
@@ -107,50 +109,7 @@ namespace GGJ.Rendering.Portals
         }
 
         
-        private List<Transform> _currentTeleportables = new();
-        
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!passable)
-                return;
-            
-            if (!other.TryGetComponent(out ITeleportable teleportable))
-                return;
-            _currentTeleportables.Add(other.transform);
-        }
-        
-        private void OnTriggerExit(Collider other)
-        {
-            if (!passable)
-                return;
-            
-            if (!other.TryGetComponent(out ITeleportable teleportable))
-                return;
-            _currentTeleportables.Remove(other.transform);
-        }
-
-        private void LateUpdate()
-        {
-            if (!passable)
-                return;
-            
-            if (!OtherPortal)
-                return;
-            
-            for (var i = _currentTeleportables.Count - 1; i >= 0; i--)
-            {
-                var currentTeleportable = _currentTeleportables[i];
-                if (transform.IsBehind(currentTeleportable.position))
-                {
-                    currentTeleportable.TryGetComponent(out ITeleportable t);
-                    t.Teleport(OtherPortal, GetTeleportData());
-                    _currentTeleportables.RemoveAt(i);
-                }
-            }
-        }
-
-        private TeleportData GetTeleportData()
+        public TeleportData GetTeleportData()
         {
             Transform t = transform;
             Quaternion localRotation = Quaternion.LookRotation(-t.forward, t.up);

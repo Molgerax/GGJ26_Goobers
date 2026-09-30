@@ -58,7 +58,8 @@ namespace GGJ.Mapping.BrushEntities
 
             BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
-            boxCollider.size = new Vector3(size.x, size.y, distance * 2);
+            boxCollider.center = Vector3.back * distance * 0.5f;
+            boxCollider.size = new Vector3(size.x, size.y, distance);
         }
 
         private float GetWidthAlongAxis(Vector3 normal, List<Vector3> vertices)
