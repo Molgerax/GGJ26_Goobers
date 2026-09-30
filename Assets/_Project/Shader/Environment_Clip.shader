@@ -19,7 +19,7 @@ Shader "Custom/Environment_Clip"
     
     #pragma target 3.5
     #pragma shader_feature _ _SHADOWMODE_ON
-	#pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
+	#pragma multi_compile_fwdbase 
     #pragma multi_compile_fwdadd_fullshadows
     
     struct Attributes
@@ -93,7 +93,7 @@ Shader "Custom/Environment_Clip"
 		OUT.clipDist0[1] = dot(_ClippingPlanes[1], pos);
 		OUT.clipDist0[2] = dot(_ClippingPlanes[2], pos);
 		OUT.clipDist0[3] = dot(_ClippingPlanes[3], pos);
-		OUT.clipDist1[0] = dot(_ClippingPlanes[4], pos);
+		OUT.clipDist1[0] = dot(_ClippingPlanes[4], pos) + 0.001;
 		OUT.clipDist1[1] = dot(_ClippingPlanes[5], pos);
     	
     	//OUT.clipDistance = dist;
@@ -119,7 +119,7 @@ Shader "Custom/Environment_Clip"
     	// At last, we transform the decoded normal from tangent space to world space, so we can use it as usual
     	float3 normalWS = TransformTangentToWorldDir(decodedNormal, tangentToWorld, true);
     	
-    	float3 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(IN.uv, _MainTex)) * _Color.rgb;
+    	float3 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(IN.uv, _MainTex)).rgb * _Color.rgb;
 
     	InputData lightingInput = (InputData)0; // Found in URP/ShaderLib/Input.hlsl
 		lightingInput.positionWS = IN.positionWS;
