@@ -498,10 +498,11 @@ namespace GGJ.Rendering.Portals
                             continue;
                         if (!activePortal.transform.IsInFrontOf(newCameraPose.position))
                             continue;
-                        if (!CameraUtility.IsVisibleFromCameraAdjusted(activePortal.Bounds,
-                                portalData.cameraData.camera, newCameraPose))
-                            continue;
 
+                        if (!CameraUtility.IsVisibleThroughPortalCorners(activePortal.Bounds,
+                                portal.OtherPortal.GetCorners(), portalData.cameraData.camera, newCameraPose))
+                            continue;
+                        
                         if (!CameraUtility.TryGetScreenRectFromBounds(activePortal.Bounds,
                                 ScaledPose.identity, newCameraPose.ToViewMatrix(),
                                 portalData.cameraData.GetProjectionMatrix(), out var newScreenBounds))

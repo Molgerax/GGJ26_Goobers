@@ -1,4 +1,5 @@
-﻿using GGJ.Utility.Extensions;
+﻿using GGJ.Rendering.Portals;
+using GGJ.Utility.Extensions;
 using UnityEngine;
 
 namespace GGJ.Utility
@@ -34,6 +35,36 @@ namespace GGJ.Utility
         
         public static readonly Plane[] FrustumPlanes = new Plane[6];
 
+        public static bool IsVisibleThroughPortalCorners(Bounds bounds, Portal.PortalCorners portalCorners, Camera cam, ScaledPose camPose)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                Plane plane = new();
+                
+                if (i == 0)
+                    plane = new Plane(camPose.position, portalCorners.TopLeft, portalCorners.BottomLeft);
+                    
+                if (i == 1)
+                    plane = new Plane(camPose.position, portalCorners.BottomRight, portalCorners.TopRight);
+                    
+                if (i == 2)
+                    plane = new Plane(camPose.position, portalCorners.BottomLeft, portalCorners.BottomRight);
+                    
+                if (i == 3)
+                    plane = new Plane(camPose.position, portalCorners.TopRight, portalCorners.TopLeft);
+                    
+                if (i == 4)
+                    plane = new Plane(portalCorners.TopRight, portalCorners.TopLeft, portalCorners.BottomLeft);
+
+                if (i == 5)
+                    plane = new Plane(-camPose.forward, camPose.position + camPose.forward * cam.farClipPlane);
+                
+                FrustumPlanes[i] = plane;
+            }
+            
+            return GeometryUtility.TestPlanesAABB(FrustumPlanes, bounds);
+        }
+        
         
         public static bool ScreenBoundsOverlap (Bounds nearObject, Bounds farObject, Camera camera)
         {
