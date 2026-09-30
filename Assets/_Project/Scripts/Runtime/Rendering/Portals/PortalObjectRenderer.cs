@@ -27,7 +27,7 @@ namespace GGJ.Rendering.Portals
 
                 if (portal.Bounds.Intersects(_renderer.bounds))
                 {
-                    PortalObjectGhost mirror = PortalObjectGhost.RendererPool.Get();
+                    PortalObjectGhost mirror = PortalObjectGhostManager.Pool.Get();
                     mirror.SetMeshAndMaterials(_filter, _renderer);
                     mirror.SetTransform(Portal.GetCameraPose(portal, portal.OtherPortal, pose));
                 }

@@ -1,41 +1,11 @@
 ﻿using System;
 using GGJ.Utility;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace GGJ.Rendering.Portals
 {
     public class PortalObjectGhost : MonoBehaviour
     {
-        public static IObjectPool<PortalObjectGhost> RendererPool = new ObjectPool<PortalObjectGhost>(Create, OnGet, OnRelease, OnDestroyObject);
-        
-        private static PortalObjectGhost Create()
-        {
-            GameObject go = new GameObject("PortalObjectGhost");
-            go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>();
-            go.SetActive(false);
-            var ghost = go.AddComponent<PortalObjectGhost>();
-            ghost.Initialize();
-            return ghost;
-        }
-        
-        private static void OnGet(PortalObjectGhost go)
-        {
-            go.SetActive(true);
-        }
-        
-        private static void OnRelease(PortalObjectGhost go)
-        {
-            go.SetActive(false);
-        }
-        
-        private static void OnDestroyObject(PortalObjectGhost go)
-        {
-            Destroy(go);
-        }
-
-
         private MeshFilter _filter;
         private MeshRenderer _renderer;
         private MaterialPropertyBlock _propertyBlock;
@@ -76,7 +46,7 @@ namespace GGJ.Rendering.Portals
         
         private void Update()
         {
-            RendererPool.Release(this);
+            PortalObjectGhostManager.Pool.Release(this);
         }
     }
 }
