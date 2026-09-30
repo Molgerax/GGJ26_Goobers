@@ -35,13 +35,14 @@ MonoBehaviour:
   m_Active: 1
   settings:
     renderPassEvent: 250
-    maxIterations: 6
+    maxIterations: 5
     materialFirst: {fileID: 2100000, guid: c6a2700406390cd45b4fd971f67dd7ed, type: 2}
     materialSecond: {fileID: 2100000, guid: 106b56966356619459192d3ec0b70d80, type: 2}
     materialEnd: {fileID: 2100000, guid: fed534aca55fa1149b840aab00d17b95, type: 2}
     mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
     showInSceneView: 1
     debugStencilOff: 0
+    debugPassNames: 0
     offsetUnits: 0
     offsetFactor: 0
 --- !u!114 &11400000

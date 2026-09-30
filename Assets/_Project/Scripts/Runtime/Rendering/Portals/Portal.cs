@@ -32,6 +32,11 @@ namespace GGJ.Rendering.Portals
 
         [SerializeField] private bool passable;
         [SerializeField] private bool mirror;
+
+        public string ToName()
+        {
+            return System.Text.RegularExpressions.Regex.Match(this.name, "\'(.*)\'").Value;
+        }
         
         public void Setup(TriggerSeamlessTeleport target, Vector2 scale, float depth, bool canPassThrough, bool doesMirror)
         {

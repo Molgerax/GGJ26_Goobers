@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GGJ.Utility;
 using GGJ.Utility.Extensions;
 using Unity.Collections;
@@ -140,6 +141,8 @@ namespace GGJ.Rendering.Portals
             [Header("Debug")]
             public bool showInSceneView = true;
             public bool debugStencilOff = false;
+
+            public bool debugPassNames = false;
             
             public int offsetUnits = 0;
             public int offsetFactor = 0;
@@ -443,14 +446,19 @@ namespace GGJ.Rendering.Portals
 
                     if(!CameraUtility.TryGetScreenRectFromBounds(portal.Bounds, cameraData.camera, out var visibleBounds))
                        continue;
+
+                    string debugName = null;
+
+                    if (_settings.debugPassNames)
+                        debugName = portal.ToName();
                     
-                    DrawRecursivePortals(portalData, renderGraph, portal, camPose, visibleBounds, _settings.maxIterations, 0);
+                    DrawRecursivePortals(portalData, renderGraph, portal, camPose, visibleBounds, _settings.maxIterations, 0, debugName);
                 }
             }
 
             private void DrawRecursivePortals(PortalData portalData, RenderGraph renderGraph, Portal portal,
                 ScaledPose cameraPose, Bounds visibleBounds,
-                int maxRecursionLevel, int recursionLevel)
+                int maxRecursionLevel, int recursionLevel, string debugString)
             {
                 const string passName = "Render Portal Quad";
                 const string passName2 = "Render Portal Pass Inside";
@@ -458,8 +466,14 @@ namespace GGJ.Rendering.Portals
                 var newCameraPose = Portal.GetCameraPose(portal, portal.OtherPortal,
                     cameraPose);
 
+                string name = passName;
 
-                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName, out var passData))
+                if (debugString != null)
+                {
+                    name += $"_{debugString}";
+                }
+
+                using (var builder = renderGraph.AddRasterRenderPass<PassData>(name, out var passData))
                 {
                     passData.CameraPose = newCameraPose;
                     passData.CameraInitPose = cameraPose;
@@ -510,13 +524,21 @@ namespace GGJ.Rendering.Portals
                         
                         if (!CameraUtility.ScreenBoundsOverlap(out Bounds summedBounds, visibleBounds, newScreenBounds))
                             continue;
+
+                        string newDebugString = null;
+                        if (debugString != null)
+                            newDebugString = $"{debugString}_{portal.ToName()}";
                         
                         DrawRecursivePortals(portalData, renderGraph, activePortal, newCameraPose, summedBounds,
-                            maxRecursionLevel, recursionLevel + 1);
+                            maxRecursionLevel, recursionLevel + 1, newDebugString);
                     }
                 }
 
-                using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName2, out var passData))
+                string name2 = passName2;
+                if (debugString != null)
+                    name2 += $"_{debugString}";
+                
+                using (var builder = renderGraph.AddRasterRenderPass<PassData>(name2, out var passData))
                 {
                     var skyboxRendererList = renderGraph.CreateSkyboxRendererList(portalData.cameraData.camera);
                     passData.SkyboxList = skyboxRendererList;
