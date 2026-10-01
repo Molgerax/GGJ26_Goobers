@@ -306,10 +306,12 @@ namespace GGJ.Gameplay.Movement
                 if (hit.collider.TryGetComponent(out Portal portal) && portal.Passable && portal.OtherPortal)
                 {
                     if (portal.transform.IsInFrontOf(ray.origin) && portal.transform.IsBehind(transform.position))
+                    {
+                        Velocity = portal.MultiplyVector(Velocity);
                         _teleportable.Teleport(portal.OtherPortal, portal.GetTeleportData());
+                    }
                 }
             }
-
         }
         
         public void Move(Vector3 displacement)

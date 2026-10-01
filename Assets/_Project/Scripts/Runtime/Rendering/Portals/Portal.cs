@@ -56,6 +56,19 @@ namespace GGJ.Rendering.Portals
         public Vector2 Size => size;
         public Portal OtherPortal => otherPortal ? otherPortal : (otherPortalTremble ? otherPortalTremble.portal : null);
 
+        public Vector3 MultiplyVector(Vector3 vector)
+        {
+            if (!OtherPortal)
+                return vector;
+
+            vector = transform.InverseTransformVector(vector);
+            vector.z *= -1f;
+            if (!OtherPortal.Mirror)
+                vector.x *= -1;
+            
+            return OtherPortal.transform.TransformVector(vector);
+        }
+        
         public bool Mirror => mirror;
 
         public bool Passable => passable;
