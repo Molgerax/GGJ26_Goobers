@@ -132,7 +132,12 @@ namespace GGJ.Rendering.Portals
         {
             public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPrePasses;
             [Range(0, 15)] public int maxIterations = 5;
+
+            [Header("Fidelity")] 
+            public bool passForFrontObjects = false;
+            public RenderingLayerMask frontObjectsMask = 0;
             
+            [Header("Portal Quad")]
             public Material materialFirst;
             public Material materialSecond;
             public Material materialEnd;
@@ -170,14 +175,19 @@ namespace GGJ.Rendering.Portals
                 public UniversalCameraData CameraData;
                 public RendererListHandle RendererListHdl;
                 public RendererListHandle SkyboxList;
+                public RendererListHandle FrontRendererList;
 
                 public ScaledPose PortalPose;
                 public ScaledPose PortalOutPose;
                 public ScaledPose CameraPose;
                 public ScaledPose CameraInitPose;
 
+                public Plane CurrentNearPlane;
+                
                 public Portal.PortalCorners PortalCorners;
                 public ClippingPlaneCollection ClippingPlanesCollection;
+                public ClippingPlaneCollection FrontClippingPlanesCollection;
+                public bool DoFrontRender;
                 
                 
                 public Vector2 PortalSize;
@@ -199,14 +209,28 @@ namespace GGJ.Rendering.Portals
                 public UniversalLightData lightData;
                 public UniversalResourceData resourceData;
                 public CullContextData cullContextData;
+
+                public Plane currentNearPlane;
             }
 
             private void InitRendererLists(UniversalRenderingData renderingData, UniversalLightData lightData,
-                CullContextData cullData,
-                ref PassData passData, RenderGraph renderGraph, bool mirror)
+                CullContextData cullData, ref PassData passData, RenderGraph renderGraph, bool mirror)
             {
                 passData.CameraData.camera.TryGetCullingParameters(out var cullParams);
-                cullParams.origin = passData.CameraPose.position;
+                cullParams.SetCullingPlane(4, passData.CurrentNearPlane);
+                
+                Matrix4x4 oldToNewCameraPlaneMatrix = passData.CameraPose.ToMatrix().inverse.transpose *
+                                              passData.CameraData.camera.transform.worldToLocalMatrix.inverse.transpose;
+
+                
+                ScriptableCullingParameters cullParamsFront = cullParams;
+                Matrix4x4 newToOldCameraPlaneMatrix = Matrix4x4.identity;
+                if (_settings.passForFrontObjects)
+                {
+                    newToOldCameraPlaneMatrix =
+                        passData.CameraData.camera.transform.localToWorldMatrix.inverse.transpose *
+                        passData.CameraPose.ToMatrix().transpose;
+                }
 
                 // Culling planes:
                 // 0 -> left, 1 -> right, 2 -> bottom, 3 -> top, 4 -> near, 5 -> far
@@ -215,8 +239,7 @@ namespace GGJ.Rendering.Portals
                     Plane plane = cullParams.GetCullingPlane(i);
                     Vector4 p = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
 
-                    p = passData.CameraData.camera.transform.worldToLocalMatrix.inverse.transpose * p;
-                    p = passData.CameraPose.ToMatrix().inverse.transpose * p;
+                    p = oldToNewCameraPlaneMatrix * p;
 
                     plane = new Plane(p, p.w);
 
@@ -236,20 +259,47 @@ namespace GGJ.Rendering.Portals
                         plane = new Plane(passData.PortalOutPose.forward, passData.PortalOutPose.position);
 
                     cullParams.SetCullingPlane(i, plane);
-
+                    
+                    if (_settings.passForFrontObjects)
+                    {
+                        if (i != 4)
+                            cullParamsFront.SetCullingPlane(i, plane.TransformRaw(newToOldCameraPlaneMatrix));
+                    }
+                    
                     ShaderClippingPlanes[i] = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
                     
                     if (passData.CameraData.cameraType == CameraType.Game)
                         ClippingPlanes[i] = plane;
                 }
                 
+                if (_settings.passForFrontObjects)
+                    cullParamsFront.SetCullingPlane(5, new Plane(passData.PortalPose.forward, passData.PortalPose.position));
+                
                 passData.ClippingPlanesCollection = ClippingPlaneCollection.FromArray(ShaderClippingPlanes);
 
+                if (_settings.passForFrontObjects)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Plane plane = cullParamsFront.GetCullingPlane(i);
+                        ShaderClippingPlanes[i] =
+                            new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
 
+                        if (passData.CameraData.cameraType == CameraType.Game)
+                            ClippingPlanes[i] = plane;
+                    }
+                    ShaderClippingPlanes[5] = passData.ClippingPlanesCollection.Far;
+                    passData.FrontClippingPlanesCollection = ClippingPlaneCollection.FromArray(ShaderClippingPlanes);
+                }
+
+                cullParams.origin = passData.CameraPose.position;
                 cullParams.cullingOptions |= CullingOptions.NeedsLighting;
                 var cullResults = cullData.Cull(ref cullParams);
-                
 
+                CullingResults cullResultsFront = cullResults;
+                if (_settings.passForFrontObjects)
+                    cullResultsFront = cullData.Cull(ref cullParamsFront);
+                
 
                 SortingCriteria sortingCriteria = passData.CameraData.defaultOpaqueSortFlags;
                 DrawingSettings drawingSettings = RenderingUtils.CreateDrawingSettings(_forwardTag, renderingData,
@@ -295,6 +345,22 @@ namespace GGJ.Rendering.Portals
 
                 
                 passData.RendererListHdl = renderGraph.CreateRendererList(listParams);
+
+                if (_settings.passForFrontObjects)
+                {
+                    filteringSettings.renderingLayerMask = _settings.frontObjectsMask;
+
+                    listParams = new RendererListParams(cullResultsFront, drawingSettings,
+                        filteringSettings)
+                    {
+                        tagValues = tags,
+                        stateBlocks = blocks,
+                        isPassTagName = true,
+                        tagName = _lightModeTag
+                    };
+
+                    passData.FrontRendererList = renderGraph.CreateRendererList(listParams);
+                }
             }
 
             public static readonly Vector4[] NullPlanes = new[]
@@ -350,8 +416,15 @@ namespace GGJ.Rendering.Portals
             {
                 Matrix4x4 projectionMatrix = data.CameraData.GetProjectionMatrix();
                 Matrix4x4 viewMatrix = data.CameraInitPose.ToViewMatrix();
-                context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
-                
+
+                if (data.DoFrontRender)
+                {
+                    data.FrontClippingPlanesCollection.ToArray(ShaderClippingPlanes);
+                    context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
+                    context.cmd.SetGlobalVectorArray("_ClippingPlanes", ShaderClippingPlanes);
+                    context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraInitPose.position);
+                    context.cmd.DrawRendererList(data.FrontRendererList);
+                }
 
                 viewMatrix = data.CameraPose.ToViewMatrix();
                 
@@ -451,6 +524,9 @@ namespace GGJ.Rendering.Portals
 
                     if (_settings.debugPassNames)
                         debugName = portal.ToName();
+
+                    portalData.currentNearPlane = new Plane(camPose.forward,
+                        camPose.position + camPose.forward * cameraData.camera.nearClipPlane);
                     
                     DrawRecursivePortals(portalData, renderGraph, portal, camPose, visibleBounds, _settings.maxIterations, 0, debugName);
                 }
@@ -488,6 +564,7 @@ namespace GGJ.Rendering.Portals
                     passData.Mesh = _settings.mesh;
                     passData.RecursionLevel = recursionLevel;
                     passData.MaxRecursionLevel = maxRecursionLevel;
+                    passData.CurrentNearPlane = portalData.currentNearPlane;
 
                     passData.CameraData = portalData.cameraData;
 
@@ -528,8 +605,10 @@ namespace GGJ.Rendering.Portals
                         string newDebugString = null;
                         if (debugString != null)
                             newDebugString = $"{debugString}_{portal.ToName()}";
-                        
-                        DrawRecursivePortals(portalData, renderGraph, activePortal, newCameraPose, summedBounds,
+
+                        var pData = portalData;
+                        pData.currentNearPlane = activePortal.GetPlane();
+                        DrawRecursivePortals(pData, renderGraph, activePortal, newCameraPose, summedBounds,
                             maxRecursionLevel, recursionLevel + 1, newDebugString);
                     }
                 }
@@ -558,8 +637,10 @@ namespace GGJ.Rendering.Portals
                     passData.RecursionLevel = recursionLevel;
                     passData.MaxRecursionLevel = maxRecursionLevel;
                     passData.PortalCorners = portal.OtherPortal.GetCorners();
+                    passData.CurrentNearPlane = portalData.currentNearPlane;
 
                     passData.CameraData = portalData.cameraData;
+                    passData.DoFrontRender = _settings.passForFrontObjects;
 
                     InitRendererLists(portalData.renderingData, portalData.lightData,
                         portalData.cullContextData, ref passData, renderGraph,
@@ -569,7 +650,10 @@ namespace GGJ.Rendering.Portals
                     builder.AllowGlobalStateModification(true);
                     builder.UseRendererList(passData.RendererListHdl);
                     builder.UseRendererList(passData.SkyboxList);
-
+                    
+                    if (_settings.passForFrontObjects)
+                        builder.UseRendererList(passData.FrontRendererList);
+                    
                     // This sets the render target of the pass to the active color texture. Change it to your own render target as needed.
                     builder.SetRenderAttachment(portalData.resourceData.activeColorTexture, 0);
                     builder.SetRenderAttachmentDepth(portalData.resourceData.activeDepthTexture);

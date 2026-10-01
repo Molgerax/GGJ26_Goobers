@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
 
@@ -27,7 +28,13 @@ namespace GGJ.Rendering.Portals
         public static IObjectPool<PortalObjectGhost> Pool => Instance._pool;
         
         private IObjectPool<PortalObjectGhost> _pool = new UnityEngine.Pool.ObjectPool<PortalObjectGhost>(Create, OnGet, OnRelease, OnDestroyObject);
-        
+
+        private void Awake()
+        {
+            _instance = this;
+        }
+
+
         private static PortalObjectGhost Create()
         {
             GameObject go = new GameObject("PortalObjectGhost");

@@ -20,6 +20,8 @@ namespace GGJ.Rendering.Portals
         }
         
         public static readonly List<Portal> ActivePortals = new();
+
+        public HashSet<Renderer> AddedRenderers = new();
         
         [SerializeField] private Vector2 size;
         
@@ -108,7 +110,11 @@ namespace GGJ.Rendering.Portals
             ActivePortals.Remove(this);
         }
 
-        
+        private void Update()
+        {
+            AddedRenderers.Clear();
+        }
+
         public TeleportData GetTeleportData()
         {
             Transform t = transform;
@@ -361,6 +367,11 @@ namespace GGJ.Rendering.Portals
             if (a._distanceToCamera > b._distanceToCamera)
                 return 1;
             return 0;
+        }
+
+        public Plane GetPlane()
+        {
+            return new(transform.forward, transform.position);
         }
     }
 }
