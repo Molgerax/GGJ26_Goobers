@@ -17,6 +17,11 @@ namespace GGJ.Mapping.PointEntities
             l.color = _color;
             l.intensity = _strength;
             l.range = _range * mapBsp.ImportScale;
+            l.shadows = LightShadows.Soft;
+            
+#if UNITY_EDITOR
+            l.lightmapBakeType = LightmapBakeType.Mixed;
+#endif
         }
     }
 }
