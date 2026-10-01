@@ -35,7 +35,11 @@ MonoBehaviour:
   m_Active: 1
   settings:
     renderPassEvent: 250
-    maxIterations: 5
+    maxIterations: 0
+    passForFrontObjects: 0
+    frontObjectsMask:
+      serializedVersion: 0
+      m_Bits: 2
     materialFirst: {fileID: 2100000, guid: c6a2700406390cd45b4fd971f67dd7ed, type: 2}
     materialSecond: {fileID: 2100000, guid: 106b56966356619459192d3ec0b70d80, type: 2}
     materialEnd: {fileID: 2100000, guid: fed534aca55fa1149b840aab00d17b95, type: 2}

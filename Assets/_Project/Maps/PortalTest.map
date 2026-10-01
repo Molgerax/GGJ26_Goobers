@@ -61,75 +61,75 @@
 }
 // brush 6
 {
-( -448 -384 32 ) ( -448 -383 32 ) ( -448 -384 33 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 -384 32 ) ( -448 -384 33 ) ( -447 -384 32 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 -384 256 ) ( -447 -384 256 ) ( -448 -383 256 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -192 0 288 ) ( -192 1 288 ) ( -191 0 288 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -448 0 288 ) ( -384 0 288 ) ( -384 0 416 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -192 0 288 ) ( -192 0 289 ) ( -192 1 288 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -896 -384 32 ) ( -896 -383 32 ) ( -896 -384 33 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 -384 32 ) ( -896 -384 33 ) ( -895 -384 32 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 -384 256 ) ( -895 -384 256 ) ( -896 -383 256 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -640 0 288 ) ( -640 1 288 ) ( -639 0 288 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -896 0 288 ) ( -832 0 288 ) ( -832 0 416 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -640 0 288 ) ( -640 0 289 ) ( -640 1 288 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 7
 {
-( -448 -384 0 ) ( -448 -383 0 ) ( -448 -384 1 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 -384 0 ) ( -448 -384 1 ) ( -447 -384 0 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 -384 0 ) ( -447 -384 0 ) ( -448 -383 0 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -416 -128 256 ) ( -416 -127 256 ) ( -415 -128 256 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -448 -128 288 ) ( -384 -128 288 ) ( -384 -128 416 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -416 -128 32 ) ( -416 -128 33 ) ( -416 -127 32 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -896 -384 0 ) ( -896 -383 0 ) ( -896 -384 1 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 -384 0 ) ( -896 -384 1 ) ( -895 -384 0 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 -384 0 ) ( -895 -384 0 ) ( -896 -383 0 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -864 -128 256 ) ( -864 -127 256 ) ( -863 -128 256 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -896 -128 288 ) ( -832 -128 288 ) ( -832 -128 416 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -864 -128 32 ) ( -864 -128 33 ) ( -864 -127 32 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 8
 {
-( -224 -384 0 ) ( -224 -383 0 ) ( -224 -384 1 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -224 -384 0 ) ( -224 -384 1 ) ( -223 -384 0 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -224 -384 0 ) ( -223 -384 0 ) ( -224 -383 0 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -192 -128 256 ) ( -192 -127 256 ) ( -191 -128 256 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -448 -128 288 ) ( -384 -128 288 ) ( -384 -128 416 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -192 -128 32 ) ( -192 -128 33 ) ( -192 -127 32 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -672 -384 0 ) ( -672 -383 0 ) ( -672 -384 1 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -672 -384 0 ) ( -672 -384 1 ) ( -671 -384 0 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -672 -384 0 ) ( -671 -384 0 ) ( -672 -383 0 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -640 -128 256 ) ( -640 -127 256 ) ( -639 -128 256 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -896 -128 288 ) ( -832 -128 288 ) ( -832 -128 416 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -640 -128 32 ) ( -640 -128 33 ) ( -640 -127 32 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 9
 {
-( -448 0 32 ) ( -448 1 32 ) ( -448 0 33 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 0 288 ) ( -384 0 416 ) ( -384 0 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -448 0 256 ) ( -447 0 256 ) ( -448 1 256 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -192 384 288 ) ( -192 385 288 ) ( -191 384 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -192 384 288 ) ( -191 384 288 ) ( -192 384 289 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -192 384 288 ) ( -192 384 289 ) ( -192 385 288 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -896 0 32 ) ( -896 1 32 ) ( -896 0 33 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 0 288 ) ( -832 0 416 ) ( -832 0 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -896 0 256 ) ( -895 0 256 ) ( -896 1 256 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -640 384 288 ) ( -640 385 288 ) ( -639 384 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -640 384 288 ) ( -639 384 288 ) ( -640 384 289 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -640 384 288 ) ( -640 384 289 ) ( -640 385 288 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 10
 {
-( -448 0 0 ) ( -448 1 0 ) ( -448 0 1 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 128 288 ) ( -384 128 416 ) ( -384 128 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -448 0 0 ) ( -447 0 0 ) ( -448 1 0 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -416 256 256 ) ( -416 257 256 ) ( -415 256 256 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -416 384 32 ) ( -415 384 32 ) ( -416 384 33 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -416 256 32 ) ( -416 256 33 ) ( -416 257 32 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -896 0 0 ) ( -896 1 0 ) ( -896 0 1 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 128 288 ) ( -832 128 416 ) ( -832 128 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -896 0 0 ) ( -895 0 0 ) ( -896 1 0 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -864 256 256 ) ( -864 257 256 ) ( -863 256 256 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -864 384 32 ) ( -863 384 32 ) ( -864 384 33 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -864 256 32 ) ( -864 256 33 ) ( -864 257 32 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 11
 {
-( -224 0 0 ) ( -224 1 0 ) ( -224 0 1 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -448 128 288 ) ( -384 128 416 ) ( -384 128 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -224 0 0 ) ( -223 0 0 ) ( -224 1 0 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -192 256 256 ) ( -192 257 256 ) ( -191 256 256 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -192 384 32 ) ( -191 384 32 ) ( -192 384 33 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -192 256 32 ) ( -192 256 33 ) ( -192 257 32 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -672 0 0 ) ( -672 1 0 ) ( -672 0 1 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -896 128 288 ) ( -832 128 416 ) ( -832 128 288 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -672 0 0 ) ( -671 0 0 ) ( -672 1 0 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -640 256 256 ) ( -640 257 256 ) ( -639 256 256 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -640 384 32 ) ( -639 384 32 ) ( -640 384 33 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -640 256 32 ) ( -640 256 33 ) ( -640 257 32 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 12
 {
-( -416 -160 0 ) ( -416 -159 0 ) ( -416 -160 1 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 -32 ] [ 0 0 -1 0 ] 270 1 1
-( -416 -160 0 ) ( -416 -160 1 ) ( -415 -160 0 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -416 -160 0 ) ( -415 -160 0 ) ( -416 -159 0 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 -32 ] 270 1 1
-( -224 -128 256 ) ( -224 -127 256 ) ( -223 -128 256 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 -32 ] 180 1 1
-( -224 -128 32 ) ( -223 -128 32 ) ( -224 -128 33 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -224 -128 32 ) ( -224 -128 33 ) ( -224 -127 32 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 32 ] [ 0 0 -1 0 ] 270 1 1
+( -864 -160 0 ) ( -864 -159 0 ) ( -864 -160 1 ) Mapping/floor_tiles_blue_small_damaged [ 0 -1 0 -32 ] [ 0 0 -1 0 ] 0 1 1
+( -864 -160 0 ) ( -864 -160 1 ) ( -863 -160 0 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -864 -160 0 ) ( -863 -160 0 ) ( -864 -159 0 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 -1 0 -32 ] 0 1 1
+( -672 -128 256 ) ( -672 -127 256 ) ( -671 -128 256 ) Mapping/floor_tiles_blue_small_damaged [ 1 0 0 0 ] [ 0 -1 0 -32 ] 270 1 1
+( -672 -128 32 ) ( -671 -128 32 ) ( -672 -128 33 ) Mapping/floor_tiles_blue_small_damaged [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -672 -128 32 ) ( -672 -128 33 ) ( -672 -127 32 ) Mapping/floor_tiles_blue_small_damaged [ 0 1 0 32 ] [ 0 0 -1 0 ] 0 1 1
 }
 // brush 13
 {
-( -416 128 0 ) ( -416 129 0 ) ( -416 128 1 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -416 128 0 ) ( -416 128 1 ) ( -415 128 0 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -416 128 0 ) ( -415 128 0 ) ( -416 129 0 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -224 160 256 ) ( -224 161 256 ) ( -223 160 256 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 270 1 1
-( -224 160 32 ) ( -223 160 32 ) ( -224 160 33 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -224 160 32 ) ( -224 160 33 ) ( -224 161 32 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -864 128 0 ) ( -864 129 0 ) ( -864 128 1 ) Mapping/floor_tiles_tan_small [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -864 128 0 ) ( -864 128 1 ) ( -863 128 0 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -864 128 0 ) ( -863 128 0 ) ( -864 129 0 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( -672 160 256 ) ( -672 161 256 ) ( -671 160 256 ) Mapping/floor_tiles_tan_small [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( -672 160 32 ) ( -671 160 32 ) ( -672 160 33 ) Mapping/floor_tiles_tan_small [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( -672 160 32 ) ( -672 160 33 ) ( -672 161 32 ) Mapping/floor_tiles_tan_small [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
 }
 // brush 14
 {
@@ -252,42 +252,6 @@
 // entity 2
 {
 "classname" "trigger_teleport_seamless"
-"targetname" "tunnel_0"
-"angle" "270"
-"target" "tunnel_1"
-"spawnflags" "1"
-"_tb_layer" "1"
-// brush 0
-{
-( -416 -352 0 ) ( -416 -351 0 ) ( -416 -352 1 ) special/Trigger [ 0 -1 0 -32 ] [ 0 0 -1 0 ] 270 1 1
-( -416 -352 0 ) ( -416 -352 1 ) ( -415 -352 0 ) special/Trigger [ 1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -416 -352 0 ) ( -415 -352 0 ) ( -416 -351 0 ) special/Trigger [ -1 0 0 0 ] [ 0 -1 0 -32 ] 270 1 1
-( -224 -320 256 ) ( -224 -319 256 ) ( -223 -320 256 ) special/Trigger [ 1 0 0 0 ] [ 0 -1 0 -32 ] 180 1 1
-( -224 -224 32 ) ( -223 -224 32 ) ( -224 -224 33 ) special/Trigger [ -1 0 0 0 ] [ 0 0 -1 0 ] 180 1 1
-( -224 -320 32 ) ( -224 -320 33 ) ( -224 -319 32 ) special/Trigger [ 0 1 0 32 ] [ 0 0 -1 0 ] 270 1 1
-}
-}
-// entity 3
-{
-"classname" "trigger_teleport_seamless"
-"targetname" "tunnel_1"
-"angle" "90"
-"target" "tunnel_0"
-"spawnflags" "1"
-"_tb_layer" "1"
-// brush 0
-{
-( -416 320 0 ) ( -416 321 0 ) ( -416 320 1 ) special/Trigger [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -416 224 0 ) ( -416 224 1 ) ( -415 224 0 ) special/Trigger [ 1 0 0 0 ] [ 0 0 -1 0 ] 270 1 1
-( -416 320 0 ) ( -415 320 0 ) ( -416 321 0 ) special/Trigger [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( -224 352 256 ) ( -224 353 256 ) ( -223 352 256 ) special/Trigger [ 1 0 0 0 ] [ 0 -1 0 0 ] 270 1 1
-( -224 352 32 ) ( -223 352 32 ) ( -224 352 33 ) special/Trigger [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -224 352 32 ) ( -224 352 33 ) ( -224 353 32 ) special/Trigger [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-}
-}
-// entity 4
-{
-"classname" "trigger_teleport_seamless"
 "targetname" "mirror_in"
 "angle" "270"
 "target" "mirror_out"
@@ -303,7 +267,7 @@
 ( -704 896 112 ) ( -704 1024 96 ) ( -704 896 96 ) special/Trigger [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 5
+// entity 3
 {
 "classname" "trigger_teleport_seamless"
 "targetname" "mirror_out"
@@ -320,7 +284,7 @@
 ( -704 896 112 ) ( -704 1024 96 ) ( -704 896 96 ) special/Trigger [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
-// entity 6
+// entity 4
 {
 "classname" "trigger_teleport_seamless"
 "targetname" "mirror2_out"
@@ -337,7 +301,7 @@
 ( -704 704 128 ) ( -704 704 112 ) ( -704 576 112 ) special/Trigger [ 1.2246467991473532e-16 1 0 0 ] [ 0 0 -1 0 ] 180 1 1
 }
 }
-// entity 7
+// entity 5
 {
 "classname" "trigger_teleport_seamless"
 "targetname" "mirror2_in"
@@ -355,14 +319,49 @@
 ( -704 704 128 ) ( -704 704 112 ) ( -704 576 112 ) special/Trigger [ 1.2246467991473532e-16 1 0 0 ] [ 0 0 -1 0 ] 270 1 1
 }
 }
-// entity 8
+// entity 6
 {
 "classname" "func_group"
 "_tb_type" "_tb_layer"
 "_tb_name" "Portals_Light"
 "_tb_id" "2"
 "_tb_layer_sort_index" "1"
-"_tb_layer_omit_from_export" "1"
+}
+// entity 7
+{
+"classname" "trigger_teleport_seamless"
+"targetname" "tunnel_0"
+"angle" "270"
+"target" "tunnel_1"
+"spawnflags" "1"
+"_tb_layer" "2"
+// brush 0
+{
+( -96 -128 0 ) ( -96 -127 0 ) ( -96 -128 1 ) special/Trigger [ 0 -1 0 0 ] [ 0 0 -1 0 ] 180 1 1
+( -96 -128 0 ) ( -96 -128 1 ) ( -95 -128 0 ) special/Trigger [ 1 0 0 0 ] [ 0 0 -1 0 ] 180 1 1
+( -96 -128 0 ) ( -95 -128 0 ) ( -96 -127 0 ) special/Trigger [ -1 0 0 0 ] [ 0 -1 0 0 ] 180 1 1
+( 96 -96 256 ) ( 96 -95 256 ) ( 97 -96 256 ) special/Trigger [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( 96 0 32 ) ( 97 0 32 ) ( 96 0 33 ) special/Trigger [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( 96 -96 32 ) ( 96 -96 33 ) ( 96 -95 32 ) special/Trigger [ 0 1 0 0 ] [ 0 0 -1 0 ] 180 1 1
+}
+}
+// entity 8
+{
+"classname" "trigger_teleport_seamless"
+"targetname" "tunnel_1"
+"angle" "90"
+"target" "tunnel_0"
+"spawnflags" "1"
+"_tb_layer" "2"
+// brush 0
+{
+( -96 -32 0 ) ( -96 -31 0 ) ( -96 -32 1 ) special/Trigger [ 0 -1 0 -32 ] [ 0 0 -1 0 ] 90 1 1
+( -96 -128 0 ) ( -96 -128 1 ) ( -95 -128 0 ) special/Trigger [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -96 -32 0 ) ( -95 -32 0 ) ( -96 -31 0 ) special/Trigger [ -1 0 0 0 ] [ 0 -1 0 -32 ] 90 1 1
+( 96 0 256 ) ( 96 1 256 ) ( 97 0 256 ) special/Trigger [ 1 0 0 0 ] [ 0 -1 0 -32 ] 0 1 1
+( 96 0 32 ) ( 97 0 32 ) ( 96 0 33 ) special/Trigger [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( 96 0 32 ) ( 96 0 33 ) ( 96 1 32 ) special/Trigger [ 0 1 0 32 ] [ 0 0 -1 0 ] 90 1 1
+}
 }
 // entity 9
 {
@@ -371,6 +370,7 @@
 "_tb_name" "TestPortal"
 "_tb_id" "3"
 "_tb_layer_sort_index" "2"
+"_tb_layer_omit_from_export" "1"
 }
 // entity 10
 {
