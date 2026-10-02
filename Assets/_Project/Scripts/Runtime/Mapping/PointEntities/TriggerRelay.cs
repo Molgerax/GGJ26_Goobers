@@ -11,15 +11,15 @@ namespace GGJ.Mapping.PointEntities
         private float _timer;
         private bool _isRunning;
         private bool _triggered;
+
+        private TriggerData _data;
         
         public void Trigger(TriggerData data)
         {
-            if (_triggered)
-                return;
-
-            _triggered = true;
             _isRunning = true;
             _timer = 0f;
+
+            _data = data;
         }
 
         private void Update()
@@ -37,7 +37,7 @@ namespace GGJ.Mapping.PointEntities
         {
             _isRunning = false;
             
-            SendTrigger();
+            SendTrigger(_data);
         }
     }
 }
