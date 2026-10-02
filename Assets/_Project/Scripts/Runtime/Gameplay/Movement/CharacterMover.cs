@@ -49,15 +49,11 @@ namespace GGJ.Gameplay.Movement
         public Rigidbody Rigidbody => _rb;
         
         private IMover _cachedMover;
-
-        private ITeleportable _teleportable;
         
         private void Awake()
         {
             Setup();
             RecalculateColliderDimensions();
-
-            _teleportable = GetComponent<ITeleportable>();
         }
 
         private void OnValidate()
@@ -211,10 +207,7 @@ namespace GGJ.Gameplay.Movement
             
             if (_velocity.magnitude > 0)
             {
-                if (_teleportable == null)
-                    transform.position += moveStep;
-                else
-                    DetectPortalStepThrough(moveStep);
+                transform.position += moveStep;
             }
         }
 
@@ -295,24 +288,6 @@ namespace GGJ.Gameplay.Movement
         public void SetExtendedSensorRange(bool isExtended) => isUsingExtendedSensorRange = isExtended;
 
         private Vector3 _cachedDisplacement;
-
-        private void DetectPortalStepThrough(Vector3 moveStep)
-        {
-            Ray ray = new(transform.position, moveStep);
-            transform.position += moveStep;
-            
-            if (Physics.Raycast(ray, out var hit, moveStep.magnitude, int.MaxValue, QueryTriggerInteraction.Collide))
-            {
-                if (hit.collider.TryGetComponent(out Portal portal) && portal.Passable && portal.OtherPortal)
-                {
-                    if (portal.transform.IsInFrontOf(ray.origin) && portal.transform.IsBehind(transform.position))
-                    {
-                        Velocity = portal.MultiplyVector(Velocity);
-                        _teleportable.Teleport(portal.OtherPortal, portal.GetTeleportData());
-                    }
-                }
-            }
-        }
         
         public void Move(Vector3 displacement)
         {
