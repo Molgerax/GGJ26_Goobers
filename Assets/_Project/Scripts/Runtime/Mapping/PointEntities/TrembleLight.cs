@@ -9,6 +9,8 @@ namespace GGJ.Mapping.PointEntities
         [Tremble("strength")] private float _strength = 1f;
         [Tremble("range")] private float _range = 32f;
         [Tremble("color")] private Color _color = Color.white;
+
+        [Tremble, SpawnFlags] private bool _bakedOnly;
         
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {
@@ -20,7 +22,7 @@ namespace GGJ.Mapping.PointEntities
             l.shadows = LightShadows.Soft;
             
 #if UNITY_EDITOR
-            l.lightmapBakeType = LightmapBakeType.Mixed;
+            l.lightmapBakeType = _bakedOnly ? LightmapBakeType.Baked : LightmapBakeType.Mixed;
 #endif
         }
     }
