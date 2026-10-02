@@ -961,7 +961,7 @@ MonoBehaviour:
     m_ResolutionY: 2
     m_Dirty: 0
   - m_Material: {fileID: 2100000, guid: 6af7752d49555c44cb80bed2557968cc, type: 2}
-    m_ExportMode: 1
+    m_ExportMode: 0
     m_IsResolutionOverridden: 0
     m_ResolutionX: 2
     m_ResolutionY: 2
@@ -973,8 +973,14 @@ MonoBehaviour:
   m_PipelineRunMapProcessors: 1
   m_MapProcessors:
   - Class:
+      m_MapClassName: GGJ.Mapping.Tremble.MapProcessors.PortalTriggerMapProcessor
+    Enabled: 1
+  - Class:
       m_MapClassName: GGJ.Mapping.Tremble.MapProcessors.LightEnforcerMapProcessor
     Enabled: 1
+  - Class:
+      m_MapClassName: GGJ.Mapping.Tremble.MapProcessors.LightMapBakeMapProcessor
+    Enabled: 0
   m_LogOnImportAndSync: 0
   m_UseLiveUpdate: 1
   m_AutomaticallyReimportWhenDependencyChanges: 1

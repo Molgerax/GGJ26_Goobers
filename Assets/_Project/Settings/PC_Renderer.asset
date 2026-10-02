@@ -35,7 +35,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     renderPassEvent: 250
-    maxIterations: 0
+    maxIterations: 3
     passForFrontObjects: 0
     frontObjectsMask:
       serializedVersion: 0
