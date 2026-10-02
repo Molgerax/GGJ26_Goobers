@@ -8,6 +8,20 @@ namespace GGJ.Mapping
 
     public struct TriggerData
     {
-        public bool Active;
+        private bool _deactivate;
+
+        public bool Activate
+        {
+            get => !_deactivate;
+            set => _deactivate = !value;
+        }
+
+        public TriggerData(bool activate)
+        {
+            _deactivate = !activate;
+        }
+
+        public static TriggerData Active = new TriggerData(true);
+        public static TriggerData Deactive = new TriggerData(false);
     }
 }
