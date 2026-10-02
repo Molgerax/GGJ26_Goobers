@@ -18,8 +18,36 @@ namespace GGJ.Rendering.Portals
             public Vector3 TopLeft;
             public Vector3 TopRight;
         }
+
+        private static readonly List<Portal> _activePortals = new();
+        public static IReadOnlyList<Portal> ActivePortals => _activePortals;
+
+        private static void AddPortal(Portal portal)
+        {
+            if (!portal._isAdded)
+            {
+                _activePortals.Add(portal);
+                portal._isAdded = true;
+            }
+            else
+            {
+                Debug.LogError($"Portal {portal} was already added to {nameof(_activePortals)}!");
+            }
+        }
         
-        public static readonly List<Portal> ActivePortals = new();
+        private static void RemovePortal(Portal portal)
+        {
+            if (portal._isAdded)
+            {
+                _activePortals.Remove(portal);
+                portal._isAdded = false;
+            }
+            else
+            {
+                Debug.LogError($"Portal {portal} was not part of {nameof(_activePortals)}!");
+            }
+        }
+        
         
         [SerializeField] private Vector2 size;
         
@@ -32,6 +60,22 @@ namespace GGJ.Rendering.Portals
 
         [SerializeField] private bool passable;
         [SerializeField] private bool mirror;
+
+        [SerializeField] private bool active = true;
+        private bool _isAdded;
+        
+        public bool Active
+        {
+            get => active && isActiveAndEnabled;
+            set
+            {
+                active = value;
+                if (active && isActiveAndEnabled && !_isAdded)
+                    AddPortal(this);
+                if (!active && isActiveAndEnabled && _isAdded)
+                    RemovePortal(this);
+            }
+        }
 
         public string ToName()
         {
@@ -69,7 +113,7 @@ namespace GGJ.Rendering.Portals
         
         public bool Mirror => mirror;
 
-        public bool Passable => passable;
+        public bool Passable => passable && Active;
         
         private float _distanceToCamera;
 
@@ -113,12 +157,14 @@ namespace GGJ.Rendering.Portals
 
         private void OnEnable()
         {
-            ActivePortals.Add(this);
+            if (Active)
+                AddPortal(this);
         }
 
         private void OnDisable()
         {
-            ActivePortals.Remove(this);
+            if (_isAdded)   
+                RemovePortal(this);
         }
 
         public TeleportData GetTeleportData()

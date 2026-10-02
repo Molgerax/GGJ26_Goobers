@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 namespace GGJ.Mapping.BrushEntities
 {
     [BrushEntity("teleport_seamless", "trigger", BrushType.Trigger)]
-    public class TriggerSeamlessTeleport : MonoBehaviour, IOnImportFromMapEntity
+    public class TriggerSeamlessTeleport : MonoBehaviour, IOnImportFromMapEntity, ITriggerTarget
     {
         [SerializeField, Tremble("target")] private TriggerSeamlessTeleport destination;
         [SerializeField, Tremble("angle")] private QuakeAngle angle;
@@ -19,6 +19,17 @@ namespace GGJ.Mapping.BrushEntities
         private bool mirror;
         
         [NoTremble] public Portal portal;
+
+        [SerializeField, NoTremble] private bool active;
+        public bool Active
+        {
+            get => active;
+            set
+            {
+                active = value;
+                portal.Active = active;
+            }
+        }
         
         public void OnImportFromMapEntity(MapBsp mapBsp, BspEntity entity)
         {
@@ -55,6 +66,7 @@ namespace GGJ.Mapping.BrushEntities
             
             portal = gameObject.AddComponent<Portal>();
             portal.Setup(destination, size, distance, passable, mirror);
+            Active = true;
 
             BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
@@ -74,6 +86,11 @@ namespace GGJ.Mapping.BrushEntities
                 max = Mathf.Max(max, Vector3.Dot(normal, vertex));
             }
             return max - min;
+        }
+
+        public void Trigger(TriggerData data)
+        {
+            Active = data.Activate;
         }
     }
 }
