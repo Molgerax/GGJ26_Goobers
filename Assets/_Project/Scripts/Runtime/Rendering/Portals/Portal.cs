@@ -20,8 +20,6 @@ namespace GGJ.Rendering.Portals
         }
         
         public static readonly List<Portal> ActivePortals = new();
-
-        public HashSet<Renderer> AddedRenderers = new();
         
         [SerializeField] private Vector2 size;
         
@@ -121,11 +119,6 @@ namespace GGJ.Rendering.Portals
         private void OnDisable()
         {
             ActivePortals.Remove(this);
-        }
-
-        private void Update()
-        {
-            AddedRenderers.Clear();
         }
 
         public TeleportData GetTeleportData()

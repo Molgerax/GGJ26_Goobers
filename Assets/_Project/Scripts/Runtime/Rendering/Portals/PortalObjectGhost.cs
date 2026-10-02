@@ -14,66 +14,83 @@ namespace GGJ.Rendering.Portals
         private bool _drawProcedural;
 
         private Mesh _constructedMesh;
+
+        private PortalObjectRenderer _original;
         
-        public void Initialize()
+        public static PortalObjectGhost Create(PortalObjectRenderer original)
+        {
+            GameObject go = new GameObject(original.name + "_PortalGhost");
+            go.AddComponent<MeshFilter>();
+            go.AddComponent<MeshRenderer>();
+            go.SetActive(false);
+            var ghost = go.AddComponent<PortalObjectGhost>();
+            ghost.Initialize(original);
+            return ghost;
+        }
+        
+        
+        public void Initialize(PortalObjectRenderer original)
         {
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<Renderer>();
             _propertyBlock = new();
 
-            _constructedMesh = new Mesh();
+            _constructedMesh = null;
+
+            _sharedMesh = original.SharedMesh;
+            _filter.sharedMesh = _sharedMesh;
+            UpdateRenderer(original.Renderer);
+
+            _drawProcedural = original.IsSkinned;
+            
+            if (original.IsSkinned && original.Renderer is SkinnedMeshRenderer smr)
+            {
+                _constructedMesh = Instantiate(_sharedMesh);
+                _filter.sharedMesh = _constructedMesh;
+                
+                _constructedMesh.vertexBufferTarget |= GraphicsBuffer.Target.CopyDestination;
+                smr.vertexBufferTarget |= GraphicsBuffer.Target.CopySource;
+            }
+
+            _original = original;
+            SetActive(false);
         }
 
+        private bool _isActive;
+        
         public void SetActive(bool value)
         {
+            if (_isActive == value)
+                return;
+            _isActive = value;
+            
             gameObject.SetActive(value);
+            if (value)
+                transform.parent = _original.transform;
         }
 
         
 
-        public void SetMeshAndMaterials(MeshFilter filter, MeshRenderer meshRenderer)
+        public void UpdateRenderer(Renderer render)
         {
-            gameObject.layer = filter.gameObject.layer;
+            gameObject.layer = render.gameObject.layer;
+            transform.parent = render.transform.parent;
             
-            _filter.sharedMesh = filter.sharedMesh;
-            _renderer.sharedMaterials = meshRenderer.sharedMaterials;
-
-            transform.parent = filter.transform.parent;
+            _renderer.renderingLayerMask = render.renderingLayerMask;
+            _renderer.sharedMaterials = render.sharedMaterials;
             
             _propertyBlock.Clear();
-            meshRenderer.GetPropertyBlock(_propertyBlock);
+            render.GetPropertyBlock(_propertyBlock);
             _renderer.SetPropertyBlock(_propertyBlock);
-
-            _drawProcedural = false;
         }
         
         public void SetSkinnedMesh(SkinnedMeshRenderer skinnedMeshRenderer)
         {
-            _renderer.sharedMaterials = skinnedMeshRenderer.sharedMaterials;
-            transform.parent = skinnedMeshRenderer.transform.parent;
-            
-            _propertyBlock.Clear();
-            skinnedMeshRenderer.GetPropertyBlock(_propertyBlock);
-            _renderer.SetPropertyBlock(_propertyBlock);
-
-            _sharedMesh = skinnedMeshRenderer.sharedMesh;
-            
-            _drawProcedural = true;
-            
             ConstructMesh(skinnedMeshRenderer);
-            _filter.sharedMesh = _constructedMesh;
         }
 
         private void ConstructMesh(SkinnedMeshRenderer skinnedMeshRenderer)
         {
-            if (!(_constructedMesh.vertexCount == _sharedMesh.vertexCount &&
-                _constructedMesh.GetIndexCount(0) == _sharedMesh.GetIndexCount(0)))
-            {
-                _constructedMesh = Instantiate(_sharedMesh);
-            }
-
-            skinnedMeshRenderer.vertexBufferTarget |= GraphicsBuffer.Target.Vertex; 
-
             _constructedMesh.vertexBufferTarget |= GraphicsBuffer.Target.CopyDestination;
             skinnedMeshRenderer.vertexBufferTarget |= GraphicsBuffer.Target.CopySource;
             
