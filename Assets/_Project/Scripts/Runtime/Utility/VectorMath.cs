@@ -31,5 +31,20 @@ namespace GGJ.Utility
             float magnitude = vector.magnitude;
             return Vector3.ProjectOnPlane(vector, normal.normalized).normalized * magnitude;
         }
+
+        public static Vector3 GetPointOnSphere(int i, int count)
+        {
+            float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
+            float angleIncrement = Mathf.PI * 2 * goldenRatio;
+
+            float t = (float)i / count;
+            float inclination = Mathf.Acos(1 - 2 * t);
+            float azimuth = angleIncrement * i;
+
+            float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = Mathf.Cos(inclination);
+            return new Vector3(x, y, z);
+        }
     }
 }
