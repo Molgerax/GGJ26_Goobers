@@ -78,15 +78,21 @@ namespace GGJ.Rendering.Portals
             
             _renderer.renderingLayerMask = render.renderingLayerMask;
             _renderer.sharedMaterials = render.sharedMaterials;
+
+            _renderer.probeAnchor = transform;
             
             _propertyBlock.Clear();
             render.GetPropertyBlock(_propertyBlock);
             _renderer.SetPropertyBlock(_propertyBlock);
+
+            _renderer.localBounds = render.localBounds;
         }
         
         public void SetSkinnedMesh(SkinnedMeshRenderer skinnedMeshRenderer)
         {
             ConstructMesh(skinnedMeshRenderer);
+
+            _renderer.localBounds = skinnedMeshRenderer.localBounds;
         }
 
         private void ConstructMesh(SkinnedMeshRenderer skinnedMeshRenderer)
