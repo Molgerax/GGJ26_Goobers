@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 5605789256493807069}
   - component: {fileID: 7727524461569091785}
   - component: {fileID: 4404566939518478764}
+  - component: {fileID: 6028222738371428740}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -370,7 +371,6 @@ MonoBehaviour:
   airControlSpeed: 2
   jumpSpeed: 7
   groundFriction: 6
-  airFriction: 2
   gravity: 20
   useLocalMomentum: 0
 --- !u!136 &8471243595266342917
@@ -575,6 +575,19 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &6028222738371428740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8322476873672220204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122df1cbbd484f078a65c88a4a70c51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Gameplay.Movement.PortalTraversalKinematic
+  maxColliderChecks: 8
 --- !u!1001 &4980685827264621337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -782,6 +795,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0a0b9ec9a5ab364db51cf09e84c0c5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7074274434209064093}
+    - targetCorrespondingSourceObject: {fileID: 3909230249583889887, guid: f0a0b9ec9a5ab364db51cf09e84c0c5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8944435021213818515}
   m_SourcePrefab: {fileID: 100100000, guid: f0a0b9ec9a5ab364db51cf09e84c0c5f, type: 3}
 --- !u!95 &185740252057922058 stripped
 Animator:
@@ -844,3 +860,20 @@ MonoBehaviour:
         _Z: 0
         _W: 0
         _Object: {fileID: 0}
+--- !u!1 &7329912256979737156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3909230249583889887, guid: f0a0b9ec9a5ab364db51cf09e84c0c5f, type: 3}
+  m_PrefabInstance: {fileID: 6050995596782196635}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8944435021213818515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329912256979737156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbbee12ca3d4c909373201984227383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.PortalObjectRenderer
