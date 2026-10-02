@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 
 namespace GGJ.Rendering.Portals
 {
+    [DefaultExecutionOrder(501)]
     [RequireComponent(typeof(Renderer))]
     public class PortalObjectRenderer : MonoBehaviour
     {
