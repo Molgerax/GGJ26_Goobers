@@ -62,7 +62,7 @@ namespace GGJ.Mapping.BrushEntities
 
             probeGroup.probePositions = probePositions.ToArray();
 #endif
-            //CoreUtils.Destroy(mc);
+            CoreUtils.Destroy(mc);
         }
 
         public bool IsInsideMeshCollider(MeshCollider meshCollider, Vector3 point, int iterations = 2)
