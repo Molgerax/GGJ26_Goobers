@@ -2,6 +2,7 @@ Shader "Custom/SkyboxOccluder"
 {
     Properties
     {
+        _MainTex("Texture Preview", 2D) = "black" {}
     }
 
     HLSLINCLUDE
@@ -17,19 +18,31 @@ Shader "Custom/SkyboxOccluder"
     struct Varyings
     {
         float4 positionHCS : SV_POSITION;
-        float clipDistance : SV_ClipDistance;
+        float4 clipDist0 : SV_ClipDistance0;
+        float2 clipDist1 : SV_ClipDistance1;
     };
     
-    float4 _ClippingPlane;
-
-
+    
+    float4 _ClippingPlanes[6];
+    
+    
     Varyings vert(Attributes IN)
     {
         Varyings OUT;
         OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
         
-    	float4 plane = _ClippingPlane;
-    	OUT.clipDistance = dot(TransformObjectToWorld(IN.positionOS), plane.xyz) + plane.w;
+    	float4 pos = float4(TransformObjectToWorld(IN.positionOS), 1);
+
+    	OUT.clipDist0 = 1000;
+    	OUT.clipDist1 = 1000;
+    	
+    	OUT.clipDist0[0] = dot(_ClippingPlanes[0], pos);
+		OUT.clipDist0[1] = dot(_ClippingPlanes[1], pos);
+		OUT.clipDist0[2] = dot(_ClippingPlanes[2], pos);
+		OUT.clipDist0[3] = dot(_ClippingPlanes[3], pos);
+		OUT.clipDist1[0] = dot(_ClippingPlanes[4], pos) + 0.001;
+		OUT.clipDist1[1] = dot(_ClippingPlanes[5], pos);
+        
         return OUT;
     }
     

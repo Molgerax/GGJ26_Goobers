@@ -51,9 +51,6 @@ Shader "Custom/Environment_Clip"
     SAMPLER(sampler_MainTex);
     TEXTURE2D(_BumpMap);
     SAMPLER(sampler_BumpMap);
-	
-    float4 _ClippingPlane;
-
     
     float4 _ClippingPlanes[6];
 
@@ -80,9 +77,6 @@ Shader "Custom/Environment_Clip"
     	OUT.positionHCS = TransformObjectToHClip(IN.pos);
     	OUT.positionWS = TransformObjectToWorld(IN.pos);
     	OUT.uv = IN.uv;
-    	
-    	
-    	float4 plane = _ClippingPlane;
 
     	float4 pos = float4(OUT.positionWS, 1);
 
