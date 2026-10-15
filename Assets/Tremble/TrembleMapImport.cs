@@ -604,7 +604,10 @@ namespace TinyGoose.Tremble
 						}
 					}
 
-					GameObject brush = m_MeshBuilder.BuildMesh(mapBsp, parentTransform, modelIdx, false, brushClass, false, modelCentre, false, inverseRotation);
+					// Implement a "_static=1" flag for detail brush entities that need UV1
+					bool isStatic = entity.GetBoolean("_static", false);
+
+					GameObject brush = m_MeshBuilder.BuildMesh(mapBsp, parentTransform, modelIdx, false, brushClass, false, modelCentre, isStatic, inverseRotation);
 					if (!brush)
 					{
 						Debug.LogError($"Discarded brush entity of class {brushClass} due to its model being degenerate!");

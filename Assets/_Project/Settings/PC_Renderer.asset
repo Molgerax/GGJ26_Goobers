@@ -49,6 +49,34 @@ MonoBehaviour:
     debugPassNames: 0
     offsetUnits: 0
     offsetFactor: 0
+--- !u!114 &-2734625013389950861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deadee93850b41a7874b9d98c7fe7d86, type: 3}
+  m_Name: SkyboxPre
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.SkyboxRenderFeature
+  m_Active: 1
+  renderPassEvent: 250
+--- !u!114 &-210010552873993336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deadee93850b41a7874b9d98c7fe7d86, type: 3}
+  m_Name: SkyboxPost
+  m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.SkyboxRenderFeature
+  m_Active: 1
+  renderPassEvent: 300
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,9 +103,11 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: -6738083365244017176}
+  - {fileID: -2734625013389950861}
   - {fileID: -5460272230997006780}
   - {fileID: 507062540624803045}
-  m_RendererFeatureMap: e865a913e1847da244667eee553739b4e534d9b4b1720907
+  - {fileID: -210010552873993336}
+  m_RendererFeatureMap: e865a913e1847da27380fefa09a90cda44667eee553739b4e534d9b4b172090788bbdccc83e415fd
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -118,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c28548e3aee644ea80e52d4dac37c3c6, type: 3}
   m_Name: EraseDepthRenderFeature
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.EraseDepthRenderFeature
-  m_Active: 1
+  m_Active: 0
   settings:
     renderPassEvent: 400
     material: {fileID: 2100000, guid: 68a8ee145d0af694581b1cd094dada0d, type: 2}

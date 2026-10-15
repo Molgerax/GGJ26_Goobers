@@ -70,28 +70,48 @@ Shader "Custom/SkyboxOccluder"
     
     SubShader
     {
-        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "Queue" = "AlphaTest"}
+        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "Queue" = "Geometry-1"}
 
         Pass
         {
-            Tags { "LightMode" = "ClearDepth" }
+            Tags { "LightMode" = "UniversalForward" }
             
             ColorMask 0
             ZTest LEqual
-            ZWrite Off
+            ZWrite On
             
-            Stencil
-            {
-                Ref 32
-                WriteMask 32
-                Pass Replace
-            }
+            ///Stencil
+            ///{
+            ///    Ref 32
+            ///    WriteMask 32
+            ///    Pass Replace
+            ///}
             
             HLSLPROGRAM
-
             #pragma vertex vert
             #pragma fragment frag
             ENDHLSL
         }
+        
+        //Pass
+        //{
+        //    Tags { "LightMode" = "ClearDepth" }
+        //    
+        //    ColorMask 0
+        //    ZTest LEqual
+        //    ZWrite Off
+        //    
+        //    Stencil
+        //    {
+        //        Ref 32
+        //        WriteMask 32
+        //        Pass Replace
+        //    }
+        //    
+        //    HLSLPROGRAM
+        //    #pragma vertex vert
+        //    #pragma fragment frag
+        //    ENDHLSL
+        //}
     }
 }

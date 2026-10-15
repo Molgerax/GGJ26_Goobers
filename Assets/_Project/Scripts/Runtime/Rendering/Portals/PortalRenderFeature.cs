@@ -437,8 +437,8 @@ namespace GGJ.Rendering.Portals
                 context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraPose.position);
                 
                 context.cmd.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
-                context.cmd.DrawRendererList(data.RendererListHdl);
                 context.cmd.DrawRendererList(data.SkyboxList);
+                context.cmd.DrawRendererList(data.RendererListHdl);
                 
                 context.cmd.SetGlobalVector("_WorldSpaceCameraPos", data.CameraData.worldSpaceCameraPos);
                 
