@@ -980,7 +980,7 @@ MonoBehaviour:
     Enabled: 1
   - Class:
       m_MapClassName: GGJ.Mapping.Tremble.MapProcessors.LightMapBakeMapProcessor
-    Enabled: 1
+    Enabled: 0
   m_LogOnImportAndSync: 0
   m_UseLiveUpdate: 1
   m_AutomaticallyReimportWhenDependencyChanges: 1

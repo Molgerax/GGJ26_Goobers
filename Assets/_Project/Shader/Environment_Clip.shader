@@ -62,6 +62,32 @@ Shader "Custom/Environment_Clip"
     	float _Shininess;
     CBUFFER_END
     
+    
+    Texture2D<uint> _MoldTex;
+    
+    float3 _MoldCenter;
+    float3 _MoldSize;
+    uint _MoldResolution;
+    
+    float3 WorldPosToMoldUV(float3 worldPos)
+    {
+	    float3 uv = worldPos;
+    	
+    	uv -= _MoldCenter;
+    	uv /= max(0.001, _MoldSize);
+    	uv += 0.5;
+    	
+    	return uv;
+    }
+    
+    uint3 WorldPosToMoldIndex(float3 worldPos)
+    {
+	    float3 uv = WorldPosToMoldUV(worldPos);
+    	uint3 index = float3(uv.xz * _MoldResolution, 0);
+    	return index;
+    }
+    
+    
     // Shader Functions-----------------------
     Varyings vert(Attributes IN)
     {
@@ -113,7 +139,21 @@ Shader "Custom/Environment_Clip"
     	// At last, we transform the decoded normal from tangent space to world space, so we can use it as usual
     	float3 normalWS = TransformTangentToWorldDir(decodedNormal, tangentToWorld, true);
     	
+    	
+    	uint3 moldIndex = WorldPosToMoldIndex(IN.positionWS);
+    	uint moldSample = _MoldTex.Load(moldIndex);
+    	float3 moldUV = WorldPosToMoldUV(IN.positionWS);
+    	
+    	//if (moldUV.x < 0 || moldUV.x > 1 || moldUV.y < 0 || moldUV.y > 1 || moldUV.z < 0 || moldUV.z > 1)
+    	//	moldSample = 0;
+    	
+    	float moldInfluence = saturate(1 - moldUV.y);
+    	
+    	
     	float3 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, TRANSFORM_TEX(IN.uv, _MainTex)).rgb * _Color.rgb;
+    	
+    	if ((moldSample & 1) > 0)
+    		color.gb += 0.5 * moldInfluence;
 
     	InputData lightingInput = (InputData)0; // Found in URP/ShaderLib/Input.hlsl
 		lightingInput.positionWS = IN.positionWS;
@@ -130,7 +170,7 @@ Shader "Custom/Environment_Clip"
 		surfaceInput.albedo = color;
 		surfaceInput.alpha = 1;
 		surfaceInput.specular = 1;
-		surfaceInput.smoothness = 0;
+		surfaceInput.smoothness = moldSample.x;
 		surfaceInput.metallic = 0;
 		surfaceInput.occlusion = 1;
 	

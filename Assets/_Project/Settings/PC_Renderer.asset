@@ -32,7 +32,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6c9e5d690a1b84aa9e2f019d14d0b6, type: 3}
   m_Name: PortalRenderFeature
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.PortalRenderFeature
-  m_Active: 1
+  m_Active: 0
   settings:
     renderPassEvent: 250
     maxIterations: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deadee93850b41a7874b9d98c7fe7d86, type: 3}
   m_Name: SkyboxPre
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.SkyboxRenderFeature
-  m_Active: 1
+  m_Active: 0
   renderPassEvent: 250
 --- !u!114 &-210010552873993336
 MonoBehaviour:
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deadee93850b41a7874b9d98c7fe7d86, type: 3}
   m_Name: SkyboxPost
   m_EditorClassIdentifier: Assembly-CSharp::GGJ.Rendering.Portals.SkyboxRenderFeature
-  m_Active: 1
+  m_Active: 0
   renderPassEvent: 300
 --- !u!114 &11400000
 MonoBehaviour:
